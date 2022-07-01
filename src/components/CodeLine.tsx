@@ -4,7 +4,7 @@ import { textStyles } from '../assets/textStyles';
 
 interface CodeLineProps {
     index: number,
-    children: string,
+    children: String,
     highlighted: boolean
 }
 
@@ -12,7 +12,7 @@ interface CodeLineProps {
 function CodeLine(props: CodeLineProps) {
     return (
         <div style={styles.container}>
-            <p style={props.highlighted ? textStyles.codeLabelHighlighted : textStyles.codeLabel}>{props.index}</p>
+            <p style={props.highlighted ? textStyles.codeLabelHighlighted : textStyles.codeLabel}>{props.index + 1}</p>
             <p style={textStyles.codeContent}>{props.children}</p>
         </div>
     );
