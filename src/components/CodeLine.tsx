@@ -1,6 +1,7 @@
 import React from 'react';
 import { colours } from '../assets/colours';
 import { textStyles } from '../assets/textStyles';
+import TextCursor from './TextCursor';
 
 interface CodeLineProps {
     index: number,
@@ -14,6 +15,7 @@ function CodeLine(props: CodeLineProps) {
         <div style={styles.container}>
             <p style={props.highlighted ? textStyles.codeLabelHighlighted : textStyles.codeLabel}>{props.index + 1}</p>
             <p style={textStyles.codeContent}>{props.children}</p>
+            {props.highlighted && <TextCursor/>}
         </div>
     );
 }

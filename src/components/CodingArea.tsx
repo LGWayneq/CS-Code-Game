@@ -18,7 +18,12 @@ function CodingArea() {
         function handleKeyPress(this: Window, event: KeyboardEvent) {
             var prevPointer = pointerPosition
             var newPointer = updatePointerPosition()
-            updateCodeLines(newPointer, prevPointer)
+            while (newPointer.lineIndex > fullCodeContent.length - 1) {
+                const updatedPointers = resetPointerPosition(prevPointer, newPointer)
+                prevPointer = updatedPointers.prevPointer
+                newPointer = updatedPointers.newPointer
+            }
+            updateCodeLines(prevPointer, newPointer)
         }
         window.addEventListener('keypress', handleKeyPress)
         return () => window.removeEventListener('keypress', handleKeyPress)
@@ -27,17 +32,17 @@ function CodingArea() {
     const updatePointerPosition = () => {
         var newLineIndex = pointerPosition.lineIndex
         var newCharIndex = pointerPosition.charIndex
-        var remaindingCpk = cpk
-        while (remaindingCpk > 0) {
-            if (fullCodeContent[newLineIndex].length - newCharIndex > remaindingCpk) {
-                newCharIndex += remaindingCpk
-                remaindingCpk = 0
-            } else if (fullCodeContent[newLineIndex].length - newCharIndex == remaindingCpk) {
+        var remainingCpk = cpk
+        while (remainingCpk > 0) {
+            if (fullCodeContent[newLineIndex].length - newCharIndex > remainingCpk) {
+                newCharIndex += remainingCpk
+                remainingCpk = 0
+            } else if (fullCodeContent[newLineIndex].length - newCharIndex == remainingCpk) {
                 newCharIndex = 0
                 newLineIndex++
-                remaindingCpk = 0
+                remainingCpk = 0
             } else {
-                remaindingCpk -= (fullCodeContent[newLineIndex].length - newCharIndex)
+                remainingCpk -= (fullCodeContent[newLineIndex].length - newCharIndex)
                 newCharIndex = 0
                 newLineIndex++
             }
@@ -47,12 +52,12 @@ function CodingArea() {
         return newPointer
     }
 
-    //todo: implement loopback at end of codeContent
-    const updateCodeLines = (newPointer: PointerPosition, prevPointer: PointerPosition) => {
-        var newCodeLines = codeLines
+    const updateCodeLines = (prevPointer: PointerPosition, newPointer: PointerPosition) => {
+        const newCodeLines = codeLines
         if (fullCodeContent[prevPointer.lineIndex].length > prevPointer.charIndex) {
             newCodeLines.pop()
         }
+        if (newCodeLines.length > 0) console.log(newCodeLines[newCodeLines.length - 1].props.children)
         for (var i = prevPointer.lineIndex; i < newPointer.lineIndex; i++) {
             newCodeLines.push(
                 <CodeLine key={i} index={i} highlighted={false}>
@@ -60,12 +65,38 @@ function CodingArea() {
                 </CodeLine>
             )
         }
-        newCodeLines.push(
-            <CodeLine key={newPointer.lineIndex} index={newPointer.lineIndex} highlighted={true}>
-                {fullCodeContent[newPointer.lineIndex].slice(0, newPointer.charIndex)}
-            </CodeLine>
-        )
+        
+        if (newPointer.charIndex == fullCodeContent[newPointer.lineIndex].length) {
+            newCodeLines.push(
+                <CodeLine key={newPointer.lineIndex} index={newPointer.lineIndex} highlighted={false}>
+                    {fullCodeContent[newPointer.lineIndex].slice(0, newPointer.charIndex)}
+                </CodeLine>
+            )
+            newCodeLines.push(
+                <CodeLine key={newPointer.lineIndex + 1} index={newPointer.lineIndex + 1} highlighted={true}>
+                    {""}
+                </CodeLine>
+            )
+        } else {
+            newCodeLines.push(
+                <CodeLine key={newPointer.lineIndex} index={newPointer.lineIndex} highlighted={true}>
+                    {fullCodeContent[newPointer.lineIndex].slice(0, newPointer.charIndex)}
+                </CodeLine>
+            )
+        }
+
         setCodeLines(newCodeLines)
+    }
+
+    const resetPointerPosition = (prevPointer: PointerPosition, newPointer: PointerPosition) => {
+        updateCodeLines(
+            prevPointer,
+            { lineIndex: fullCodeContent.length - 1, charIndex: fullCodeContent[fullCodeContent.length - 1].length }
+        )
+        newPointer = { lineIndex: newPointer.lineIndex - prevPointer.lineIndex - 1, charIndex: newPointer.charIndex }
+        prevPointer = { lineIndex: 0, charIndex: 0 }
+        setPointerPosition(newPointer)
+        return { prevPointer: prevPointer, newPointer: newPointer }
     }
 
     return (

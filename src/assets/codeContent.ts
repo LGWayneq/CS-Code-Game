@@ -1,7 +1,7 @@
 export const codeContent = [
 `test`,
 `asdf`,
-`abcdefghijklmnop`,
-`qrstuvwxyz`,
+`abcdef`,
+`qrstuv`,
 `hello world`
 ]
