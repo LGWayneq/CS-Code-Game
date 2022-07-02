@@ -1,5 +1,6 @@
 import React from 'react';
 import { colours } from '../assets/colours';
+import { EXPLORER_WIDTH } from '../assets/constants';
 
 function Explorer() {
     return (
@@ -12,7 +13,7 @@ export default Explorer;
 
 const styles = {
     container: {
-        width: 300,
+        width: EXPLORER_WIDTH,
         backgroundColor: colours.explorer,
     }
 }

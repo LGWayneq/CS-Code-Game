@@ -1,7 +1,6 @@
-export const codeContent = [
-`test`,
-`asdf`,
-`abcdef`,
-`qrstuv`,
-`hello world`
-]
+export const codeContent = 
+`\ntest
+abcd
+efgh
+ijkl
+hello world`

@@ -1,6 +1,7 @@
 import React from 'react';
 import { colours } from '../assets/colours';
 import { textStyles } from '../assets/textStyles';
+import { CODE_LINE_HEIGHT } from '../assets/constants';
 import TextCursor from './TextCursor';
 
 interface CodeLineProps {
@@ -24,7 +25,7 @@ export default CodeLine;
 
 const styles = {
     container: {
-        height: 20,
+        height: CODE_LINE_HEIGHT,
         backgroundColor: colours.main,
         display: 'flex',
         flexDirection: 'row' as 'row',
