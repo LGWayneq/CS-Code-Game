@@ -6,17 +6,33 @@ import TextCursor from './TextCursor';
 
 interface CodeLineProps {
     index: number,
-    children: String,
+    children: string,
     highlighted: boolean
 }
 
 // todo: implement text evaluation to colour text
 function CodeLine(props: CodeLineProps) {
+
+    function renderTabs() {
+        var tabs = []
+        var pointer = 0
+        while (props.children[pointer] == " ") {
+            if (pointer % 4 == 0) {
+                tabs.push(<div style={styles.divider}/>)
+            }
+            tabs.push(<p style={{ color: colours.main }}>..</p>)
+            pointer++
+        }
+        console.log(tabs)
+        return tabs
+    }
+
     return (
         <div style={styles.container}>
             <p style={props.highlighted ? textStyles.codeLabelHighlighted : textStyles.codeLabel}>{props.index + 1}</p>
-            <p style={textStyles.codeContent}>{props.children}</p>
-            {props.highlighted && <TextCursor/>}
+            {renderTabs()}
+            <p style={textStyles.codeContent}>{`${props.children}`}</p>
+            {props.highlighted && <TextCursor />}
         </div>
     );
 }
@@ -30,5 +46,10 @@ const styles = {
         display: 'flex',
         flexDirection: 'row' as 'row',
     },
-
+    divider: {
+        height: CODE_LINE_HEIGHT,
+        width: 1,
+        backgroundColor: colours.divider,
+        marginTop: CODE_LINE_HEIGHT - 4,
+    }
 }

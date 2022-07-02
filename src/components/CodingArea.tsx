@@ -11,7 +11,7 @@ function CodingArea() {
     const [codeLines, setCodeLines] = useState<Array<JSX.Element>>([<CodeLine key={0} index={0} highlighted={true}>{""}</CodeLine>])
     const [currentIndex, setCurrentIndex] = useState<number>(1)
     const [currentLine, setCurrentLine] = useState<number>(0)
-    const [cpk, setCpk] = useState<number>(1)   // cpk - characters per press
+    const [cpk, setCpk] = useState<number>(5)   // cpk - characters per press
 
     useEffect(() => {
         function handleKeyPress(this: Window, event: KeyboardEvent) {
@@ -42,7 +42,6 @@ function CodingArea() {
                 appendCodeLine(currentCodeLine)
                 setCurrentLine(_currentLine)
             } else {    //default behaviour
-                //TODO: implement tabs at front of line
                 currentCodeLine = <CodeLine key={_currentLine} index={_currentLine} highlighted={true}>{currentCodeLine?.props.children + codeContent[currentIndex + i]}</CodeLine>
             }
         }
