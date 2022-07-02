@@ -42,6 +42,7 @@ function CodingArea() {
                 appendCodeLine(currentCodeLine)
                 setCurrentLine(_currentLine)
             } else {    //default behaviour
+                //TODO: implement tabs at front of line
                 currentCodeLine = <CodeLine key={_currentLine} index={_currentLine} highlighted={true}>{currentCodeLine?.props.children + codeContent[currentIndex + i]}</CodeLine>
             }
         }

@@ -1,6 +1,6 @@
 export const codeContent = 
-`\ntest
-abcd
-efgh
-ijkl
-hello world`
+`\ndef hello_world():
+    print("Hello World")
+    
+hello_world()
+`
