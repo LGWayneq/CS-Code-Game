@@ -22,14 +22,13 @@ function CodingArea() {
         return () => window.removeEventListener('keypress', handleKeyPress)
     }, [currentIndex])
 
-    //TODO: FIX BUG WHERE NEWLINE AT END OF CODECONTENT MESSES UP CODELINES
     const updateCodeLines = (currentIndex: number, cpk: number) => {
         var _currentLine: number = currentLine
         var currentCodeLine: JSX.Element | undefined
         for (var i = 0; i < cpk; i++) {
             //check if reached end of codeContent. loop back to first index
             if (currentIndex + i >= codeContent.length) {
-                currentIndex = -i
+                currentIndex = -i + 1
             }
             //pop codeLines to modify content in current line
             if (i == 0 || codeContent[currentIndex + i - 1] == '\n') {
