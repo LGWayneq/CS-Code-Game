@@ -14,7 +14,7 @@ interface CodeLineProps {
 function CodeLine(props: CodeLineProps) {
 
     function renderTabs() {
-        var tabs = []
+        var tabs: Array<JSX.Element> = []
         var pointer = 0
         while (props.children[pointer] == " ") {
             if (pointer % 4 == 0) {

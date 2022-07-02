@@ -11,7 +11,7 @@ function CodingArea() {
     const [codeLines, setCodeLines] = useState<Array<JSX.Element>>([<CodeLine key={0} index={0} highlighted={true}>{""}</CodeLine>])
     const [currentIndex, setCurrentIndex] = useState<number>(1)
     const [currentLine, setCurrentLine] = useState<number>(0)
-    const [cpk, setCpk] = useState<number>(5)   // cpk - characters per press
+    const [cpk, setCpk] = useState<number>(50)   // cpk - characters per press
 
     useEffect(() => {
         function handleKeyPress(this: Window, event: KeyboardEvent) {
@@ -22,6 +22,7 @@ function CodingArea() {
         return () => window.removeEventListener('keypress', handleKeyPress)
     }, [currentIndex])
 
+    //TODO: FIX BUG WHERE NEWLINE AT END OF CODECONTENT MESSES UP CODELINES
     const updateCodeLines = (currentIndex: number, cpk: number) => {
         var _currentLine: number = currentLine
         var currentCodeLine: JSX.Element | undefined
