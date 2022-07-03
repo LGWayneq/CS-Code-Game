@@ -4,15 +4,19 @@ import TitleBar from '../components/TitleBar';
 import SideMenu from '../components/SideMenu';
 import Explorer from '../components/Explorer';
 import CodingArea from '../components/CodingArea';
+import Terminal from '../components/Terminal';
 
 function GameScreen() {
     return (
         <div style={styles.container}>
-            <TitleBar/>
+            <TitleBar />
             <div style={styles.subContainer}>
-                <SideMenu/>
-                <Explorer/>
-                <CodingArea/>
+                <SideMenu />
+                <Explorer />
+                <div>
+                    <CodingArea />
+                    <Terminal />
+                </div>
             </div>
         </div>
     );
@@ -30,5 +34,5 @@ const styles = {
         display: 'flex',
         width: '100vw',
         flexDirection: 'row' as 'row'
-    }
+    },
 }

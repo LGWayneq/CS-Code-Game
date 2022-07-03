@@ -21,4 +21,8 @@ export const textStyles = {
         fontSize: 14,
         color: 'rgba(197,134,192,1)'
     },
+    terminalLabel: {
+        fontsize: 12,
+        color: 'rgba(204,204,204,1)',
+    }
 }

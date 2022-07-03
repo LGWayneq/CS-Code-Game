@@ -66,7 +66,7 @@ function CodingArea() {
     const trimCodeLines = () => {
         const codingAreaHeight = containerRef.current?.clientHeight == undefined ? 0 : containerRef.current?.clientHeight
         var numOfRemovableLines = 0
-        while ((codeLines.length - numOfRemovableLines) * CODE_LINE_HEIGHT > 0.6 * codingAreaHeight) {
+        while ((codeLines.length - numOfRemovableLines) * CODE_LINE_HEIGHT > 0.9 * codingAreaHeight) {
             console.log((codeLines.length - numOfRemovableLines) * CODE_LINE_HEIGHT)
             numOfRemovableLines++
         }
@@ -78,7 +78,7 @@ function CodingArea() {
             ref={containerRef}
             style={{
                 ...styles.container,
-                height: WindowDimensions().height - TITLE_BAR_HEIGHT,
+                height: 0.7 * WindowDimensions().height - TITLE_BAR_HEIGHT,
                 width: WindowDimensions().width - SIDE_MENU_WIDTH - EXPLORER_WIDTH,
             }}>
             {codeLines}
@@ -92,6 +92,6 @@ const styles = {
     container: {
         backgroundColor: colours.main,
         justifyContent: 'center',
-        overflowY: 'scroll' as 'scroll'
+        // overflowY: 'scroll' as 'scroll'
     },
 }
