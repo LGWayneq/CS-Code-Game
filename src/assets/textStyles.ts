@@ -17,12 +17,16 @@ export const textStyles = {
         width: 40,
         marginRight: 30
     },
+    terminalLabel: {
+        fontsize: 12,
+        color: 'rgba(204,204,204,1)',
+    },
     codeContent: {
         fontSize: 14,
         color: 'rgba(197,134,192,1)'
     },
-    terminalLabel: {
-        fontsize: 12,
-        color: 'rgba(204,204,204,1)',
+    comment: {
+        fontSize: 14,
+        color: 'rgba(106,153,85,1)'
     }
 }

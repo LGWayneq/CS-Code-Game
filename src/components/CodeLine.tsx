@@ -18,12 +18,11 @@ function CodeLine(props: CodeLineProps) {
         var pointer = 0
         while (props.children[pointer] == " ") {
             if (pointer % 4 == 0) {
-                tabs.push(<div style={styles.divider}/>)
+                tabs.push(<div style={styles.divider} />)
             }
             tabs.push(<p style={{ color: colours.main }}>..</p>)
             pointer++
         }
-        console.log(tabs)
         return tabs
     }
 
@@ -31,7 +30,11 @@ function CodeLine(props: CodeLineProps) {
         <div style={styles.container}>
             <p style={props.highlighted ? textStyles.codeLabelHighlighted : textStyles.codeLabel}>{props.index + 1}</p>
             {renderTabs()}
-            <p style={textStyles.codeContent}>{`${props.children}`}</p>
+            {
+                props.children[0] == '/' ?
+                    <p style={textStyles.comment}>{`${props.children}`}</p> :
+                    <p style={textStyles.codeContent}>{`${props.children}`}</p>
+            }
             {props.highlighted && <TextCursor />}
         </div>
     );

@@ -1,17 +1,24 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { colours } from '../assets/colours';
-import { codeContent } from '../assets/codeContent';
+import { codeContent, startComment } from '../assets/codeContent';
 import WindowDimensions from '../utils/WindowDimensions';
 import { SIDE_MENU_WIDTH, EXPLORER_WIDTH, TITLE_BAR_HEIGHT, CODE_LINE_HEIGHT } from '../assets/constants';
 import CodeLine from './CodeLine';
+import { incrementByAmount, decrementByAmount } from '../utils/redux/moneySlice'
+import { useAppDispatch } from '../utils/redux/hooks';
 
+const initialCodeLines = [
+    <CodeLine key={-1} index={-1} highlighted={false}>{startComment}</CodeLine>,
+    <CodeLine key={0} index={0} highlighted={true}>{""}</CodeLine>
+]
 
 function CodingArea() {
     const containerRef = useRef<HTMLDivElement>(null)
-    const [codeLines, setCodeLines] = useState<Array<JSX.Element>>([<CodeLine key={0} index={0} highlighted={true}>{""}</CodeLine>])
+    const [codeLines, setCodeLines] = useState<Array<JSX.Element>>(initialCodeLines)
     const [currentIndex, setCurrentIndex] = useState<number>(1)
     const [currentLine, setCurrentLine] = useState<number>(0)
     const [cpk, setCpk] = useState<number>(50)   // cpk - characters per press
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         function handleKeyPress(this: Window, event: KeyboardEvent) {
@@ -41,6 +48,7 @@ function CodingArea() {
                 currentCodeLine = <CodeLine key={_currentLine} index={_currentLine} highlighted={true}>{""}</CodeLine>
                 appendCodeLine(currentCodeLine)
                 setCurrentLine(_currentLine)
+                dispatch(incrementByAmount(1)) //temporary hard code increment to 1. might need new state to track money per line
             } else {    //default behaviour
                 currentCodeLine = <CodeLine key={_currentLine} index={_currentLine} highlighted={true}>{currentCodeLine?.props.children + codeContent[currentIndex + i]}</CodeLine>
             }
@@ -67,7 +75,6 @@ function CodingArea() {
         const codingAreaHeight = containerRef.current?.clientHeight == undefined ? 0 : containerRef.current?.clientHeight
         var numOfRemovableLines = 0
         while ((codeLines.length - numOfRemovableLines) * CODE_LINE_HEIGHT > 0.9 * codingAreaHeight) {
-            console.log((codeLines.length - numOfRemovableLines) * CODE_LINE_HEIGHT)
             numOfRemovableLines++
         }
         setCodeLines(codeLines.slice(numOfRemovableLines))

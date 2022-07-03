@@ -3,8 +3,11 @@ import { colours } from '../assets/colours';
 import { textStyles } from '../assets/textStyles';
 import WindowDimensions from '../utils/WindowDimensions';
 import { SIDE_MENU_WIDTH, EXPLORER_WIDTH } from '../assets/constants';
+import { useAppSelector } from '../utils/redux/hooks'
 
 function Terminal() {
+    const money = useAppSelector(state => state.money.value)
+
     return (
         <div style={{
             ...styles.container,
@@ -14,6 +17,7 @@ function Terminal() {
             <div style={styles.labelContainer}>
                 <p style={{ ...textStyles.terminalLabel, fontSize: 12 }}>TERMINAL</p>
             </div>
+            <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>Money: ${money}</p>
         </div>
     );
 }
