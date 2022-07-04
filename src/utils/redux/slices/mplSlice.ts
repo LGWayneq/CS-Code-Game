@@ -32,6 +32,6 @@ export const mplSlice = createSlice({
 export const { increment, decrement, incrementByAmount, decrementByAmount } = mplSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectmpl = (state: RootState) => state.mpl.value
+export const selectMpl = (state: RootState) => state.mpl.value
 
 export default mplSlice.reducer

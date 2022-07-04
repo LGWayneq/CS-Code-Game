@@ -12,13 +12,13 @@ function Terminal() {
     return (
         <div style={{
             ...styles.container,
-            height: 0.3 * WindowDimensions().height - 1,
-            width: WindowDimensions().width - SIDE_MENU_WIDTH - EXPLORER_WIDTH
+            height: 0.3 * WindowDimensions().height - 41,
+            width: WindowDimensions().width - SIDE_MENU_WIDTH - EXPLORER_WIDTH - 40
         }}>
             <div style={styles.labelContainer}>
-                <p style={{ ...textStyles.terminalLabel, fontSize: 12 }}>TERMINAL</p>
+                <body style={{ ...textStyles.terminalLabel, fontSize: 12, marginBottom: 10 }}>TERMINAL</body>
             </div>
-            <body style={{ ...textStyles.terminalLabel, fontSize: 14 }}>Money: ${money}</body>
+            <body style={{ ...textStyles.terminalLabel, fontSize: 14, marginTop: 10 }}>Money: ${money}</body>
             <body style={{ ...textStyles.terminalLabel, fontSize: 14 }}>Idle Typing Speed: {cpms} characters per millisecond</body>
         </div>
     );
@@ -29,12 +29,11 @@ export default Terminal;
 const styles = {
     container: {
         backgroundColor: colours.main,
-        borderTop: `1px solid ${colours.divider}`
+        borderTop: `1px solid ${colours.divider}`,
+        padding: 20,
     },
     labelContainer: {
         display: 'table',
         borderBottom: `1px solid rgba(204,204,204,1)`,
-        marginLeft: 20,
-        marginRight: 20
     }
 }

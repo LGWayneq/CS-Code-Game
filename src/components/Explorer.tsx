@@ -3,19 +3,17 @@ import { colours } from '../assets/colours';
 import { textStyles } from '../assets/textStyles';
 import { EXPLORER_WIDTH } from '../assets/constants';
 import { upgradesData } from '../assets/upgradesData';
-import { incrementByAmount, decrementByAmount } from '../utils/redux/slices/cpmsSlice'
 import { useAppDispatch } from '../utils/redux/hooks';
-import UpgradeCard from './UpgradeCard';
+import HiringCard from './HiringCard';
 
 function Explorer() {
-    const dispatch = useAppDispatch()
     return (
         <div style={styles.container}>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>HIRING</p>
-            <button onClick={() => dispatch(incrementByAmount(1))}>Increase CPMS by 1</button>
-            {upgradesData.hiring.map((upgrade) => {
+            {upgradesData.hiring.map((upgrade, index) => {
                 return (
-                    <UpgradeCard upgrade={upgrade}/>
+                    <HiringCard key={index} upgrade={upgrade}/>
+
                 )
             })}
         </div>
@@ -26,8 +24,9 @@ export default Explorer;
 
 const styles = {
     container: {
-        width: EXPLORER_WIDTH,
+        width: EXPLORER_WIDTH - 40,
         backgroundColor: colours.explorer,
-        paddingLeft: 20
+        paddingLeft: 20,
+        paddingRight: 20
     }
 }

@@ -3,13 +3,15 @@ import moneyReducer from './slices/moneySlice'
 import cpmsReducer from './slices/cpmsSlice'
 import cpkReducer from './slices/cpkSlice'
 import mplReducer from './slices/mplSlice'
+import upgradesReducer from './slices/upgradesSlide'
 
 export const store = configureStore({
   reducer: {
     money: moneyReducer,
     cpms: cpmsReducer,
     cpk: cpkReducer,
-    mpl: mplReducer
+    mpl: mplReducer,
+    upgrades: upgradesReducer
   }
 })
 

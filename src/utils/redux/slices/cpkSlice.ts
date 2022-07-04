@@ -6,7 +6,7 @@ interface CpkState {
 }
 
 const initialState: CpkState = {
-    value: 1
+    value: 1000
 }
 
 export const cpkSlice = createSlice({
@@ -32,6 +32,6 @@ export const cpkSlice = createSlice({
 export const { increment, decrement, incrementByAmount, decrementByAmount } = cpkSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectcpk = (state: RootState) => state.cpk.value
+export const selectCpk = (state: RootState) => state.cpk.value
 
 export default cpkSlice.reducer

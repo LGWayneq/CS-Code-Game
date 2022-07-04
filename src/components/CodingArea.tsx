@@ -47,6 +47,7 @@ function CodingArea() {
         //todo: add handling of cpms and cpk float values
         const idleUpdater = setInterval(() => {
             updateCodeLines(currentIndex, cpms)
+            trimCodeLines()
         }, 100)
         return () => clearInterval(idleUpdater)
     })
