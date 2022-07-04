@@ -18,8 +18,8 @@ function Terminal() {
             <div style={styles.labelContainer}>
                 <p style={{ ...textStyles.terminalLabel, fontSize: 12 }}>TERMINAL</p>
             </div>
-            <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>Money: ${money}</p>
-            <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>Idle Typing Speed: {cpms} characters per millisecond</p>
+            <body style={{ ...textStyles.terminalLabel, fontSize: 14 }}>Money: ${money}</body>
+            <body style={{ ...textStyles.terminalLabel, fontSize: 14 }}>Idle Typing Speed: {cpms} characters per millisecond</body>
         </div>
     );
 }

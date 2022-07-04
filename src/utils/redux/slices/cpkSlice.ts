@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import type { RootState } from './store'
+import type { RootState } from '../store'
 
 interface CpkState {
     value: number
@@ -11,9 +11,7 @@ const initialState: CpkState = {
 
 export const cpkSlice = createSlice({
     name: 'cpk',
-    initialState: {
-        value: 1
-    },
+    initialState: initialState,
     reducers: {
         increment: state => {
             state.value += 1

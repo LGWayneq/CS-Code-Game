@@ -4,7 +4,7 @@ import { codeContent, startComment } from '../assets/codeContent';
 import WindowDimensions from '../utils/WindowDimensions';
 import { SIDE_MENU_WIDTH, EXPLORER_WIDTH, TITLE_BAR_HEIGHT, CODE_LINE_HEIGHT } from '../assets/constants';
 import CodeLine from './CodeLine';
-import { incrementByAmount, decrementByAmount } from '../utils/redux/moneySlice'
+import { incrementByAmount, decrementByAmount } from '../utils/redux/slices/moneySlice'
 import { useAppDispatch } from '../utils/redux/hooks';
 import { useAppSelector } from '../utils/redux/hooks'
 
@@ -21,12 +21,11 @@ function CodingArea() {
     const [keypressed, setKeypressed] = useState<boolean>(false)
     const cpk = useAppSelector(state => state.cpk.value)   // cpk - characters per press
     const cpms = useAppSelector(state => state.cpms.value)
+    const mpl = useAppSelector(state => state.mpl.value)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
         function handleKeyDown() {
-            console.log(keypressed)
-
             if (!keypressed) {
                 updateCodeLines(currentIndex, cpk)
                 trimCodeLines()
@@ -71,7 +70,7 @@ function CodingArea() {
                 currentCodeLine = <CodeLine key={_currentLine} index={_currentLine} highlighted={true}>{""}</CodeLine>
                 appendCodeLine(currentCodeLine)
                 setCurrentLine(_currentLine)
-                dispatch(incrementByAmount(1)) //temporary hard code increment to 1. might need new state to track money per line
+                dispatch(incrementByAmount(mpl))
             } else {    //default behaviour
                 currentCodeLine = <CodeLine key={_currentLine} index={_currentLine} highlighted={true}>{currentCodeLine?.props.children + codeContent[currentIndex + i]}</CodeLine>
             }

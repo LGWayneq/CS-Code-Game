@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import type { RootState } from './store'
+import type { RootState } from '../store'
 
 interface MoneyState {
     value: number
@@ -11,9 +11,7 @@ const initialState: MoneyState = {
 
 export const moneySlice = createSlice({
     name: 'money',
-    initialState: {
-        value: 0
-    },
+    initialState: initialState,
     reducers: {
         increment: state => {
             state.value += 1

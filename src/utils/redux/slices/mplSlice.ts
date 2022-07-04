@@ -1,19 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import type { RootState } from './store'
+import type { RootState } from '../store'
 
-interface CpmsState {
+interface MplState {
     value: number
 }
 
-const initialState: CpmsState = {
-    value: 0
+const initialState: MplState = {
+    value: 1
 }
 
-export const cpmsSlice = createSlice({
-    name: 'cpms',
-    initialState: {
-        value: 0
-    },
+export const mplSlice = createSlice({
+    name: 'mpl',
+    initialState: initialState,
     reducers: {
         increment: state => {
             state.value += 1
@@ -31,9 +29,9 @@ export const cpmsSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount, decrementByAmount } = cpmsSlice.actions
+export const { increment, decrement, incrementByAmount, decrementByAmount } = mplSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectCpms = (state: RootState) => state.cpms.value
+export const selectmpl = (state: RootState) => state.mpl.value
 
-export default cpmsSlice.reducer
+export default mplSlice.reducer
