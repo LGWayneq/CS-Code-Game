@@ -6,6 +6,7 @@ import { SIDE_MENU_WIDTH, EXPLORER_WIDTH, TITLE_BAR_HEIGHT, CODE_LINE_HEIGHT } f
 import CodeLine from './CodeLine';
 import { incrementByAmount, decrementByAmount } from '../utils/redux/moneySlice'
 import { useAppDispatch } from '../utils/redux/hooks';
+import { useAppSelector } from '../utils/redux/hooks'
 
 const initialCodeLines = [
     <CodeLine key={-1} index={-1} highlighted={false}>{startComment}</CodeLine>,
@@ -17,10 +18,12 @@ function CodingArea() {
     const [codeLines, setCodeLines] = useState<Array<JSX.Element>>(initialCodeLines)
     const [currentIndex, setCurrentIndex] = useState<number>(1)
     const [currentLine, setCurrentLine] = useState<number>(0)
-    const [cpk, setCpk] = useState<number>(50)   // cpk - characters per press
+    const cpk = useAppSelector(state => state.cpk.value)   // cpk - characters per press
+    const cpms = useAppSelector(state => state.cpms.value)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
+        //should combine with cpms logic
         function handleKeyPress(this: Window, event: KeyboardEvent) {
             updateCodeLines(currentIndex, cpk)
             trimCodeLines()
@@ -28,6 +31,14 @@ function CodingArea() {
         window.addEventListener('keypress', handleKeyPress)
         return () => window.removeEventListener('keypress', handleKeyPress)
     }, [currentIndex])
+
+    useEffect(() => {
+        //temporary use setInterval. should change to setTimeout to refetch cpms
+        const idleUpdater = setInterval(() => {
+            dispatch(incrementByAmount(cpms))
+        }, 100)
+        return () => clearInterval(idleUpdater)
+    })
 
     const updateCodeLines = (currentIndex: number, cpk: number) => {
         var _currentLine: number = currentLine
@@ -99,6 +110,5 @@ const styles = {
     container: {
         backgroundColor: colours.main,
         justifyContent: 'center',
-        // overflowY: 'scroll' as 'scroll'
     },
 }

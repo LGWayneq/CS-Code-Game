@@ -1,9 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import moneyReducer from './moneySlice'
+import cpmsReducer from './cpmsSlice'
+import cpkReducer from './cpkSlice'
 
 export const store = configureStore({
   reducer: {
-    money: moneyReducer
+    money: moneyReducer,
+    cpms: cpmsReducer,
+    cpk: cpkReducer
   }
 })
 

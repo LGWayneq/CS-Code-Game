@@ -7,6 +7,7 @@ import { useAppSelector } from '../utils/redux/hooks'
 
 function Terminal() {
     const money = useAppSelector(state => state.money.value)
+    const cpms = useAppSelector(state => state.cpms.value)
 
     return (
         <div style={{
@@ -18,6 +19,7 @@ function Terminal() {
                 <p style={{ ...textStyles.terminalLabel, fontSize: 12 }}>TERMINAL</p>
             </div>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>Money: ${money}</p>
+            <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>Idle Typing Speed: {cpms} characters per millisecond</p>
         </div>
     );
 }
