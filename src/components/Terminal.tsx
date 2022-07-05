@@ -7,7 +7,7 @@ import { useAppSelector } from '../utils/redux/hooks'
 
 function Terminal() {
     const money = useAppSelector(state => state.money.value)
-    const cpms = useAppSelector(state => state.cpms.value)
+    const cps = useAppSelector(state => state.cps.value)
 
     return (
         <div style={{
@@ -19,7 +19,7 @@ function Terminal() {
                 <body style={{ ...textStyles.terminalLabel, fontSize: 12, marginBottom: 10 }}>TERMINAL</body>
             </div>
             <body style={{ ...textStyles.terminalLabel, fontSize: 14, marginTop: 10 }}>Money: ${money}</body>
-            <body style={{ ...textStyles.terminalLabel, fontSize: 14 }}>Idle Typing Speed: {cpms} characters per millisecond</body>
+            <body style={{ ...textStyles.terminalLabel, fontSize: 14 }}>Idle Typing Speed: {cps.toFixed(1)} characters per millisecond</body>
         </div>
     );
 }

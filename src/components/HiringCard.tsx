@@ -5,12 +5,13 @@ import { textStyles } from '../assets/textStyles';
 import { EXPLORER_WIDTH } from '../assets/constants';
 import { useAppDispatch } from '../utils/redux/hooks';
 import { useAppSelector } from '../utils/redux/hooks'
-import { incrementByAmount } from '../utils/redux/slices/cpmsSlice'
+import { incrementByAmount } from '../utils/redux/slices/cpsSlice'
 import { decrementByAmount } from '../utils/redux/slices/moneySlice'
 import { increaseHiringByAmount } from '../utils/redux/slices/upgradesSlide'
 
 interface HiringCardProps {
-    upgrade: UpgradeType
+    upgrade: UpgradeType,
+    purchaseQty: number
 }
 
 function HiringCard(props: HiringCardProps) {
@@ -19,15 +20,17 @@ function HiringCard(props: HiringCardProps) {
     const dispatch = useAppDispatch()
 
     const handleIncreaseHiring = (id: number, qty: number) => {
-        //todo: calculate purchase price non-linearly
-        const purchasePrice = qty * props.upgrade.baseCost
-        console.log(`money: ${money}`)
-        console.log(`purhcase: ${purchasePrice}`)
+        const purchasePrice = calculateCost(props.upgrade.baseCost, qty)
         if (money > purchasePrice) {
             dispatch(increaseHiringByAmount({ id: id, qty: qty }))
             dispatch(decrementByAmount(purchasePrice))
-            dispatch(incrementByAmount(qty * props.upgrade.cpms))
+            dispatch(incrementByAmount(qty * props.upgrade.cps))
         }
+    }
+
+    const calculateCost = (baseCost: number, qty: number) => {
+        //todo: calculate purchase price non-linearly
+        return qty * baseCost
     }
 
     return (
@@ -36,15 +39,10 @@ function HiringCard(props: HiringCardProps) {
             <div>
                 <body style={styles.name}>{props.upgrade.name} x{hiring[props.upgrade.id].qty}</body>
                 <body style={styles.description}>{props.upgrade.description}</body>
+                <body style={styles.cost}>Cost: ${calculateCost(props.upgrade.baseCost, props.purchaseQty)}</body>
                 <div style={styles.selectionContainer}>
-                    <body style={styles.cost}>Cost: ${props.upgrade.baseCost}</body>
-                    <body style={styles.cost}>CPMS: {props.upgrade.cpms}</body>
-                </div>
-                <div style={styles.selectionContainer}>
-                    <body style={styles.buy} onClick={() => handleIncreaseHiring(props.upgrade.id, 1)}>+1</body>
-                    <body style={styles.buy} onClick={() => handleIncreaseHiring(props.upgrade.id, 5)}>+5</body>
-                    <body style={styles.buy} onClick={() => handleIncreaseHiring(props.upgrade.id, 10)}>+10</body>
-                    {/* <body style={styles.buy} onClick={() => dispatch(increaseHiring(props.upgrade.id))}>MAX</body> */}
+                    <body style={styles.cost}>CPS: {props.upgrade.cps}</body>
+                    <body style={styles.buy} onClick={() => handleIncreaseHiring(props.upgrade.id, props.purchaseQty)}>Hire</body>
                 </div>
             </div>
         </div >
@@ -75,15 +73,18 @@ const styles = {
     },
     name: {
         ...textStyles.terminalLabel,
+        fontSize: 14,
         fontWeight: 700,
         marginBottom: 5
     },
     description: {
         color: 'rgba(133,133,133,1)',
+        fontSize: 14,
         marginBottom: 5
     },
     cost: {
         ...textStyles.terminalLabel,
+        fontSize: 14,
         marginBottom: 5
     },
     buy: {

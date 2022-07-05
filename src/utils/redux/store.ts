@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import moneyReducer from './slices/moneySlice'
-import cpmsReducer from './slices/cpmsSlice'
+import cpsReducer from './slices/cpsSlice'
 import cpkReducer from './slices/cpkSlice'
 import mplReducer from './slices/mplSlice'
 import upgradesReducer from './slices/upgradesSlide'
@@ -8,7 +8,7 @@ import upgradesReducer from './slices/upgradesSlide'
 export const store = configureStore({
   reducer: {
     money: moneyReducer,
-    cpms: cpmsReducer,
+    cps: cpsReducer,
     cpk: cpkReducer,
     mpl: mplReducer,
     upgrades: upgradesReducer

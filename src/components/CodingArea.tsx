@@ -18,9 +18,10 @@ function CodingArea() {
     const [codeLines, setCodeLines] = useState<Array<JSX.Element>>(initialCodeLines)
     const [currentIndex, setCurrentIndex] = useState<number>(1)
     const [currentLine, setCurrentLine] = useState<number>(0)
+    const [residualChars, setResidualChars] = useState<number>(0)
     const [keypressed, setKeypressed] = useState<boolean>(false)
     const cpk = useAppSelector(state => state.cpk.value)   // cpk - characters per press
-    const cpms = useAppSelector(state => state.cpms.value)
+    const cps = useAppSelector(state => state.cps.value)
     const mpl = useAppSelector(state => state.mpl.value)
     const dispatch = useAppDispatch()
 
@@ -44,9 +45,13 @@ function CodingArea() {
     }, [currentIndex, keypressed])
 
     useEffect(() => {
-        //todo: add handling of cpms and cpk float values
         const idleUpdater = setInterval(() => {
-            updateCodeLines(currentIndex, cpms)
+            //handle float CPS values
+            const cpsIncrementFloat = residualChars + cps/10
+            const cpsIncrementInt = Math.trunc(cpsIncrementFloat)
+            setResidualChars(cpsIncrementFloat - cpsIncrementInt)
+            //use integer CPS to update codeLines
+            updateCodeLines(currentIndex, cpsIncrementInt)
             trimCodeLines()
         }, 100)
         return () => clearInterval(idleUpdater)

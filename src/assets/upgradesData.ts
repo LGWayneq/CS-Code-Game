@@ -7,7 +7,7 @@ export interface UpgradeType {
     description: string,
     image: any,
     baseCost: number,
-    cpms: number
+    cps: number
 }
 
 export const upgradesData = {
@@ -18,7 +18,7 @@ export const upgradesData = {
             description: "Cheap labour",
             image: INTERN,
             baseCost: 10,
-            cpms: 0.1
+            cps: 0.1
         },
         {
             id: 1,
@@ -26,7 +26,7 @@ export const upgradesData = {
             description: "They know a little stuff",
             image: JUNIOR,
             baseCost: 100,
-            cpms: 1
+            cps: 1
         }
     ],
     keyboard: [
