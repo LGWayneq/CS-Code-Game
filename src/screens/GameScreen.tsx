@@ -1,18 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { colours } from '../assets/colours';
 import TitleBar from '../components/TitleBar';
-import SideMenu from '../components/SideMenu';
-import Explorer from '../components/Explorer';
+import SideMenu from '../components/explorer/SideMenu';
+import Explorer from '../components/explorer/Explorer';
 import CodingArea from '../components/CodingArea';
 import Terminal from '../components/Terminal';
+import { ExplorerStates } from '../components/explorer/Explorer'
 
 function GameScreen() {
+    const [explorerState, setExplorerState] = useState<ExplorerStates>(ExplorerStates.HIRING)
+
     return (
         <div style={styles.container}>
             <TitleBar />
             <div style={styles.subContainer}>
-                <SideMenu />
-                <Explorer />
+                <SideMenu setExplorerState={(value: ExplorerStates) => setExplorerState(value)} />
+                <Explorer explorerState={explorerState}/>
                 <div>
                     <CodingArea />
                     <Terminal />

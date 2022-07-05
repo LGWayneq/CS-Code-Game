@@ -1,13 +1,13 @@
 import React from 'react';
-import { colours } from '../assets/colours';
-import { UpgradeType } from '../assets/upgradesData'
-import { textStyles } from '../assets/textStyles';
-import { EXPLORER_WIDTH } from '../assets/constants';
-import { useAppDispatch } from '../utils/redux/hooks';
-import { useAppSelector } from '../utils/redux/hooks'
-import { incrementByAmount } from '../utils/redux/slices/cpsSlice'
-import { decrementByAmount } from '../utils/redux/slices/moneySlice'
-import { increaseHiringByAmount } from '../utils/redux/slices/upgradesSlide'
+import { colours } from '../../../assets/colours';
+import { UpgradeType } from '../../../assets/upgradesData'
+import { textStyles } from '../../../assets/textStyles';
+import { EXPLORER_WIDTH } from '../../../assets/constants';
+import { useAppDispatch } from '../../../utils/redux/hooks';
+import { useAppSelector } from '../../../utils/redux/hooks'
+import { incrementByAmount } from '../../../utils/redux/slices/cpsSlice'
+import { decrementByAmount } from '../../../utils/redux/slices/moneySlice'
+import { increaseHiringByAmount } from '../../../utils/redux/slices/upgradesSlide'
 
 interface HiringCardProps {
     upgrade: UpgradeType,

@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { colours } from '../assets/colours';
-import { textStyles } from '../assets/textStyles';
-import { EXPLORER_WIDTH } from '../assets/constants';
-import { upgradesData } from '../assets/upgradesData';
-import { useAppDispatch } from '../utils/redux/hooks';
+import { colours } from '../../../assets/colours';
+import { textStyles } from '../../../assets/textStyles';
+import { EXPLORER_WIDTH } from '../../../assets/constants';
+import { upgradesData } from '../../../assets/upgradesData';
 import HiringCard from './HiringCard';
 
-function Explorer() {
+function HiringExplorer() {
     const [purchaseQty, setPurchaseQty] = useState<number>(1)
 
     return (
@@ -22,14 +21,13 @@ function Explorer() {
             {upgradesData.hiring.map((upgrade, index) => {
                 return (
                     <HiringCard key={index} upgrade={upgrade} purchaseQty={purchaseQty} />
-
                 )
             })}
         </div>
     );
 }
 
-export default Explorer;
+export default HiringExplorer;
 
 const styles = {
     container: {
