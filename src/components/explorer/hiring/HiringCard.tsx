@@ -30,7 +30,7 @@ function HiringCard(props: HiringCardProps) {
     }
 
     const calculateCost = (baseCost: FloatingPoint, qty: number): FloatingPoint => {
-        //todo: calculate purchase price non-linearly
+        //todo: calculate purchase price non-linearly. probably need to use geometric summation
         return { base: baseCost.base * qty, exponent: baseCost.exponent }
     }
 

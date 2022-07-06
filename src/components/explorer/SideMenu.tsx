@@ -16,7 +16,7 @@ function SideMenu(props: SideMenuProps) {
         <div style={{ ...styles.container, height: WindowDimensions().height - TITLE_BAR_HEIGHT - 2 * padding }}>
             <PeopleIcon sx={styles.icon} onClick={() => props.setExplorerState(ExplorerStates.HIRING)}/>
             <ConstructionIcon sx={styles.icon} onClick={() => props.setExplorerState(ExplorerStates.STANDARD)}/>
-            <SettingsIcon sx={styles.icon}/>
+            <SettingsIcon sx={{...styles.icon, marginTop: 'auto'}}/>
         </div>
     );
 }

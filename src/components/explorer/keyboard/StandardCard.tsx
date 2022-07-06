@@ -23,9 +23,9 @@ function StandardCard(props: StandardCardProps) {
     const dispatch = useAppDispatch()
 
     const handleBuyUpgrade = (upgrade: StandardUpgrade) => {
-        if (ableToPurchase(money, props.upgrade.baseCost)) {
+        if (ableToPurchase(money, upgrade.baseCost)) {
             dispatch(increaseKeyboardByAmount(1))
-            dispatch(decrementMoneyByAmount(props.upgrade.baseCost))
+            dispatch(decrementMoneyByAmount(upgrade.baseCost))
             dispatch(incrementCpkByAmount(1))
         }
     }
