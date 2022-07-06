@@ -1,28 +1,29 @@
 import React from 'react';
 import { colours } from '../../../assets/colours';
-import { BaseUpgradeType } from '../../../assets/upgradesData'
+import { StandardUpgrade } from '../../../assets/upgradesData'
 import { textStyles } from '../../../assets/textStyles';
 import { ableToPurchase, getMoneyDisplay } from '../../../utils/MoneyManager';
 import { EXPLORER_WIDTH } from '../../../assets/constants';
 import { useAppDispatch } from '../../../utils/redux/hooks';
 import { useAppSelector } from '../../../utils/redux/hooks'
-import { incrementByAmount } from '../../../utils/redux/slices/cpkSlice'
+import { incrementCpkByAmount } from '../../../utils/redux/slices/cpkSlice'
+import { incrementMplByAmount } from '../../../utils/redux/slices/mplSlice';
 import { decrementMoneyByAmount } from '../../../utils/redux/slices/moneySlice'
 import { increaseKeyboardByAmount } from '../../../utils/redux/slices/upgradesSlide'
 
-interface KeyboardCardProps {
-    upgrade: BaseUpgradeType
+interface StandardCardProps {
+    upgrade: StandardUpgrade
 }
 
-function KeyboardCard(props: KeyboardCardProps) {
+function StandardCard(props: StandardCardProps) {
     const money = useAppSelector(state => state.money.value)
     const dispatch = useAppDispatch()
 
-    const handleBuyKeyboard = (keyboard: BaseUpgradeType) => {
+    const handleBuyUpgrade = (upgrade: StandardUpgrade) => {
         if (ableToPurchase(money, props.upgrade.baseCost)) {
             dispatch(increaseKeyboardByAmount(1))
             dispatch(decrementMoneyByAmount(props.upgrade.baseCost))
-            dispatch(incrementByAmount(1))
+            dispatch(incrementCpkByAmount(1))
         }
     }
 
@@ -37,12 +38,12 @@ function KeyboardCard(props: KeyboardCardProps) {
                     {getMoneyDisplay(props.upgrade.baseCost)}
                 </div>
             </div>
-            <body style={styles.buy} onClick={() => handleBuyKeyboard(props.upgrade)}>Buy</body>
+            <body style={styles.buy} onClick={() => handleBuyUpgrade(props.upgrade)}>Buy</body>
         </div >
     );
 }
 
-export default KeyboardCard;
+export default StandardCard;
 
 const styles = {
     container: {

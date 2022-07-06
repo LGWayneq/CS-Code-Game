@@ -11,9 +11,17 @@ export interface HiringUpgradeType {
     cps: number
 }
 
-export interface BaseUpgradeType {
+export interface StandardUpgrade {
     name: string,
+    type: StandardUpgradeType,
+    description: string,
     baseCost: FloatingPoint
+}
+
+export enum StandardUpgradeType {
+    KEYBOARD,
+    PROMOTION,
+    TABS
 }
 
 export const upgradesData = {
@@ -41,6 +49,36 @@ export const upgradesData = {
             cps: 1
         }
     ],
+    standard: [
+        {
+            name: "Keyboard Upgrade 1",
+            type: StandardUpgradeType.KEYBOARD,
+            description: "Pay money to make your keyboard more efficient",
+            baseCost: {
+                base: 1, 
+                exponent: 4
+            }
+        },
+        {
+            name: "Promotion 1",
+            type: StandardUpgradeType.PROMOTION,
+            description: "Congrats on your first promotion! Earn more money per line of code!",
+            baseCost: {
+                base: 1, 
+                exponent: 10
+            }
+        },
+        {
+            name: "New Tab 1",
+            type: StandardUpgradeType.TABS,
+            description: "Use more tabs to increase your efficiency",
+            baseCost: {
+                base: 1,
+                exponent: 15
+            }
+        }
+    ],
+    //might remove keyboard and tabs
     keyboard: [...Array(50)].map((item, index) => {
         return {
             name: `Keyboard Upgrade ${index + 1}`,   //might want to add more name variations

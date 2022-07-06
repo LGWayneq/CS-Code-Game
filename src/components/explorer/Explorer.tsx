@@ -3,12 +3,11 @@ import { colours } from '../../assets/colours';
 import { textStyles } from '../../assets/textStyles';
 import { EXPLORER_WIDTH } from '../../assets/constants';
 import HiringExplorer from './hiring/HiringExplorer';
-import KeyboardExplorer from './keyboard/KeyboardExplorer';
+import KeyboardExplorer from './keyboard/StandardExplorer';
 
 export enum ExplorerStates {
     HIRING,
-    KEYBOARD,
-    TABS
+    STANDARD
 }
 
 interface ExplorerProps {
@@ -23,7 +22,7 @@ function Explorer(props: ExplorerProps) {
                 <HiringExplorer />
             }
             {
-                props.explorerState == ExplorerStates.KEYBOARD &&
+                props.explorerState == ExplorerStates.STANDARD &&
                 <KeyboardExplorer />
             }
         </>

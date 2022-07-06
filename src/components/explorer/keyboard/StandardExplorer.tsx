@@ -4,9 +4,9 @@ import { textStyles } from '../../../assets/textStyles';
 import { EXPLORER_WIDTH } from '../../../assets/constants';
 import { upgradesData } from '../../../assets/upgradesData';
 import { useAppSelector } from '../../../utils/redux/hooks'
-import KeyboardCard from './KeyboardCard';
+import KeyboardCard from './StandardCard';
 
-function KeyboardExplorer() {
+function StandardExplorer() {
     const cpk = useAppSelector(state => state.cpk.value)
 
     return (
@@ -15,7 +15,7 @@ function KeyboardExplorer() {
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>
                 Current Keyboard Speed:<br/>{cpk} characters per keypress
             </p>
-            {upgradesData.keyboard.map((upgrade, index) => {
+            {upgradesData.standard.map((upgrade, index) => {
                 if (upgrade.baseCost.exponent < 60 )    //todo: temporarily limit displayed cards. implement money check for display
                 return (
                     <KeyboardCard key={index} upgrade={upgrade}/>
@@ -25,7 +25,7 @@ function KeyboardExplorer() {
     );
 }
 
-export default KeyboardExplorer;
+export default StandardExplorer;
 
 const styles = {
     container: {

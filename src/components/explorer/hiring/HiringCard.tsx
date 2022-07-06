@@ -5,7 +5,7 @@ import { textStyles } from '../../../assets/textStyles';
 import { EXPLORER_WIDTH } from '../../../assets/constants';
 import { useAppDispatch } from '../../../utils/redux/hooks';
 import { useAppSelector } from '../../../utils/redux/hooks'
-import { incrementByAmount } from '../../../utils/redux/slices/cpsSlice'
+import { incrementCpsByAmount } from '../../../utils/redux/slices/cpsSlice'
 import { decrementMoneyByAmount } from '../../../utils/redux/slices/moneySlice'
 import { increaseHiringByAmount } from '../../../utils/redux/slices/upgradesSlide'
 import { ableToPurchase, getMoneyDisplay, FloatingPoint } from '../../../utils/MoneyManager';
@@ -25,7 +25,7 @@ function HiringCard(props: HiringCardProps) {
         if (ableToPurchase(money, props.upgrade.baseCost)) {
             dispatch(increaseHiringByAmount({ id: id, qty: qty }))
             dispatch(decrementMoneyByAmount(purchasePrice))
-            dispatch(incrementByAmount(qty * props.upgrade.cps))
+            dispatch(incrementCpsByAmount(qty * props.upgrade.cps))
         }
     }
 

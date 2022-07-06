@@ -3,8 +3,7 @@ import { colours } from '../../assets/colours';
 import WindowDimensions from '../../utils/WindowDimensions';
 import { SIDE_MENU_WIDTH, TITLE_BAR_HEIGHT } from '../../assets/constants';
 import PeopleIcon from '@mui/icons-material/People';
-import KeyboardIcon from '@mui/icons-material/Keyboard';
-import WebAssetIcon from '@mui/icons-material/WebAsset';
+import ConstructionIcon from '@mui/icons-material/Construction';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { ExplorerStates } from './Explorer'
 
@@ -16,8 +15,7 @@ function SideMenu(props: SideMenuProps) {
     return (
         <div style={{ ...styles.container, height: WindowDimensions().height - TITLE_BAR_HEIGHT - 2 * padding }}>
             <PeopleIcon sx={styles.icon} onClick={() => props.setExplorerState(ExplorerStates.HIRING)}/>
-            <KeyboardIcon sx={styles.icon} onClick={() => props.setExplorerState(ExplorerStates.KEYBOARD)}/>
-            <WebAssetIcon sx={styles.icon} onClick={() => props.setExplorerState(ExplorerStates.TABS)}/>
+            <ConstructionIcon sx={styles.icon} onClick={() => props.setExplorerState(ExplorerStates.STANDARD)}/>
             <SettingsIcon sx={styles.icon}/>
         </div>
     );
