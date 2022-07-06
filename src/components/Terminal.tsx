@@ -23,7 +23,7 @@ function Terminal() {
                 <body style={styles.moneyLabel}>Money:</body>
                 {getMoneyDisplay(money)}
             </div>
-            <body style={{ ...textStyles.terminalLabel, fontSize: 14 }}>Idle Typing Speed: {cps.toFixed(1)} characters per millisecond</body>
+            <body style={{ ...textStyles.terminalLabel, fontSize: 14 }}>Idle Typing Speed: {cps.toFixed(1)} characters per second</body>
         </div>
     );
 }

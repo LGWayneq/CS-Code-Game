@@ -3,23 +3,27 @@ import { colours } from '../../../assets/colours';
 import { textStyles } from '../../../assets/textStyles';
 import { EXPLORER_WIDTH } from '../../../assets/constants';
 import { upgradesData } from '../../../assets/upgradesData';
-import { useAppSelector } from '../../../utils/redux/hooks'
-import KeyboardCard from './StandardCard';
+import { useAppSelector } from '../../../utils/redux/hooks';
+import StandardCard from './StandardCard';
 
 function StandardExplorer() {
     const cpk = useAppSelector(state => state.cpk.value)
+    const mpl = useAppSelector(state => state.mpl.value)
 
     return (
         <div style={styles.container}>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>KEYBOARD</p>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>
-                Current Keyboard Speed:<br/>{cpk} characters per keypress
+                <b>Keyboard Speed:</b><br />{cpk} characters per keypress
+            </p>
+            <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>
+                <b>Salary:</b><br />${mpl} per line
             </p>
             {upgradesData.standard.map((upgrade, index) => {
-                if (upgrade.baseCost.exponent < 60 )    //todo: temporarily limit displayed cards. implement money check for display
-                return (
-                    <KeyboardCard key={index} upgrade={upgrade}/>
-                )
+                if (upgrade.baseCost.exponent < 60)    //todo: temporarily limit displayed cards. implement money check for display
+                    return (
+                        <StandardCard key={index} upgrade={upgrade} />
+                    )
             })}
         </div>
     );

@@ -9,14 +9,14 @@ export interface FloatingPoint {
 const getMoneyDisplay = (money: FloatingPoint): JSX.Element => {
     if (money.exponent < 10) {
         return (
-            <body style={{ ...textStyles.terminalLabel, fontSize: 14 }}>
+            <body style={styles.moneyText}>
                 ${money.base * Math.pow(2, money.exponent)}
             </body>
         )
     }
     else {
         return (
-            <body style={{ ...textStyles.terminalLabel, fontSize: 14 }}>
+            <body style={styles.moneyText}>
                 ${money.base.toFixed(2)} x2<sup>{money.exponent}</sup>
             </body>
         )
@@ -85,3 +85,10 @@ const getSmallerBigger = (left: FloatingPoint, right: FloatingPoint) => {
 }
 
 export { getMoneyDisplay, ableToPurchase, sumOf, subtract }
+
+const styles = {
+    moneyText: { 
+        ...textStyles.terminalLabel, 
+        fontSize: 14, 
+    }
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { colours } from '../../../assets/colours';
-import { StandardUpgrade } from '../../../assets/upgradesData'
+import { StandardUpgrade, StandardUpgradeType } from '../../../assets/upgradesData'
 import { textStyles } from '../../../assets/textStyles';
 import { ableToPurchase, getMoneyDisplay } from '../../../utils/MoneyManager';
 import { EXPLORER_WIDTH } from '../../../assets/constants';
@@ -10,6 +10,9 @@ import { incrementCpkByAmount } from '../../../utils/redux/slices/cpkSlice'
 import { incrementMplByAmount } from '../../../utils/redux/slices/mplSlice';
 import { decrementMoneyByAmount } from '../../../utils/redux/slices/moneySlice'
 import { increaseKeyboardByAmount } from '../../../utils/redux/slices/upgradesSlide'
+import KeyboardIcon from '@mui/icons-material/Keyboard';
+import TabIcon from '@mui/icons-material/Tab';
+import PaidIcon from '@mui/icons-material/Paid';
 
 interface StandardCardProps {
     upgrade: StandardUpgrade
@@ -29,16 +32,20 @@ function StandardCard(props: StandardCardProps) {
 
     return (
         <div style={styles.container}>
+            {props.upgrade.type === StandardUpgradeType.KEYBOARD && <KeyboardIcon sx={styles.icon}/>}
+            {props.upgrade.type === StandardUpgradeType.TABS && <TabIcon sx={styles.icon}/>}
+            {props.upgrade.type === StandardUpgradeType.PROMOTION && <PaidIcon sx={styles.icon}/>}
             <div>
                 <body style={styles.name}>{props.upgrade.name}</body>
+                <body style={styles.description}>{props.upgrade.description}</body>
                 <div style={styles.detailsContainer}>
-                    <body style={styles.cpk}>
-                        CPK:
+                    <body style={styles.label}>
+                        Cost:
                     </body>
                     {getMoneyDisplay(props.upgrade.baseCost)}
+                    <body style={styles.buy} onClick={() => handleBuyUpgrade(props.upgrade)}>Buy</body>
                 </div>
             </div>
-            <body style={styles.buy} onClick={() => handleBuyUpgrade(props.upgrade)}>Buy</body>
         </div >
     );
 }
@@ -55,14 +62,16 @@ const styles = {
         marginTop: 30,
     },
     icon: {
-        height: 60,
-        width: 60,
+        color: '#FFFEFD',
+        height: 50,
+        width: 50,
         alignSelf: 'center',
-        marginRight: 20
+        marginRight: 2
     },
     detailsContainer: {
         display: 'flex',
         flexDirection: 'row' as 'row',
+        alignItems: 'flex-end' as 'flex-end'
     },
     name: {
         ...textStyles.terminalLabel,
@@ -70,7 +79,12 @@ const styles = {
         fontWeight: 700,
         marginBottom: 5
     },
-    cpk: {
+    description: {
+        ...textStyles.terminalLabel,
+        fontSize: 14,
+        marginBottom: 5
+    },
+    label: {
         ...textStyles.terminalLabel,
         fontSize: 14,
         marginRight: 5,
@@ -78,7 +92,8 @@ const styles = {
     },
     buy: {
         ...textStyles.terminalLabel,
-        alignSelf: 'flex-end' as 'flex-end',
+        alignSelf: 'center' as 'center',
+        marginLeft: 'auto',
         cursor: 'pointer'
     }
 }

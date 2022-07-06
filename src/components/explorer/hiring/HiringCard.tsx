@@ -46,7 +46,7 @@ function HiringCard(props: HiringCardProps) {
                 </div>
                 <div style={styles.selectionContainer}>
                     <body style={styles.costLabel}>CPS: {props.upgrade.cps}</body>
-                    <body style={styles.buy} onClick={() => handleIncreaseHiring(props.upgrade.id, props.purchaseQty)}>Hire</body>
+                    <body style={styles.buy} onClick={() => handleIncreaseHiring(props.upgrade.id, props.purchaseQty)}>Hire {props.purchaseQty}</body>
                 </div>
             </div>
         </div >
@@ -64,8 +64,8 @@ const styles = {
         marginTop: 30,
     },
     icon: {
-        height: 60,
-        width: 60,
+        height: 50,
+        width: 50,
         alignSelf: 'center',
         marginRight: 20
     },

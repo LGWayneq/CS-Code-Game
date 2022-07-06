@@ -32,8 +32,8 @@ export const upgradesData = {
             description: "Cheap labour",
             image: INTERN,
             baseCost: {
-                base: 1.25,
-                exponent: 3
+                base: 1,
+                exponent: 1
             },
             cps: 0.1
         },
@@ -43,7 +43,7 @@ export const upgradesData = {
             description: "They know a little stuff",
             image: JUNIOR,
             baseCost: {
-                base: 1.5625,
+                base: 1,
                 exponent: 6
             },
             cps: 1
