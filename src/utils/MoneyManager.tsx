@@ -45,13 +45,15 @@ const sumOf = (left: FloatingPoint, right: FloatingPoint): FloatingPoint => {
     //add mantisas (base)
     var result: FloatingPoint = { base: smaller.base + bigger.base, exponent: bigger.exponent }
     //normalise result
-    while (result.base > 2) {
-        result.base = result.base / 2
-        result.exponent += 1
-    }
-    while (result.base < 1) {
-        result.base = result.base * 2
-        result.exponent -= 1
+    if (result.base != 0) {
+        while (result.base > 2) {
+            result.base = result.base / 2
+            result.exponent += 1
+        }
+        while (result.base < 1) {
+            result.base = result.base * 2
+            result.exponent -= 1
+        }
     }
     //round result (currently not done)
     return result

@@ -21,7 +21,7 @@ function KeyboardCard(props: KeyboardCardProps) {
     const handleBuyKeyboard = (keyboard: BaseUpgradeType) => {
         if (ableToPurchase(money, props.upgrade.baseCost)) {
             dispatch(increaseKeyboardByAmount(1))
-            // dispatch(decrementByAmount(props.upgrade.baseCost))
+            dispatch(decrementMoneyByAmount(props.upgrade.baseCost))
             dispatch(incrementByAmount(1))
         }
     }

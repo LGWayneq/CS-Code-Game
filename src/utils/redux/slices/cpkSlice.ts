@@ -6,7 +6,7 @@ interface CpkState {
 }
 
 const initialState: CpkState = {
-    value: 1000
+    value: 1
 }
 
 export const cpkSlice = createSlice({
