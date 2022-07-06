@@ -61,9 +61,7 @@ const styles = {
     },
     detailsContainer: {
         display: 'flex',
-        width: 100,
         flexDirection: 'row' as 'row',
-        justifyContent: 'space-between' as 'space-between',
     },
     name: {
         ...textStyles.terminalLabel,
@@ -74,6 +72,7 @@ const styles = {
     cpk: {
         ...textStyles.terminalLabel,
         fontSize: 14,
+        marginRight: 5,
         alignSelf: 'flex-end' as 'flex-end'
     },
     buy: {

@@ -16,7 +16,7 @@ function KeyboardExplorer() {
                 Current Keyboard Speed:<br/>{cpk} characters per keypress
             </p>
             {upgradesData.keyboard.map((upgrade, index) => {
-                if (upgrade.baseCost.exponent < 60 )    //temporarily limit displayed cards
+                if (upgrade.baseCost.exponent < 60 )    //todo: temporarily limit displayed cards. implement money check for display
                 return (
                     <KeyboardCard key={index} upgrade={upgrade}/>
                 )

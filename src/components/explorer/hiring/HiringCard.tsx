@@ -8,7 +8,7 @@ import { useAppSelector } from '../../../utils/redux/hooks'
 import { incrementByAmount } from '../../../utils/redux/slices/cpsSlice'
 import { decrementMoneyByAmount } from '../../../utils/redux/slices/moneySlice'
 import { increaseHiringByAmount } from '../../../utils/redux/slices/upgradesSlide'
-import { ableToPurchase, getMoneyDisplay, Money } from '../../../utils/MoneyManager';
+import { ableToPurchase, getMoneyDisplay, FloatingPoint } from '../../../utils/MoneyManager';
 
 interface HiringCardProps {
     upgrade: HiringUpgradeType,
@@ -29,7 +29,7 @@ function HiringCard(props: HiringCardProps) {
         }
     }
 
-    const calculateCost = (baseCost: Money, qty: number): Money => {
+    const calculateCost = (baseCost: FloatingPoint, qty: number): FloatingPoint => {
         //todo: calculate purchase price non-linearly
         return { base: baseCost.base * qty, exponent: baseCost.exponent }
     }

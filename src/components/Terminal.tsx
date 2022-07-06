@@ -19,8 +19,8 @@ function Terminal() {
             <div style={styles.labelContainer}>
                 <body style={{ ...textStyles.terminalLabel, fontSize: 12, marginBottom: 10 }}>TERMINAL</body>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'row' as 'row', marginTop: 10 }}>
-                <body style={{ ...textStyles.terminalLabel, fontSize: 14, marginRight: 5 }}>Money:</body>
+            <div style={styles.moneyContainer}>
+                <body style={styles.moneyLabel}>Money:</body>
                 {getMoneyDisplay(money)}
             </div>
             <body style={{ ...textStyles.terminalLabel, fontSize: 14 }}>Idle Typing Speed: {cps.toFixed(1)} characters per millisecond</body>
@@ -35,6 +35,16 @@ const styles = {
         backgroundColor: colours.main,
         borderTop: `1px solid ${colours.divider}`,
         padding: 20,
+    },
+    moneyContainer: {
+        display: 'flex', flexDirection: 'row' as 'row', 
+        marginTop: 10
+    },
+    moneyLabel: {
+        ...textStyles.terminalLabel, 
+        fontSize: 14, 
+        marginRight: 5, 
+        alignSelf: 'flex-end' 
     },
     labelContainer: {
         display: 'table',

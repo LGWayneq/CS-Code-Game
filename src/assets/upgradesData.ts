@@ -1,19 +1,19 @@
 import INTERN from '../assets/icons/intern.png'
 import JUNIOR from '../assets/icons/junior-dev.png'
-import { Money } from '../utils/MoneyManager'
+import { FloatingPoint } from '../utils/MoneyManager'
 
 export interface HiringUpgradeType {
     id: number,
     name: string,
     description: string,
     image: any,
-    baseCost: Money,
+    baseCost: FloatingPoint,
     cps: number
 }
 
 export interface BaseUpgradeType {
     name: string,
-    baseCost: Money
+    baseCost: FloatingPoint
 }
 
 export const upgradesData = {

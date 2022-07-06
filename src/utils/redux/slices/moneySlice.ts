@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Money, subtract, sumOf } from '../../MoneyManager'
+import { FloatingPoint, subtract, sumOf } from '../../MoneyManager'
 import type { RootState } from '../store'
 
 interface MoneyState {
-    value: Money
+    value: FloatingPoint
 }
 
 const initialState: MoneyState = {
@@ -17,10 +17,10 @@ export const moneySlice = createSlice({
     name: 'money',
     initialState: initialState,
     reducers: {
-        incrementMoneyByAmount: (state, action: PayloadAction<Money>) => {
+        incrementMoneyByAmount: (state, action: PayloadAction<FloatingPoint>) => {
             state.value = sumOf(state.value, action.payload)
         },
-        decrementMoneyByAmount: (state, action: PayloadAction<Money>) => {
+        decrementMoneyByAmount: (state, action: PayloadAction<FloatingPoint>) => {
             state.value = subtract(state.value, action.payload)
         }
     }

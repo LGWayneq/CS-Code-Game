@@ -1,11 +1,12 @@
 import { textStyles } from "../assets/textStyles"
 
-export interface Money {
+//todo (low priority): refactor FloatingPoint to class
+export interface FloatingPoint {
     base: number,
     exponent: number
 }
 
-const getMoneyDisplay = (money: Money): JSX.Element => {
+const getMoneyDisplay = (money: FloatingPoint): JSX.Element => {
     if (money.exponent < 10) {
         return (
             <body style={{ ...textStyles.terminalLabel, fontSize: 14 }}>
@@ -22,7 +23,7 @@ const getMoneyDisplay = (money: Money): JSX.Element => {
     }
 }
 
-const ableToPurchase = (money: Money, cost: Money): boolean => {
+const ableToPurchase = (money: FloatingPoint, cost: FloatingPoint): boolean => {
     if (money.exponent < cost.exponent) {
         return false
     } else if (money.exponent == cost.exponent && money.base < cost.base) {
@@ -32,7 +33,7 @@ const ableToPurchase = (money: Money, cost: Money): boolean => {
     }
 }
 
-const sumOf = (left: Money, right: Money): Money => {
+const sumOf = (left: FloatingPoint, right: FloatingPoint): FloatingPoint => {
     //determine smaller number
     const smallerBigger = getSmallerBigger(left, right)
     var smaller = smallerBigger.smaller
@@ -42,7 +43,7 @@ const sumOf = (left: Money, right: Money): Money => {
     smaller.base = smaller.base / Math.pow(2, exponentGap)
     smaller.exponent = bigger.exponent
     //add mantisas (base)
-    var result: Money = { base: smaller.base + bigger.base, exponent: bigger.exponent }
+    var result: FloatingPoint = { base: smaller.base + bigger.base, exponent: bigger.exponent }
     //normalise result
     while (result.base > 2) {
         result.base = result.base / 2
@@ -56,15 +57,15 @@ const sumOf = (left: Money, right: Money): Money => {
     return result
 }
 
-const subtract = (left: Money, right: Money): Money => {
+const subtract = (left: FloatingPoint, right: FloatingPoint): FloatingPoint => {
     //assume that left > right is always true
-    var result: Money = sumOf(left, { base: -right.base, exponent: right.exponent })
+    var result: FloatingPoint = sumOf(left, { base: -right.base, exponent: right.exponent })
     return result
 }
 
-const getSmallerBigger = (left: Money, right: Money) => {
-    var smaller: Money = { base: 0, exponent: 0 }
-    var bigger: Money = { base: 0, exponent: 0 }
+const getSmallerBigger = (left: FloatingPoint, right: FloatingPoint) => {
+    var smaller: FloatingPoint = { base: 0, exponent: 0 }
+    var bigger: FloatingPoint = { base: 0, exponent: 0 }
     if (left.exponent < right.exponent) {
         smaller = left
         bigger = right
