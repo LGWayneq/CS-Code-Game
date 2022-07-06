@@ -4,7 +4,7 @@ import { codeContent, startComment } from '../assets/codeContent';
 import WindowDimensions from '../utils/WindowDimensions';
 import { SIDE_MENU_WIDTH, EXPLORER_WIDTH, TITLE_BAR_HEIGHT, CODE_LINE_HEIGHT } from '../assets/constants';
 import CodeLine from './CodeLine';
-import { incrementByAmount, decrementByAmount } from '../utils/redux/slices/moneySlice'
+import { incrementMoneyByAmount } from '../utils/redux/slices/moneySlice'
 import { useAppDispatch } from '../utils/redux/hooks';
 import { useAppSelector } from '../utils/redux/hooks'
 
@@ -47,7 +47,7 @@ function CodingArea() {
     useEffect(() => {
         const idleUpdater = setInterval(() => {
             //handle float CPS values
-            const cpsIncrementFloat = residualChars + cps/10
+            const cpsIncrementFloat = residualChars + cps / 10
             const cpsIncrementInt = Math.trunc(cpsIncrementFloat)
             setResidualChars(cpsIncrementFloat - cpsIncrementInt)
             //use integer CPS to update codeLines
@@ -76,7 +76,7 @@ function CodingArea() {
                 currentCodeLine = <CodeLine key={_currentLine} index={_currentLine} highlighted={true}>{""}</CodeLine>
                 appendCodeLine(currentCodeLine)
                 setCurrentLine(_currentLine)
-                dispatch(incrementByAmount(mpl))
+                dispatch(incrementMoneyByAmount({ base: mpl, exponent: 0 }))
             } else {    //default behaviour
                 currentCodeLine = <CodeLine key={_currentLine} index={_currentLine} highlighted={true}>{currentCodeLine?.props.children + codeContent[currentIndex + i]}</CodeLine>
             }

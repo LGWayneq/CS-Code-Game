@@ -1,16 +1,17 @@
 import React from 'react';
 import { colours } from '../../../assets/colours';
-import { UpgradeType } from '../../../assets/upgradesData'
+import { HiringUpgradeType } from '../../../assets/upgradesData'
 import { textStyles } from '../../../assets/textStyles';
 import { EXPLORER_WIDTH } from '../../../assets/constants';
 import { useAppDispatch } from '../../../utils/redux/hooks';
 import { useAppSelector } from '../../../utils/redux/hooks'
 import { incrementByAmount } from '../../../utils/redux/slices/cpsSlice'
-import { decrementByAmount } from '../../../utils/redux/slices/moneySlice'
+import { decrementMoneyByAmount } from '../../../utils/redux/slices/moneySlice'
 import { increaseHiringByAmount } from '../../../utils/redux/slices/upgradesSlide'
+import { ableToPurchase, getMoneyDisplay, Money } from '../../../utils/MoneyManager';
 
 interface HiringCardProps {
-    upgrade: UpgradeType,
+    upgrade: HiringUpgradeType,
     purchaseQty: number
 }
 
@@ -21,16 +22,16 @@ function HiringCard(props: HiringCardProps) {
 
     const handleIncreaseHiring = (id: number, qty: number) => {
         const purchasePrice = calculateCost(props.upgrade.baseCost, qty)
-        if (money > purchasePrice) {
+        if (ableToPurchase(money, props.upgrade.baseCost)) {
             dispatch(increaseHiringByAmount({ id: id, qty: qty }))
-            dispatch(decrementByAmount(purchasePrice))
+            dispatch(decrementMoneyByAmount(purchasePrice))
             dispatch(incrementByAmount(qty * props.upgrade.cps))
         }
     }
 
-    const calculateCost = (baseCost: number, qty: number) => {
+    const calculateCost = (baseCost: Money, qty: number): Money => {
         //todo: calculate purchase price non-linearly
-        return qty * baseCost
+        return { base: baseCost.base * qty, exponent: baseCost.exponent }
     }
 
     return (
@@ -39,9 +40,12 @@ function HiringCard(props: HiringCardProps) {
             <div>
                 <body style={styles.name}>{props.upgrade.name} x{hiring[props.upgrade.id].qty}</body>
                 <body style={styles.description}>{props.upgrade.description}</body>
-                <body style={styles.cost}>Cost: ${calculateCost(props.upgrade.baseCost, props.purchaseQty)}</body>
+                <div style={{ display: 'flex', flexDirection: 'row' as 'row' }}>
+                    <body style={styles.costLabel}>Cost:</body>
+                    {getMoneyDisplay(calculateCost(props.upgrade.baseCost, props.purchaseQty))}
+                </div>
                 <div style={styles.selectionContainer}>
-                    <body style={styles.cost}>CPS: {props.upgrade.cps}</body>
+                    <body style={styles.costLabel}>CPS: {props.upgrade.cps}</body>
                     <body style={styles.buy} onClick={() => handleIncreaseHiring(props.upgrade.id, props.purchaseQty)}>Hire</body>
                 </div>
             </div>
@@ -82,10 +86,11 @@ const styles = {
         fontSize: 14,
         marginBottom: 5
     },
-    cost: {
+    costLabel: {
         ...textStyles.terminalLabel,
         fontSize: 14,
-        marginBottom: 5
+        marginBottom: 5,
+        marginRight: 5
     },
     buy: {
         ...textStyles.terminalLabel,

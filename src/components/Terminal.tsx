@@ -4,6 +4,7 @@ import { textStyles } from '../assets/textStyles';
 import WindowDimensions from '../utils/WindowDimensions';
 import { SIDE_MENU_WIDTH, EXPLORER_WIDTH } from '../assets/constants';
 import { useAppSelector } from '../utils/redux/hooks'
+import { getMoneyDisplay } from '../utils/MoneyManager';
 
 function Terminal() {
     const money = useAppSelector(state => state.money.value)
@@ -18,7 +19,10 @@ function Terminal() {
             <div style={styles.labelContainer}>
                 <body style={{ ...textStyles.terminalLabel, fontSize: 12, marginBottom: 10 }}>TERMINAL</body>
             </div>
-            <body style={{ ...textStyles.terminalLabel, fontSize: 14, marginTop: 10 }}>Money: ${money}</body>
+            <div style={{ display: 'flex', flexDirection: 'row' as 'row', marginTop: 10 }}>
+                <body style={{ ...textStyles.terminalLabel, fontSize: 14, marginRight: 5 }}>Money:</body>
+                {getMoneyDisplay(money)}
+            </div>
             <body style={{ ...textStyles.terminalLabel, fontSize: 14 }}>Idle Typing Speed: {cps.toFixed(1)} characters per millisecond</body>
         </div>
     );
