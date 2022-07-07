@@ -8,7 +8,7 @@ import { useAppSelector } from '../../../utils/redux/hooks'
 import { incrementCpsByAmount } from '../../../utils/redux/slices/cpsSlice'
 import { decrementMoneyByAmount } from '../../../utils/redux/slices/moneySlice'
 import { increaseHiringByAmount } from '../../../utils/redux/slices/upgradesSlide'
-import { ableToPurchase, getMoneyDisplay, FloatingPoint } from '../../../utils/MoneyManager';
+import { ableToPurchase, getMoneyDisplay, FloatingPoint, multiply, divide, subtract } from '../../../utils/MoneyManager';
 
 interface HiringCardProps {
     upgrade: HiringUpgradeType,
@@ -21,17 +21,27 @@ function HiringCard(props: HiringCardProps) {
     const dispatch = useAppDispatch()
 
     const handleIncreaseHiring = (id: number, qty: number) => {
-        const purchasePrice = calculateCost(props.upgrade.baseCost, qty)
-        if (ableToPurchase(money, props.upgrade.baseCost)) {
+        const purchasePrice = calculateCost(props.upgrade.baseCost, hiring[props.upgrade.id].qty, qty)
+        console.log(purchasePrice)
+        if (ableToPurchase(money, purchasePrice)) {
+            console.log("purchased")
             dispatch(increaseHiringByAmount({ id: id, qty: qty }))
             dispatch(decrementMoneyByAmount(purchasePrice))
             dispatch(incrementCpsByAmount(qty * props.upgrade.cps))
         }
     }
 
-    const calculateCost = (baseCost: FloatingPoint, qty: number): FloatingPoint => {
-        //todo: calculate purchase price non-linearly. probably need to use geometric summation
-        return { base: baseCost.base * qty, exponent: baseCost.exponent }
+    const calculateCost = (baseCost: FloatingPoint, purchasedQty: number, qty: number): FloatingPoint => {
+        const r = 1.5
+        //Geometric summation
+        const purchasedTop = multiply(baseCost, Math.pow(r, purchasedQty) - 1)
+        const purchasedBottom = r - 1
+        const costOfPurchased = divide(purchasedTop, purchasedBottom)
+        //Geometric summation
+        const top = multiply(baseCost, Math.pow(r, purchasedQty + qty) - 1)
+        const bottom = r - 1
+        const totalCost = divide(top, bottom)
+        return subtract(totalCost, costOfPurchased)
     }
 
     return (
@@ -42,7 +52,7 @@ function HiringCard(props: HiringCardProps) {
                 <body style={styles.description}>{props.upgrade.description}</body>
                 <div style={{ display: 'flex', flexDirection: 'row' as 'row' }}>
                     <body style={styles.costLabel}>Cost:</body>
-                    {getMoneyDisplay(calculateCost(props.upgrade.baseCost, props.purchaseQty))}
+                    {getMoneyDisplay(calculateCost(props.upgrade.baseCost, hiring[props.upgrade.id].qty, props.purchaseQty))}
                 </div>
                 <div style={styles.selectionContainer}>
                     <body style={styles.costLabel}>CPS: {props.upgrade.cps}</body>

@@ -10,7 +10,7 @@ const getMoneyDisplay = (money: FloatingPoint): JSX.Element => {
     if (money.exponent < 10) {
         return (
             <body style={styles.moneyText}>
-                ${money.base * Math.pow(2, money.exponent)}
+                ${(money.base * Math.pow(2, money.exponent)).toFixed(0)}
             </body>
         )
     }
@@ -55,7 +55,8 @@ const sumOf = (left: FloatingPoint, right: FloatingPoint): FloatingPoint => {
             result.exponent -= 1
         }
     }
-    //round result (currently not done)
+    //round result (currently rounded to 5dp)
+    result.base = parseFloat(result.base.toFixed(5))
     return result
 }
 
@@ -65,7 +66,7 @@ const subtract = (left: FloatingPoint, right: FloatingPoint): FloatingPoint => {
     return result
 }
 
-const multiply = (left: FloatingPoint, right: (FloatingPoint | number)) => {
+const multiply = (left: FloatingPoint, right: (FloatingPoint | number)): FloatingPoint => {
     const floatRight: FloatingPoint = (typeof right == "number") ?
         { base: right, exponent: 0 } :
         right
@@ -82,6 +83,11 @@ const multiply = (left: FloatingPoint, right: (FloatingPoint | number)) => {
         }
     }
     return { base: newBase, exponent: newExponent }
+}
+
+const divide = (left: FloatingPoint, right: (FloatingPoint | number)) => {
+    if (typeof right == "number") return multiply(left, 1/right)
+    else return multiply(left, { base: 1 / right.base, exponent: -right.exponent })
 }
 
 const getSmallerBigger = (left: FloatingPoint, right: FloatingPoint) => {
@@ -103,7 +109,7 @@ const getSmallerBigger = (left: FloatingPoint, right: FloatingPoint) => {
     return { smaller: smaller, bigger: bigger }
 }
 
-export { getMoneyDisplay, ableToPurchase, sumOf, subtract, multiply }
+export { getMoneyDisplay, ableToPurchase, sumOf, subtract, multiply, divide }
 
 const styles = {
     moneyText: {
