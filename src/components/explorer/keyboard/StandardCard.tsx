@@ -88,6 +88,7 @@ const styles = {
     },
     description: {
         ...textStyles.terminalLabel,
+        color: 'rgba(133,133,133,1)',
         fontSize: 14,
         marginBottom: 5
     },

@@ -99,7 +99,7 @@ const styles = {
     costLabel: {
         ...textStyles.terminalLabel,
         fontSize: 14,
-        marginBottom: 5,
+        alignSelf: 'flex-end' as 'flex-end',
         marginRight: 5
     },
     buy: {

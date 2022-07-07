@@ -12,6 +12,7 @@ import { useAppSelector } from '../utils/redux/hooks';
 function GameScreen() {
     const tabs = useAppSelector(state => state.tabs.value)
     const [explorerState, setExplorerState] = useState<ExplorerStates>(ExplorerStates.HIRING)
+    const [currentTab, setCurrentTab] = useState<number>(0)
 
     return (
         <div style={styles.container}>
@@ -20,7 +21,7 @@ function GameScreen() {
                 <SideMenu setExplorerState={(value: ExplorerStates) => setExplorerState(value)} />
                 <Explorer explorerState={explorerState}/>
                 <div>
-                    <TabsNavigator tabs={tabs}/>
+                    <TabsNavigator tabs={tabs} currentTab={currentTab} setCurrentTab={(value: number) => setCurrentTab(value)}/>
                     <CodingArea />
                     <Terminal />
                 </div>

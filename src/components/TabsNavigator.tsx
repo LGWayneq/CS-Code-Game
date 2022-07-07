@@ -6,7 +6,9 @@ import { SIDE_MENU_WIDTH, EXPLORER_WIDTH, TAB_HEIGHT } from '../assets/constants
 import Tab from './Tab';
 
 interface TabNavigatorProps {
-    tabs: number
+    tabs: number,
+    currentTab: number,
+    setCurrentTab: Function
 }
 
 function TabsNavigator(props: TabNavigatorProps) {
@@ -16,7 +18,13 @@ function TabsNavigator(props: TabNavigatorProps) {
             width: WindowDimensions().width - SIDE_MENU_WIDTH - EXPLORER_WIDTH,
         }}>
             {[...Array(props.tabs)].map((tab, index) => {
-                return (<Tab key={index} />)
+                return (
+                    <Tab
+                        key={index}
+                        index={index}
+                        setCurrentTab={(value: number) => props.setCurrentTab(value)}
+                        isActive={index == props.currentTab} />
+                )
             })}
         </div>
     );
@@ -28,7 +36,7 @@ const styles = {
     container: {
         display: 'flex',
         flexDirection: 'row' as 'row',
-        backgroundColor: colours.menu,
+        backgroundColor: colours.explorer,
         height: TAB_HEIGHT,
         alignItems: 'center'
     }
