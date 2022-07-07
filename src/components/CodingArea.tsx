@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { colours } from '../assets/colours';
 import { codeContent, startComment } from '../assets/codeContent';
 import WindowDimensions from '../utils/WindowDimensions';
-import { SIDE_MENU_WIDTH, EXPLORER_WIDTH, TITLE_BAR_HEIGHT, CODE_LINE_HEIGHT } from '../assets/constants';
+import { SIDE_MENU_WIDTH, EXPLORER_WIDTH, TITLE_BAR_HEIGHT, CODE_LINE_HEIGHT, TAB_HEIGHT } from '../assets/constants';
 import CodeLine from './CodeLine';
 import { incrementMoneyByAmount } from '../utils/redux/slices/moneySlice'
 import { useAppDispatch } from '../utils/redux/hooks';
@@ -113,7 +113,7 @@ function CodingArea() {
             ref={containerRef}
             style={{
                 ...styles.container,
-                height: 0.7 * WindowDimensions().height - TITLE_BAR_HEIGHT,
+                height: 0.7 * WindowDimensions().height - TITLE_BAR_HEIGHT - TAB_HEIGHT,
                 width: WindowDimensions().width - SIDE_MENU_WIDTH - EXPLORER_WIDTH,
             }}>
             {codeLines}
