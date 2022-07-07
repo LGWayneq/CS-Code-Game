@@ -65,6 +65,25 @@ const subtract = (left: FloatingPoint, right: FloatingPoint): FloatingPoint => {
     return result
 }
 
+const multiply = (left: FloatingPoint, right: (FloatingPoint | number)) => {
+    const floatRight: FloatingPoint = (typeof right == "number") ?
+        { base: right, exponent: 0 } :
+        right
+    var newBase = left.base * floatRight.base
+    var newExponent = left.exponent + floatRight.exponent
+    if (newBase != 0) {
+        while (newBase > 2) {
+            newBase = newBase / 2
+            newExponent += 1
+        }
+        while (newBase < 1) {
+            newBase = newBase * 2
+            newExponent -= 1
+        }
+    }
+    return { base: newBase, exponent: newExponent }
+}
+
 const getSmallerBigger = (left: FloatingPoint, right: FloatingPoint) => {
     var smaller: FloatingPoint = { base: 0, exponent: 0 }
     var bigger: FloatingPoint = { base: 0, exponent: 0 }
@@ -84,11 +103,11 @@ const getSmallerBigger = (left: FloatingPoint, right: FloatingPoint) => {
     return { smaller: smaller, bigger: bigger }
 }
 
-export { getMoneyDisplay, ableToPurchase, sumOf, subtract }
+export { getMoneyDisplay, ableToPurchase, sumOf, subtract, multiply }
 
 const styles = {
-    moneyText: { 
-        ...textStyles.terminalLabel, 
-        fontSize: 14, 
+    moneyText: {
+        ...textStyles.terminalLabel,
+        fontSize: 14,
     }
 }

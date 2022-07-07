@@ -7,16 +7,15 @@ interface HiringPayload {
     qty: number
 }
 
-interface UpgradeStateType {
+interface HiringStateType {
     id: number,
     name: string,
     qty: number
 }
 
 interface UpgradesState {
-    hiring: Array<UpgradeStateType>,
-    keyboard: number,
-    tabs: number,
+    hiring: Array<HiringStateType>,
+    isStandardUpgradePurchased: Array<boolean>
 }
 
 const initialState: UpgradesState = {
@@ -29,8 +28,9 @@ const initialState: UpgradesState = {
             }
         )
     }),
-    keyboard: 0,
-    tabs: 0
+    isStandardUpgradePurchased: upgradesData.hiring.map((item, index) => {
+        return false
+    })
 }
 
 export const upgradesSlice = createSlice({
@@ -40,23 +40,14 @@ export const upgradesSlice = createSlice({
         increaseHiringByAmount: (state, action: PayloadAction<HiringPayload>) => {
             state.hiring[action.payload.id].qty += action.payload.qty
         },
-        increaseKeyboard: state => {
-            state.keyboard += 1
+        purchaseStandardUpgrade: (state, action: PayloadAction<number>) => {
+            state.isStandardUpgradePurchased[action.payload] = true
         },
-        increaseKeyboardByAmount: (state, action: PayloadAction<number>) => {
-            state.keyboard += action.payload
-        },
-        increaseTabs: state => {
-            state.tabs += 1
-        },
-        increaseTabsByAmount: (state, action: PayloadAction<number>) => {
-            state.tabs += action.payload
-        }
     }
 })
 
 // Action creators are generated for each case reducer function
-export const { increaseHiringByAmount, increaseKeyboard, increaseKeyboardByAmount, increaseTabs, increaseTabsByAmount } = upgradesSlice.actions
+export const { increaseHiringByAmount, purchaseStandardUpgrade } = upgradesSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectUpgrades = (state: RootState) => state.upgrades

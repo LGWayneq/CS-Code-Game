@@ -9,12 +9,13 @@ import { useAppSelector } from '../../../utils/redux/hooks'
 import { incrementCpkByAmount } from '../../../utils/redux/slices/cpkSlice'
 import { incrementMplByAmount } from '../../../utils/redux/slices/mplSlice';
 import { decrementMoneyByAmount } from '../../../utils/redux/slices/moneySlice'
-import { increaseKeyboardByAmount } from '../../../utils/redux/slices/upgradesSlide'
+import { purchaseStandardUpgrade } from '../../../utils/redux/slices/upgradesSlide'
 import KeyboardIcon from '@mui/icons-material/Keyboard';
 import TabIcon from '@mui/icons-material/Tab';
 import PaidIcon from '@mui/icons-material/Paid';
 
 interface StandardCardProps {
+    index: number,
     upgrade: StandardUpgrade
 }
 
@@ -24,17 +25,23 @@ function StandardCard(props: StandardCardProps) {
 
     const handleBuyUpgrade = (upgrade: StandardUpgrade) => {
         if (ableToPurchase(money, upgrade.baseCost)) {
-            dispatch(increaseKeyboardByAmount(1))
+            if (upgrade.type == StandardUpgradeType.KEYBOARD) {
+                dispatch(incrementCpkByAmount(1))
+            } else if (upgrade.type == StandardUpgradeType.PROMOTION) {
+                dispatch(incrementMplByAmount(1))
+            } else if (upgrade.type == StandardUpgradeType.TABS) {
+                //to be implemented
+            }
+            dispatch(purchaseStandardUpgrade(props.index))
             dispatch(decrementMoneyByAmount(upgrade.baseCost))
-            dispatch(incrementCpkByAmount(1))
         }
     }
 
     return (
         <div style={styles.container}>
-            {props.upgrade.type === StandardUpgradeType.KEYBOARD && <KeyboardIcon sx={styles.icon}/>}
-            {props.upgrade.type === StandardUpgradeType.TABS && <TabIcon sx={styles.icon}/>}
-            {props.upgrade.type === StandardUpgradeType.PROMOTION && <PaidIcon sx={styles.icon}/>}
+            {props.upgrade.type === StandardUpgradeType.KEYBOARD && <KeyboardIcon sx={styles.icon} />}
+            {props.upgrade.type === StandardUpgradeType.TABS && <TabIcon sx={styles.icon} />}
+            {props.upgrade.type === StandardUpgradeType.PROMOTION && <PaidIcon sx={styles.icon} />}
             <div>
                 <body style={styles.name}>{props.upgrade.name}</body>
                 <body style={styles.description}>{props.upgrade.description}</body>

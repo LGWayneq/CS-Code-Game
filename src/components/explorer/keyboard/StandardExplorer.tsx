@@ -1,19 +1,25 @@
 import React, { useState } from 'react';
 import { colours } from '../../../assets/colours';
 import { textStyles } from '../../../assets/textStyles';
-import { EXPLORER_WIDTH, TITLE_BAR_HEIGHT } from '../../../assets/constants';
+import { EXPLORER_WIDTH } from '../../../assets/constants';
 import { upgradesData } from '../../../assets/upgradesData';
-import getWindowDimensions from '../../../utils/WindowDimensions';
+import { useAppSelector } from '../../../utils/redux/hooks'
 import StandardCard from './StandardCard';
+import { ableToPurchase, FloatingPoint, multiply } from '../../../utils/MoneyManager';
 
 function StandardExplorer() {
+    const money: FloatingPoint = useAppSelector(state => state.money.value)
+    const isStandardUpgradePurchased = useAppSelector(state => state.upgrades.isStandardUpgradePurchased)
+
     return (
         <div style={{ ...styles.container }}>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>KEYBOARD</p>
             {upgradesData.standard.map((upgrade, index) => {
-                return (
-                    <StandardCard key={index} upgrade={upgrade} />
-                )
+                if (!isStandardUpgradePurchased[index] && ableToPurchase(multiply(money, 10), upgrade.baseCost)) {
+                    return (
+                        <StandardCard key={index} index={index} upgrade={upgrade} />
+                    )
+                }
             })}
         </div>
     );

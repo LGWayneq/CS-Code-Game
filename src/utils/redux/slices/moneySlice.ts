@@ -8,8 +8,8 @@ interface MoneyState {
 
 const initialState: MoneyState = {
     value: {
-        base: 0,
-        exponent: 0
+        base: 1,
+        exponent: 5
     }
 }
 
