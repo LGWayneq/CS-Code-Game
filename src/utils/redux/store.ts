@@ -4,6 +4,7 @@ import cpsReducer from './slices/cpsSlice'
 import cpkReducer from './slices/cpkSlice'
 import mplReducer from './slices/mplSlice'
 import upgradesReducer from './slices/upgradesSlide'
+import tabsReducer from './slices/tabsSlice'
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +12,8 @@ export const store = configureStore({
     cps: cpsReducer,
     cpk: cpkReducer,
     mpl: mplReducer,
-    upgrades: upgradesReducer
+    upgrades: upgradesReducer,
+    tabs: tabsReducer
   }
 })
 

@@ -6,8 +6,10 @@ import Explorer from '../components/explorer/Explorer';
 import CodingArea from '../components/CodingArea';
 import Terminal from '../components/Terminal';
 import { ExplorerStates } from '../components/explorer/Explorer'
+import { useAppSelector } from '../utils/redux/hooks';
 
 function GameScreen() {
+    const tabs = useAppSelector(state => state.tabs.value)
     const [explorerState, setExplorerState] = useState<ExplorerStates>(ExplorerStates.HIRING)
 
     return (
