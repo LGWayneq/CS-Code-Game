@@ -9,6 +9,8 @@ import { getMoneyDisplay } from '../utils/MoneyManager';
 function Terminal() {
     const money = useAppSelector(state => state.money.value)
     const cps = useAppSelector(state => state.cps.value)
+    const cpk = useAppSelector(state => state.cpk.value)
+    const mpl = useAppSelector(state => state.mpl.value)
 
     return (
         <div style={{
@@ -20,10 +22,18 @@ function Terminal() {
                 <body style={{ ...textStyles.terminalLabel, fontSize: 12, marginBottom: 10 }}>TERMINAL</body>
             </div>
             <div style={styles.moneyContainer}>
-                <body style={styles.moneyLabel}>Money:</body>
+                <b style={styles.textLabel}>Money:</b>
                 {getMoneyDisplay(money)}
             </div>
-            <body style={{ ...textStyles.terminalLabel, fontSize: 14 }}>Idle Typing Speed: {cps.toFixed(1)} characters per second</body>
+            <body style={styles.text}>
+                <b style={styles.textLabel}>Idle Typing Speed:</b> {cps.toFixed(1)} characters/second
+            </body>
+            <body style={styles.text}>
+                <b style={styles.textLabel}>Keyboard Speed:</b>{cpk} character{cpk > 1 && "s"}/keypress
+            </body>
+            <body style={styles.text}>
+                <b style={styles.textLabel}>Salary:</b>${mpl}/line
+            </body>
         </div>
     );
 }
@@ -37,17 +47,21 @@ const styles = {
         padding: 20,
     },
     moneyContainer: {
-        display: 'flex', flexDirection: 'row' as 'row', 
+        display: 'flex', flexDirection: 'row' as 'row',
         marginTop: 10
     },
-    moneyLabel: {
-        ...textStyles.terminalLabel, 
-        fontSize: 14, 
-        marginRight: 5, 
-        alignSelf: 'flex-end' 
+    textLabel: {
+        ...textStyles.terminalLabel,
+        fontSize: 14,
+        marginRight: 5,
+        alignSelf: 'flex-end'
     },
     labelContainer: {
         display: 'table',
         borderBottom: `1px solid rgba(204,204,204,1)`,
+    },
+    text: {
+        ...textStyles.terminalLabel,
+        fontSize: 14,
     }
 }

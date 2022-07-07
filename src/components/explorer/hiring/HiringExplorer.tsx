@@ -31,10 +31,9 @@ export default HiringExplorer;
 
 const styles = {
     container: {
-        width: EXPLORER_WIDTH - 40,
+        width: EXPLORER_WIDTH - 50,
         backgroundColor: colours.explorer,
-        paddingLeft: 20,
-        paddingRight: 20
+        paddingBottom: 20
     },
     qtyContainer: {
         display: 'flex',

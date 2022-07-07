@@ -65,7 +65,34 @@ export const upgradesData = {
             description: "Congrats on your first promotion! Earn more money per line of code!",
             baseCost: {
                 base: 1, 
-                exponent: 10
+                exponent: 8
+            }
+        },
+        {
+            name: "Keyboard Upgrade 2",
+            type: StandardUpgradeType.KEYBOARD,
+            description: "Pay money to make your keyboard more efficient",
+            baseCost: {
+                base: 1, 
+                exponent: 9
+            }
+        },
+        {
+            name: "Promotion 2",
+            type: StandardUpgradeType.PROMOTION,
+            description: "Congrats on your first promotion! Earn more money per line of code!",
+            baseCost: {
+                base: 1, 
+                exponent: 13
+            }
+        },
+        {
+            name: "Keyboard Upgrade 3",
+            type: StandardUpgradeType.KEYBOARD,
+            description: "Pay money to make your keyboard more efficient",
+            baseCost: {
+                base: 1, 
+                exponent: 14
             }
         },
         {
@@ -74,7 +101,7 @@ export const upgradesData = {
             description: "Use more tabs to increase your efficiency",
             baseCost: {
                 base: 1,
-                exponent: 15
+                exponent: 16
             }
         }
     ],
