@@ -50,7 +50,7 @@ function HiringCard(props: HiringCardProps) {
             <div>
                 <body style={styles.name}>{props.upgrade.name} x{hiring[props.upgrade.id].qty}</body>
                 <body style={styles.description}>{props.upgrade.description}</body>
-                <div style={{ display: 'flex', flexDirection: 'row' as 'row' }}>
+                <div style={styles.costContainer}>
                     <body style={styles.costLabel}>Cost:</body>
                     {getMoneyDisplay(calculateCost(props.upgrade.baseCost, hiring[props.upgrade.id].qty, props.purchaseQty))}
                 </div>
@@ -68,7 +68,7 @@ export default HiringCard;
 const styles = {
     container: {
         display: 'flex',
-        maxWidth: EXPLORER_WIDTH - 40,
+        width: EXPLORER_WIDTH - 30,
         backgroundColor: colours.explorer,
         flexDirection: 'row' as 'row',
         marginTop: 30,
@@ -81,7 +81,7 @@ const styles = {
     },
     selectionContainer: {
         display: 'flex',
-        width: EXPLORER_WIDTH - 130,
+        width: EXPLORER_WIDTH - 120,
         flexDirection: 'row' as 'row',
         justifyContent: 'space-between' as 'space-between'
     },
@@ -96,6 +96,13 @@ const styles = {
         fontSize: 14,
         marginBottom: 5
     },
+    costContainer: {
+        display: 'flex',
+        flexDirection: 'row' as 'row',
+        height: 20,
+        alignItems: 'flex-end' as 'flex-end',
+        marginTop: 5
+    },
     costLabel: {
         ...textStyles.terminalLabel,
         fontSize: 14,
@@ -104,6 +111,11 @@ const styles = {
     },
     buy: {
         ...textStyles.terminalLabel,
+        border: '1px grey solid',
+        borderRadius: 20,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingBottom: 2,
         cursor: 'pointer'
     }
 }

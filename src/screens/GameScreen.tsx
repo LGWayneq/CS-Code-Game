@@ -19,9 +19,12 @@ function GameScreen() {
             <TitleBar />
             <div style={styles.subContainer}>
                 <SideMenu setExplorerState={(value: ExplorerStates) => setExplorerState(value)} />
-                <Explorer explorerState={explorerState}/>
+                <Explorer explorerState={explorerState} />
                 <div>
-                    <TabsNavigator tabs={tabs} currentTab={currentTab} setCurrentTab={(value: number) => setCurrentTab(value)}/>
+                    <TabsNavigator
+                        tabs={tabs}
+                        currentTab={currentTab}
+                        setCurrentTab={(value: number) => setCurrentTab(value)} />
                     <CodingArea />
                     <Terminal />
                 </div>

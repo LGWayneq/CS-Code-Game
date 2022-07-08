@@ -120,6 +120,61 @@ export const upgradesData = {
                 exponent: 29
             },
             cps: 15625
+        },
+        {
+            id: 8,
+            name: "CTO",
+            description: "Aren't they the ones paying you?",
+            image: PRINCIPAL,   //todo
+            baseCost: {
+                base: 1,
+                exponent: 34
+            },
+            cps: 78125
+        },
+        {
+            id: 9,
+            name: "Turing Machine",
+            description: "Tap tap tap",
+            image: PRINCIPAL,   //todo
+            baseCost: {
+                base: 1,
+                exponent: 39
+            },
+            cps: 390625
+        },
+        {
+            id: 10,
+            name: "Robot Dog",
+            description: "Can dogs code?",
+            image: PRINCIPAL,   //todo
+            baseCost: {
+                base: 1,
+                exponent: 44
+            },
+            cps: 1953125
+        },
+        {
+            id: 10,
+            name: "Deep Blue",
+            description: "Checkmate",
+            image: PRINCIPAL,   //todo
+            baseCost: {
+                base: 1,
+                exponent: 49
+            },
+            cps: 1953125 * 5
+        },
+        {
+            id: 11,
+            name: "GLaDOS",
+            description: "Cake",
+            image: PRINCIPAL,   //todo
+            baseCost: {
+                base: 1,
+                exponent: 54
+            },
+            cps: 1953125 * 5 * 5
         }
     ],
     standard: [
@@ -128,7 +183,7 @@ export const upgradesData = {
             type: StandardUpgradeType.KEYBOARD,
             description: "Pay money to make your keyboard more efficient",
             baseCost: {
-                base: 1, 
+                base: 1,
                 exponent: 4
             }
         },
@@ -137,7 +192,7 @@ export const upgradesData = {
             type: StandardUpgradeType.PROMOTION,
             description: "Congrats on your first promotion! Earn more money per line of code!",
             baseCost: {
-                base: 1, 
+                base: 1,
                 exponent: 8
             }
         },
@@ -146,7 +201,7 @@ export const upgradesData = {
             type: StandardUpgradeType.KEYBOARD,
             description: "Pay money to make your keyboard more efficient",
             baseCost: {
-                base: 1, 
+                base: 1,
                 exponent: 9
             }
         },
@@ -155,7 +210,7 @@ export const upgradesData = {
             type: StandardUpgradeType.PROMOTION,
             description: "Congrats on your second promotion! Earn more money per line of code!",
             baseCost: {
-                base: 1, 
+                base: 1,
                 exponent: 13
             }
         },
@@ -164,7 +219,7 @@ export const upgradesData = {
             type: StandardUpgradeType.KEYBOARD,
             description: "Pay money to make your keyboard more efficient",
             baseCost: {
-                base: 1, 
+                base: 1,
                 exponent: 14
             }
         },
@@ -182,7 +237,7 @@ export const upgradesData = {
             type: StandardUpgradeType.PROMOTION,
             description: "Congrats on your third promotion! Earn more money per line of code!",
             baseCost: {
-                base: 1, 
+                base: 1,
                 exponent: 18
             }
         },
@@ -191,7 +246,7 @@ export const upgradesData = {
             type: StandardUpgradeType.KEYBOARD,
             description: "Pay money to make your keyboard more efficient",
             baseCost: {
-                base: 1, 
+                base: 1,
                 exponent: 19
             }
         },
@@ -200,7 +255,7 @@ export const upgradesData = {
             type: StandardUpgradeType.PROMOTION,
             description: "Congrats on your fourth promotion! Earn more money per line of code!",
             baseCost: {
-                base: 1, 
+                base: 1,
                 exponent: 23
             }
         },
@@ -209,7 +264,7 @@ export const upgradesData = {
             type: StandardUpgradeType.KEYBOARD,
             description: "Pay money to make your keyboard more efficient",
             baseCost: {
-                base: 1, 
+                base: 1,
                 exponent: 24
             }
         },
@@ -227,7 +282,7 @@ export const upgradesData = {
             type: StandardUpgradeType.PROMOTION,
             description: "Congrats on your fifth promotion! Earn more money per line of code!",
             baseCost: {
-                base: 1, 
+                base: 1,
                 exponent: 28
             }
         },
@@ -236,7 +291,7 @@ export const upgradesData = {
             type: StandardUpgradeType.KEYBOARD,
             description: "Pay money to make your keyboard more efficient",
             baseCost: {
-                base: 1, 
+                base: 1,
                 exponent: 29
             }
         },
@@ -245,7 +300,7 @@ export const upgradesData = {
             type: StandardUpgradeType.PROMOTION,
             description: "Congrats on your sixth promotion! Earn more money per line of code!",
             baseCost: {
-                base: 1, 
+                base: 1,
                 exponent: 33
             }
         },
@@ -263,7 +318,7 @@ export const upgradesData = {
             type: StandardUpgradeType.KEYBOARD,
             description: "Pay money to make your keyboard more efficient",
             baseCost: {
-                base: 1, 
+                base: 1,
                 exponent: 34
             }
         },
@@ -272,7 +327,7 @@ export const upgradesData = {
             type: StandardUpgradeType.PROMOTION,
             description: "Congrats on your seventh promotion! Earn more money per line of code!",
             baseCost: {
-                base: 1, 
+                base: 1,
                 exponent: 38
             }
         },
@@ -281,7 +336,7 @@ export const upgradesData = {
             type: StandardUpgradeType.KEYBOARD,
             description: "Pay money to make your keyboard more efficient",
             baseCost: {
-                base: 1, 
+                base: 1,
                 exponent: 39
             }
         },
@@ -299,7 +354,7 @@ export const upgradesData = {
             type: StandardUpgradeType.PROMOTION,
             description: "Congrats on your eigth promotion! Earn more money per line of code!",
             baseCost: {
-                base: 1, 
+                base: 1,
                 exponent: 43
             }
         },
@@ -308,7 +363,7 @@ export const upgradesData = {
             type: StandardUpgradeType.KEYBOARD,
             description: "Pay money to make your keyboard more efficient",
             baseCost: {
-                base: 1, 
+                base: 1,
                 exponent: 44
             }
         },
@@ -317,7 +372,7 @@ export const upgradesData = {
             type: StandardUpgradeType.PROMOTION,
             description: "Congrats on your ninth promotion! Earn more money per line of code!",
             baseCost: {
-                base: 1, 
+                base: 1,
                 exponent: 48
             }
         },
@@ -326,7 +381,7 @@ export const upgradesData = {
             type: StandardUpgradeType.KEYBOARD,
             description: "Pay money to make your keyboard more efficient",
             baseCost: {
-                base: 1, 
+                base: 1,
                 exponent: 49
             }
         },
@@ -344,7 +399,7 @@ export const upgradesData = {
             type: StandardUpgradeType.PROMOTION,
             description: "Congrats on your final promotion? Earn more money per line of code!",
             baseCost: {
-                base: 1, 
+                base: 1,
                 exponent: 53
             }
         },

@@ -90,6 +90,7 @@ const styles = {
         ...textStyles.terminalLabel,
         color: 'rgba(133,133,133,1)',
         fontSize: 14,
+        marginTop: 10,
         marginBottom: 5
     },
     label: {
@@ -100,7 +101,12 @@ const styles = {
     },
     buy: {
         ...textStyles.terminalLabel,
-        alignSelf: 'center' as 'center',
+        border: '1px grey solid',
+        borderRadius: 20,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingBottom: 2,
+        marginTop: 5,
         marginLeft: 'auto',
         cursor: 'pointer'
     }
