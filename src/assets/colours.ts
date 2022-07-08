@@ -5,4 +5,5 @@ export const colours = {
     menu: "rgba(51,51,51,1)",
     cursor: "rgba(174,175,173,1)",
     divider: "rgba(64,64,64,1)",
+    offwhite: "#FFFEFD"
 }

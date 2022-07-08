@@ -69,7 +69,7 @@ const styles = {
         marginTop: 30,
     },
     icon: {
-        color: '#FFFEFD',
+        color: colours.offwhite,
         height: 50,
         width: 50,
         alignSelf: 'center',

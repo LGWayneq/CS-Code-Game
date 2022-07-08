@@ -6,6 +6,9 @@ import SENIOR from '../assets/icons/hiring/senior.png';
 import STAFF from '../assets/icons/hiring/staff.png';
 import HACKERMAN from '../assets/icons/hiring/hackerman.png';
 import PRINCIPAL from '../assets/icons/hiring/principal.png';
+import CTO from '../assets/icons/hiring/cto.png';
+import TURING from '../assets/icons/hiring/turing.png';
+import DOG from '../assets/icons/hiring/robot-dog.png';
 import PYTHON from '../assets/icons/python.png';
 import { FloatingPoint } from '../utils/MoneyManager'
 
@@ -125,7 +128,7 @@ export const upgradesData = {
             id: 8,
             name: "CTO",
             description: "Aren't they the ones paying you?",
-            image: PRINCIPAL,   //todo
+            image: CTO,   
             baseCost: {
                 base: 1,
                 exponent: 34
@@ -136,7 +139,7 @@ export const upgradesData = {
             id: 9,
             name: "Turing Machine",
             description: "Tap tap tap",
-            image: PRINCIPAL,   //todo
+            image: TURING,
             baseCost: {
                 base: 1,
                 exponent: 39
@@ -147,7 +150,7 @@ export const upgradesData = {
             id: 10,
             name: "Robot Dog",
             description: "Can dogs code?",
-            image: PRINCIPAL,   //todo
+            image: DOG,
             baseCost: {
                 base: 1,
                 exponent: 44

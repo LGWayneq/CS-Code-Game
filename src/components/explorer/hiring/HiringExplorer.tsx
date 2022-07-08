@@ -64,7 +64,7 @@ const styles = {
         fontWeight: 700,
         fontSize: 13,
         border: '1px white solid',
-        backgroundColor: "#FFFEFD",
+        backgroundColor: colours.offwhite,
         color: colours.main,
         borderRadius: 20,
         paddingLeft: 5,
