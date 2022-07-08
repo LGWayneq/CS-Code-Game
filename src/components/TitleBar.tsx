@@ -5,7 +5,7 @@ import { textStyles } from '../assets/textStyles'
 function TitleBar() {
     return (
         <div style={styles.container}>
-            <header style={textStyles.title}>Clicker Game</header>
+            <header style={textStyles.title}>CS Code</header>
         </div>
     );
 }
