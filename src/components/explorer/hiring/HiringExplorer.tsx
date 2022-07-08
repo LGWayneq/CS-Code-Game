@@ -21,11 +21,11 @@ function HiringExplorer() {
                 <body style={purchaseQty == 25 ? styles.qtySelected : styles.qty} onClick={() => setPurchaseQty(25)}>x25</body>
             </div>
             {upgradesData.hiring.map((upgrade, index) => {
-                if (index == 0 || hiring[index - 1].qty > 0) {
+                // if (index == 0 || hiring[index - 1].qty > 0) {
                     return (
                         <HiringCard key={index} upgrade={upgrade} purchaseQty={purchaseQty} />
                     )
-                }
+                // }
             })}
         </div>
     );
@@ -37,7 +37,7 @@ const styles = {
     container: {
         width: EXPLORER_WIDTH - 50,
         backgroundColor: colours.explorer,
-        paddingBottom: 20
+        paddingBottom: 20,
     },
     qtyContainer: {
         display: 'flex',

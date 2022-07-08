@@ -37,7 +37,7 @@ const styles = {
     container: {
         width: EXPLORER_WIDTH,
         backgroundColor: colours.explorer,
-        overflowY: 'auto' as 'auto',
+        overflowY: 'scroll' as 'scroll',
         paddingLeft: 20,
         // paddingRight: 20,
     },
