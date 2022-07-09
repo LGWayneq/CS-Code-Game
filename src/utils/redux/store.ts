@@ -6,6 +6,7 @@ import mplReducer from './slices/mplSlice'
 import upgradesReducer from './slices/upgradesSlide'
 import tabsReducer from './slices/tabsSlice'
 import dayStartReducer from './slices/dayStartSlice'
+import codingAreaReducer from './slices/codingAreaSlice'
 
 function saveToLocalStorage(state: any) {
   try {
@@ -29,6 +30,7 @@ function loadFromLocalStorage() {
 
 export const store = configureStore({
   reducer: {
+    codingArea: codingAreaReducer,
     money: moneyReducer,
     cps: cpsReducer,
     cpk: cpkReducer,
