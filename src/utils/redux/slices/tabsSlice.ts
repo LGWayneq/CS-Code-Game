@@ -18,12 +18,15 @@ export const tabsSlice = createSlice({
         },
         decrementTabsByAmount: (state, action: PayloadAction<number>) => {
             state.value -= action.payload
+        },
+        resetTabs: (state) => {
+            state.value = 1
         }
     }
 })
 
 // Action creators are generated for each case reducer function
-export const { incrementTabs, decrementTabsByAmount } = tabsSlice.actions
+export const { incrementTabs, decrementTabsByAmount, resetTabs } = tabsSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectTabs = (state: RootState) => state.tabs.value

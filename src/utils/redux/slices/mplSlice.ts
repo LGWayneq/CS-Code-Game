@@ -18,12 +18,15 @@ export const mplSlice = createSlice({
         },
         decrementMplByAmount: (state, action: PayloadAction<number>) => {
             state.value -= action.payload
+        },
+        resetMpl: (state) => {
+            state.value = 1
         }
     }
 })
 
 // Action creators are generated for each case reducer function
-export const { incrementMplByAmount, decrementMplByAmount } = mplSlice.actions
+export const { incrementMplByAmount, decrementMplByAmount, resetMpl } = mplSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectMpl = (state: RootState) => state.mpl.value

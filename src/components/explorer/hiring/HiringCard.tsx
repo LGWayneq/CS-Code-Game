@@ -7,7 +7,7 @@ import { useAppDispatch } from '../../../utils/redux/hooks';
 import { useAppSelector } from '../../../utils/redux/hooks'
 import { incrementCpsByAmount } from '../../../utils/redux/slices/cpsSlice'
 import { decrementMoneyByAmount } from '../../../utils/redux/slices/moneySlice'
-import { increaseHiringByAmount } from '../../../utils/redux/slices/upgradesSlide'
+import { increaseHiringByAmount } from '../../../utils/redux/slices/upgradesSlice'
 import { ableToPurchase, getMoneyDisplay, FloatingPoint, multiply, divide, subtract } from '../../../utils/MoneyManager';
 
 interface HiringCardProps {

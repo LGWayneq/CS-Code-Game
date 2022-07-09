@@ -18,12 +18,15 @@ export const cpsSlice = createSlice({
         },
         decrementCpsByAmount: (state, action: PayloadAction<number>) => {
             state.value -= action.payload
+        },
+        resetCps: (state) => {
+            state.value = 0
         }
     }
 })
 
 // Action creators are generated for each case reducer function
-export const { incrementCpsByAmount, decrementCpsByAmount } = cpsSlice.actions
+export const { incrementCpsByAmount, decrementCpsByAmount, resetCps } = cpsSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectCps = (state: RootState) => state.cps.value

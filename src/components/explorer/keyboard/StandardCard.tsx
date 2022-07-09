@@ -9,7 +9,7 @@ import { useAppSelector } from '../../../utils/redux/hooks'
 import { incrementCpkByAmount } from '../../../utils/redux/slices/cpkSlice'
 import { incrementMplByAmount } from '../../../utils/redux/slices/mplSlice';
 import { decrementMoneyByAmount } from '../../../utils/redux/slices/moneySlice'
-import { purchaseStandardUpgrade } from '../../../utils/redux/slices/upgradesSlide'
+import { purchaseStandardUpgrade } from '../../../utils/redux/slices/upgradesSlice'
 import KeyboardIcon from '@mui/icons-material/Keyboard';
 import TabIcon from '@mui/icons-material/Tab';
 import PaidIcon from '@mui/icons-material/Paid';

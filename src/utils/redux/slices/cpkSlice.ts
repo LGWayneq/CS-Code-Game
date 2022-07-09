@@ -18,12 +18,15 @@ export const cpkSlice = createSlice({
         },
         decrementCpkByAmount: (state, action: PayloadAction<number>) => {
             state.value -= action.payload
+        },
+        resetCpk: (state) => {
+            state.value = 1
         }
     }
 })
 
 // Action creators are generated for each case reducer function
-export const { incrementCpkByAmount, decrementCpkByAmount } = cpkSlice.actions
+export const { incrementCpkByAmount, decrementCpkByAmount, resetCpk } = cpkSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectCpk = (state: RootState) => state.cpk.value
