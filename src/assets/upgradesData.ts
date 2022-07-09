@@ -9,6 +9,7 @@ import PRINCIPAL from '../assets/icons/hiring/principal.png';
 import CTO from '../assets/icons/hiring/cto.png';
 import TURING from '../assets/icons/hiring/turing.png';
 import DOG from '../assets/icons/hiring/robot-dog.png';
+import SUPERCOMPUTER from '../assets/icons/hiring/super-computer.png';
 import PYTHON from '../assets/icons/python.png';
 import { FloatingPoint } from '../utils/MoneyManager'
 
@@ -30,7 +31,7 @@ export interface StandardUpgrade {
 
 export enum StandardUpgradeType {
     KEYBOARD,
-    PROMOTION,
+    PAYRAISE,
     TABS
 }
 
@@ -158,27 +159,27 @@ export const upgradesData = {
             cps: 1953125
         },
         {
-            id: 10,
-            name: "Deep Blue",
-            description: "Checkmate",
-            image: PRINCIPAL,   //todo
+            id: 11,
+            name: "Super Computer",
+            description: "01101110 01110101 01110100 01110011",
+            image: SUPERCOMPUTER,
             baseCost: {
                 base: 1,
                 exponent: 49
             },
             cps: 1953125 * 5
         },
-        {
-            id: 11,
-            name: "GLaDOS",
-            description: "Cake",
-            image: PRINCIPAL,   //todo
-            baseCost: {
-                base: 1,
-                exponent: 54
-            },
-            cps: 1953125 * 5 * 5
-        }
+        // {
+        //     id: 12,
+        //     name: "GLaDOS",
+        //     description: "Cake",
+        //     image: PRINCIPAL,   //todo
+        //     baseCost: {
+        //         base: 1,
+        //         exponent: 54
+        //     },
+        //     cps: 1953125 * 5 * 5
+        // }
     ],
     standard: [
         {
@@ -191,9 +192,9 @@ export const upgradesData = {
             }
         },
         {
-            name: "Promotion 1",
-            type: StandardUpgradeType.PROMOTION,
-            description: "Congrats on your first promotion! Earn more money per line of code!",
+            name: "Pay Raise 1",
+            type: StandardUpgradeType.PAYRAISE,
+            description: "Congrats on your first pay raise! Earn more money per line of code!",
             baseCost: {
                 base: 1,
                 exponent: 8
@@ -209,9 +210,9 @@ export const upgradesData = {
             }
         },
         {
-            name: "Promotion 2",
-            type: StandardUpgradeType.PROMOTION,
-            description: "Congrats on your second promotion! Earn more money per line of code!",
+            name: "Pay Raise 2",
+            type: StandardUpgradeType.PAYRAISE,
+            description: "Congrats on your second pay raise! Earn more money per line of code!",
             baseCost: {
                 base: 1,
                 exponent: 13
@@ -236,9 +237,9 @@ export const upgradesData = {
             }
         },
         {
-            name: "Promotion 3",
-            type: StandardUpgradeType.PROMOTION,
-            description: "Congrats on your third promotion! Earn more money per line of code!",
+            name: "Pay Raise 3",
+            type: StandardUpgradeType.PAYRAISE,
+            description: "Congrats on your third pay raise! Earn more money per line of code!",
             baseCost: {
                 base: 1,
                 exponent: 18
@@ -254,9 +255,9 @@ export const upgradesData = {
             }
         },
         {
-            name: "Promotion 4",
-            type: StandardUpgradeType.PROMOTION,
-            description: "Congrats on your fourth promotion! Earn more money per line of code!",
+            name: "Pay Raise 4",
+            type: StandardUpgradeType.PAYRAISE,
+            description: "Congrats on your fourth pay raise! Earn more money per line of code!",
             baseCost: {
                 base: 1,
                 exponent: 23
@@ -281,9 +282,9 @@ export const upgradesData = {
             }
         },
         {
-            name: "Promotion 5",
-            type: StandardUpgradeType.PROMOTION,
-            description: "Congrats on your fifth promotion! Earn more money per line of code!",
+            name: "Pay Raise 5",
+            type: StandardUpgradeType.PAYRAISE,
+            description: "Congrats on your fifth pay raise! Earn more money per line of code!",
             baseCost: {
                 base: 1,
                 exponent: 28
@@ -299,9 +300,9 @@ export const upgradesData = {
             }
         },
         {
-            name: "Promotion 6",
-            type: StandardUpgradeType.PROMOTION,
-            description: "Congrats on your sixth promotion! Earn more money per line of code!",
+            name: "Pay Raise 6",
+            type: StandardUpgradeType.PAYRAISE,
+            description: "Congrats on your sixth pay raise! Earn more money per line of code!",
             baseCost: {
                 base: 1,
                 exponent: 33
@@ -326,9 +327,9 @@ export const upgradesData = {
             }
         },
         {
-            name: "Promotion 7",
-            type: StandardUpgradeType.PROMOTION,
-            description: "Congrats on your seventh promotion! Earn more money per line of code!",
+            name: "Pay Raise 7",
+            type: StandardUpgradeType.PAYRAISE,
+            description: "Congrats on your seventh pay raise! Earn more money per line of code!",
             baseCost: {
                 base: 1,
                 exponent: 38
@@ -353,9 +354,9 @@ export const upgradesData = {
             }
         },
         {
-            name: "Promotion 8",
-            type: StandardUpgradeType.PROMOTION,
-            description: "Congrats on your eigth promotion! Earn more money per line of code!",
+            name: "Pay Raise 8",
+            type: StandardUpgradeType.PAYRAISE,
+            description: "Congrats on your eigth pay raise! Earn more money per line of code!",
             baseCost: {
                 base: 1,
                 exponent: 43
@@ -371,9 +372,9 @@ export const upgradesData = {
             }
         },
         {
-            name: "Promotion 9",
-            type: StandardUpgradeType.PROMOTION,
-            description: "Congrats on your ninth promotion! Earn more money per line of code!",
+            name: "Pay Raise 9",
+            type: StandardUpgradeType.PAYRAISE,
+            description: "Congrats on your ninth pay raise! Earn more money per line of code!",
             baseCost: {
                 base: 1,
                 exponent: 48
@@ -398,9 +399,9 @@ export const upgradesData = {
             }
         },
         {
-            name: "Promotion 10",
-            type: StandardUpgradeType.PROMOTION,
-            description: "Congrats on your final promotion? Earn more money per line of code!",
+            name: "Pay Raise 10",
+            type: StandardUpgradeType.PAYRAISE,
+            description: "Congrats on your final pay raise? Earn more money per line of code!",
             baseCost: {
                 base: 1,
                 exponent: 53

@@ -3,12 +3,18 @@ import { colours } from '../../assets/colours';
 import { textStyles } from '../../assets/textStyles';
 import { EXPLORER_WIDTH, TITLE_BAR_HEIGHT } from '../../assets/constants';
 import HiringExplorer from './hiring/HiringExplorer';
-import KeyboardExplorer from './keyboard/StandardExplorer';
+import StandardExplorer from './keyboard/StandardExplorer';
 import getWindowDimensions from '../../utils/WindowDimensions';
+import ProjectsExplorer from './projects/ProjectsExplorer';
+import EnddayExplorer from './endday/EnddayExplorer';
+import SettingsExplorer from './settings/SettingsExplorer';
 
 export enum ExplorerStates {
     HIRING,
-    STANDARD
+    STANDARD,
+    PROJECTS,
+    ENDDAY,
+    SETTINGS
 }
 
 interface ExplorerProps {
@@ -25,7 +31,19 @@ function Explorer(props: ExplorerProps) {
             }
             {
                 props.explorerState == ExplorerStates.STANDARD &&
-                <KeyboardExplorer />
+                <StandardExplorer />
+            }
+            {
+                props.explorerState == ExplorerStates.PROJECTS &&
+                <ProjectsExplorer />
+            }
+            {
+                props.explorerState == ExplorerStates.ENDDAY &&
+                <EnddayExplorer />
+            }
+            {
+                props.explorerState == ExplorerStates.SETTINGS &&
+                <SettingsExplorer />
             }
         </div>
     );
@@ -46,7 +64,7 @@ const styles = {
         width: 20,
         backgroundColor: colours.explorer,
         alignSelf: 'flex-start' as 'flex-start',
-        marginLeft: EXPLORER_WIDTH - 50
+        marginLeft: EXPLORER_WIDTH - 38
     },
     qtyContainer: {
         display: 'flex',

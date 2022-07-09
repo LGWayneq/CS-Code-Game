@@ -27,7 +27,7 @@ function StandardCard(props: StandardCardProps) {
         if (ableToPurchase(money, upgrade.baseCost)) {
             if (upgrade.type == StandardUpgradeType.KEYBOARD) {
                 dispatch(incrementCpkByAmount(1))
-            } else if (upgrade.type == StandardUpgradeType.PROMOTION) {
+            } else if (upgrade.type == StandardUpgradeType.PAYRAISE) {
                 dispatch(incrementMplByAmount(1))
             } else if (upgrade.type == StandardUpgradeType.TABS) {
                 //to be implemented
@@ -41,7 +41,7 @@ function StandardCard(props: StandardCardProps) {
         <div style={styles.container}>
             {props.upgrade.type === StandardUpgradeType.KEYBOARD && <KeyboardIcon sx={styles.icon} />}
             {props.upgrade.type === StandardUpgradeType.TABS && <TabIcon sx={styles.icon} />}
-            {props.upgrade.type === StandardUpgradeType.PROMOTION && <PaidIcon sx={styles.icon} />}
+            {props.upgrade.type === StandardUpgradeType.PAYRAISE && <PaidIcon sx={styles.icon} />}
             <div>
                 <body style={styles.name}>{props.upgrade.name}</body>
                 <body style={styles.description}>{props.upgrade.description}</body>

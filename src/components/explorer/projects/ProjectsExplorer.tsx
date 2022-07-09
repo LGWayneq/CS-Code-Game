@@ -4,28 +4,21 @@ import { textStyles } from '../../../assets/textStyles';
 import { EXPLORER_WIDTH } from '../../../assets/constants';
 import { upgradesData } from '../../../assets/upgradesData';
 import { useAppSelector } from '../../../utils/redux/hooks'
-import StandardCard from './StandardCard';
 import { ableToPurchase, FloatingPoint, multiply } from '../../../utils/MoneyManager';
 
-function StandardExplorer() {
+function ProjectsExplorer() {
     const money: FloatingPoint = useAppSelector(state => state.money.value)
     const isStandardUpgradePurchased = useAppSelector(state => state.upgrades.isStandardUpgradePurchased)
 
     return (
         <div style={{ ...styles.container }}>
-            <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>UPGRADES</p>
-            {upgradesData.standard.map((upgrade, index) => {
-                if (!isStandardUpgradePurchased[index] && ableToPurchase(multiply(money, 10), upgrade.baseCost)) {
-                    return (
-                        <StandardCard key={index} index={index} upgrade={upgrade} />
-                    )
-                }
-            })}
+            <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>PROJECTS</p>
+            
         </div>
     );
 }
 
-export default StandardExplorer;
+export default ProjectsExplorer;
 
 const styles = {
     container: {

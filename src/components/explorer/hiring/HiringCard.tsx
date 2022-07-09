@@ -67,7 +67,7 @@ export default HiringCard;
 const styles = {
     container: {
         display: 'flex',
-        width: EXPLORER_WIDTH - 50,
+        width: EXPLORER_WIDTH - 40,
         backgroundColor: colours.explorer,
         flexDirection: 'row' as 'row',
         marginTop: 30,
