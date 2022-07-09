@@ -40,7 +40,7 @@ export const upgradesData = {
         {
             id: 0,
             name: "Intern",
-            description: "Cheap labour",
+            description: "Just a baby",
             image: INTERN,
             baseCost: {
                 base: 1,

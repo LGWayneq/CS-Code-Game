@@ -5,6 +5,7 @@ import cpkReducer from './slices/cpkSlice'
 import mplReducer from './slices/mplSlice'
 import upgradesReducer from './slices/upgradesSlide'
 import tabsReducer from './slices/tabsSlice'
+import dayStartReducer from './slices/dayStartSlice'
 
 export const store = configureStore({
   reducer: {
@@ -13,7 +14,8 @@ export const store = configureStore({
     cpk: cpkReducer,
     mpl: mplReducer,
     upgrades: upgradesReducer,
-    tabs: tabsReducer
+    tabs: tabsReducer,
+    dayStart: dayStartReducer
   }
 })
 

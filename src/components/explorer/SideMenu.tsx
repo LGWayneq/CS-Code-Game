@@ -58,7 +58,8 @@ const styles = {
         display: 'flex',
         flexDirection: 'row' as 'row',
         alignItems: 'center' as 'center',
-        justifyContent: 'flex-start' as 'flex-start'
+        justifyContent: 'flex-start' as 'flex-start',
+        marginBottom: 10
     },
     icon: {
         color: colours.offwhite,

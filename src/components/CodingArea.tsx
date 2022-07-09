@@ -10,7 +10,7 @@ import { useAppSelector } from '../utils/redux/hooks'
 
 const initialCodeLines = [
     <CodeLine key={-1} index={-1} highlighted={false}>{startComment}</CodeLine>,
-    <CodeLine key={0} index={0} highlighted={true}>{""}</CodeLine>
+    <CodeLine key={0} index={0} highlighted={true}>{''}</CodeLine>
 ]
 
 function CodingArea() {
@@ -23,8 +23,10 @@ function CodingArea() {
     const cpk = useAppSelector(state => state.cpk.value)   // cpk - characters per press
     const cps = useAppSelector(state => state.cps.value)
     const mpl = useAppSelector(state => state.mpl.value)
+    const dayStart = useAppSelector(state => state.dayStart.value)
     const dispatch = useAppDispatch()
 
+    //useEffect to handle active typing
     useEffect(() => {
         function handleKeyDown() {
             if (!keypressed) {
@@ -44,18 +46,26 @@ function CodingArea() {
         }
     }, [currentIndex, keypressed])
 
+    //useEffect to handle idle typing
     useEffect(() => {
         const idleUpdater = setInterval(() => {
             //handle float CPS values
-            const cpsIncrementFloat = residualChars + cps / 10
-            const cpsIncrementInt = Math.trunc(cpsIncrementFloat)
-            setResidualChars(cpsIncrementFloat - cpsIncrementInt)
-            //use integer CPS to update codeLines
-            updateCodeLines(currentIndex, cpsIncrementInt)
-            trimCodeLines()
+            if (cps > 0) {
+                const cpsIncrementFloat = residualChars + cps / 10
+                const cpsIncrementInt = Math.trunc(cpsIncrementFloat)
+                setResidualChars(cpsIncrementFloat - cpsIncrementInt)
+                //use integer CPS to update codeLines
+                updateCodeLines(currentIndex, cpsIncrementInt)
+                trimCodeLines()
+            }
         }, 100)
         return () => clearInterval(idleUpdater)
     })
+
+    useEffect(() => {
+        console.log(JSON.parse(JSON.stringify(initialCodeLines)))
+        clearCodeLines()
+    }, [dayStart])
 
     const updateCodeLines = (currentIndex: number, increment: number) => {
         var _currentLine: number = currentLine
@@ -106,6 +116,16 @@ function CodingArea() {
             numOfRemovableLines++
         }
         setCodeLines(codeLines.slice(numOfRemovableLines))
+    }
+
+    const clearCodeLines = () => {
+        setCodeLines([
+            <CodeLine key={-1} index={-1} highlighted={false}>{startComment}</CodeLine>,
+            <CodeLine key={0} index={0} highlighted={true}>{''}</CodeLine>
+        ])
+        setCurrentIndex(1)
+        setCurrentLine(0)
+        setResidualChars(0)
     }
 
     return (
