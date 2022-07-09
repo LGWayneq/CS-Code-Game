@@ -9,17 +9,12 @@ import { setCurrentIndex, setCurrentLine, setResidualChars, resetCodingArea } fr
 import { useAppDispatch } from '../utils/redux/hooks';
 import { useAppSelector } from '../utils/redux/hooks'
 
-const initialCodeLines = [
-    <CodeLine key={-1} index={-1} highlighted={false}>{startComment}</CodeLine>,
-    <CodeLine key={0} index={0} highlighted={true}>{''}</CodeLine>
-]
+const initialCodeLines = startComment + '\n'
+
 
 function CodingArea() {
     const containerRef = useRef<HTMLDivElement>(null)
-    const [codeLines, setCodeLines] = useState<Array<JSX.Element>>([
-        <CodeLine key={-1} index={-1} highlighted={false}>{startComment}</CodeLine>,
-        <CodeLine key={0} index={0} highlighted={true}>{''}</CodeLine>
-    ])
+    const [codeLines, setCodeLines] = useState<string>(initialCodeLines)
     const [keypressed, setKeypressed] = useState<boolean>(false)
     const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true)
     const codingAreaState = useAppSelector(state => state.codingArea)
@@ -32,8 +27,8 @@ function CodingArea() {
     //first render: render codelines based on currentIndex, currentLine
     useEffect(() => {
         //todo (major): fix refresh bug. may want to completely refactor how codelines are generated so that data can be stored using redux
-        // updateCodeLines(1, 0, codingAreaState.currentIndex)
-        // trimCodeLines()
+        const newCodeLines = updateCodeLines(1, codingAreaState.currentIndex - 1)
+        trimCodeLines(newCodeLines)
         setIsFirstLoad(false)
     }, [])
 
@@ -41,8 +36,8 @@ function CodingArea() {
     useEffect(() => {
         function handleKeyDown() {
             if (!keypressed) {
-                updateCodeLines(codingAreaState.currentIndex, codingAreaState.currentLine, cpk)
-                trimCodeLines()
+                const newCodeLines = updateCodeLines(codingAreaState.currentIndex, cpk)
+                trimCodeLines(newCodeLines)
             }
             setKeypressed(true)
         }
@@ -66,8 +61,8 @@ function CodingArea() {
                 const cpsIncrementInt = Math.trunc(cpsIncrementFloat)
                 dispatch(setResidualChars(cpsIncrementFloat - cpsIncrementInt))
                 //use integer CPS to update codeLines
-                updateCodeLines(codingAreaState.currentIndex, codingAreaState.currentLine, cpsIncrementInt)
-                trimCodeLines()
+                const newCodeLines = updateCodeLines(codingAreaState.currentIndex, cpsIncrementInt)
+                trimCodeLines(newCodeLines)
             }
         }, 100)
         return () => clearInterval(idleUpdater)
@@ -76,61 +71,31 @@ function CodingArea() {
     useEffect(() => {
         if (!isFirstLoad) {
             dispatch(resetCodingArea())
-            setCodeLines([
-                <CodeLine key={-1} index={-1} highlighted={false}>{startComment}</CodeLine>,
-                <CodeLine key={0} index={0} highlighted={true}>{''}</CodeLine>
-            ])
+            setCodeLines(initialCodeLines)
         }
     }, [dayStart])
 
-    const updateCodeLines = (currentIndex: number, currentLine: number, increment: number) => {
-        var currentCodeLine: JSX.Element | undefined
-        for (var i = 0; i < increment; i++) {
-            //check if reached end of codeContent. loop back to first index
-            if (currentIndex + i >= codeContent.length) {
-                currentIndex = -i + 1
-            }
-            //pop codeLines to modify content in current line
-            if (i == 0 || codeContent[currentIndex + i - 1] == '\n') {
-                currentCodeLine = codeLines.pop()
-            }
-            //behaviour to create new line
-            if (codeContent[currentIndex + i] == '\n') {
-                appendCodeLine(<CodeLine key={currentLine} index={currentLine} highlighted={false}>{currentCodeLine?.props.children}</CodeLine>)
-                currentLine++
-                currentCodeLine = <CodeLine key={currentLine} index={currentLine} highlighted={true}>{""}</CodeLine>
-                appendCodeLine(currentCodeLine)
-                dispatch(setCurrentLine(currentLine))
-                dispatch(incrementMoneyByAmount({ base: mpl, exponent: 0 }))
-            } else {    //default behaviour
-                currentCodeLine = <CodeLine key={currentLine} index={currentLine} highlighted={true}>{currentCodeLine?.props.children + codeContent[currentIndex + i]}</CodeLine>
-            }
-        }
-
-        if (codeContent[currentIndex + i - 1] != '\n') {
-            appendCodeLine(currentCodeLine)
-        }
-        dispatch(setCurrentIndex(currentIndex + increment))
+    const updateCodeLines = (currentIndex: number, increment: number) => {
+        const newIndex = currentIndex + increment
+        setCodeLines(startComment + codeContent.slice(0, newIndex))
+        dispatch(setCurrentIndex(newIndex))
+        const numberOfLinesAdded = (codeContent.slice(currentIndex, newIndex).match(/\n/g) || []).length
+        dispatch(incrementMoneyByAmount({ base: mpl * numberOfLinesAdded, exponent: 0 }))
+        return startComment + codeContent.slice(0, newIndex)
     }
 
-    const appendCodeLine = (newCodeLine: JSX.Element | undefined) => {
-        if (newCodeLine != undefined) {
-            const currentCodeLines = codeLines
-            currentCodeLines.push(newCodeLine)
-            setCodeLines(currentCodeLines)
-            return currentCodeLines
-        } else {
-            return codeLines
-        }
-    }
-
-    const trimCodeLines = () => {
+    const trimCodeLines = (codeLines: string) => {
         const codingAreaHeight = containerRef.current?.clientHeight == undefined ? 0 : containerRef.current?.clientHeight
         var numOfRemovableLines = 0
-        while ((codeLines.length - numOfRemovableLines) * CODE_LINE_HEIGHT > 0.9 * codingAreaHeight) {
+        const codeLinesArray = codeLines.split('\n')
+        // todo: optimise to constant time
+        while ((codeLinesArray.length - numOfRemovableLines) * CODE_LINE_HEIGHT > 0.9 * codingAreaHeight) {
             numOfRemovableLines++
         }
-        setCodeLines(codeLines.slice(numOfRemovableLines))
+        dispatch(setCurrentLine(numOfRemovableLines))
+        const newCodeLinesArray = codeLinesArray.slice(numOfRemovableLines)
+        const newCodeLines = newCodeLinesArray.join('\n')
+        setCodeLines(newCodeLines)
     }
 
     return (
@@ -141,7 +106,12 @@ function CodingArea() {
                 height: 0.7 * WindowDimensions().height - TITLE_BAR_HEIGHT - TAB_HEIGHT,
                 width: WindowDimensions().width - SIDE_MENU_WIDTH - EXPLORER_WIDTH,
             }}>
-            {codeLines}
+            {codeLines.split('\n').map((line, index) => {
+                return (
+                    //index probably need to be changed
+                    <CodeLine key={index} index={codingAreaState.currentLine + index} highlighted={index == codeLines.split('\n').length - 1}>{line}</CodeLine>
+                )
+            })}
         </div>
     );
 }

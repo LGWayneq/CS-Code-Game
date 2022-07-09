@@ -20,7 +20,9 @@ function saveToLocalStorage(state: any) {
 function loadFromLocalStorage() {
   try {
     const serialisedState = localStorage.getItem("store");
-    if (serialisedState === null) return undefined;
+    if (serialisedState === null) {
+      return undefined;
+    }
     return JSON.parse(serialisedState);
   } catch (e) {
     console.warn(e);
