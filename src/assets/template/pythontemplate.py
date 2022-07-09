@@ -1,9 +1,4 @@
-export const startComment = `#Type anything to begin coding! You are paid for each line of code you write.`
-export const codeContent = 
-`\ndef hello_world():
-    print("Hello World")
-
-    def insertionSort(arr):
+def insertionSort(arr):
     for i in range(1, len(arr)):
         key = arr[i]
         j = i-1
@@ -57,5 +52,3 @@ def quicksort(l, r, nums):
         quicksort(l, pi-1, nums)
         quicksort(pi+1, r, nums)
     return nums
-
-`

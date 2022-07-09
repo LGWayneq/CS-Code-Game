@@ -31,7 +31,7 @@ function CodeLine(props: CodeLineProps) {
             <p style={props.highlighted ? textStyles.codeLabelHighlighted : textStyles.codeLabel}>{props.index + 1}</p>
             {renderTabs()}
             {
-                props.children[0] == '/' ?
+                props.children[0] == '#' ?
                     <p style={textStyles.comment}>{`${props.children}`}</p> :
                     <p style={textStyles.codeContent}>{`${props.children}`}</p>
             }
