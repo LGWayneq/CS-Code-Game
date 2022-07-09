@@ -44,7 +44,18 @@ export const upgradesSlice = createSlice({
             state.isStandardUpgradePurchased[action.payload] = true
         },
         resetUpgrades: (state) => {
-            state = initialState
+            state.hiring = upgradesData.hiring.map((item, index) => {
+                return (
+                    {
+                        id: index,
+                        name: item.name,
+                        qty: 0
+                    }
+                )
+            })
+            state.isStandardUpgradePurchased = upgradesData.hiring.map((item, index) => {
+                return false
+            })
         }
     }
 })

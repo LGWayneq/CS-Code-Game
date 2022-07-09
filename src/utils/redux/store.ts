@@ -8,7 +8,7 @@ import tabsReducer from './slices/tabsSlice'
 import dayStartReducer from './slices/dayStartSlice'
 import codingAreaReducer from './slices/codingAreaSlice'
 
-function saveToLocalStorage(state: any) {
+export function saveToLocalStorage(state: any) {
   try {
     const serialisedState = JSON.stringify(state);
     localStorage.setItem("store", serialisedState);
