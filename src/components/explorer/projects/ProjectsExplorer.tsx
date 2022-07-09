@@ -2,14 +2,8 @@ import React, { useState } from 'react';
 import { colours } from '../../../assets/colours';
 import { textStyles } from '../../../assets/textStyles';
 import { EXPLORER_WIDTH } from '../../../assets/constants';
-import { upgradesData } from '../../../assets/upgradesData';
-import { useAppSelector } from '../../../utils/redux/hooks'
-import { ableToPurchase, FloatingPoint, multiply } from '../../../utils/MoneyManager';
 
 function ProjectsExplorer() {
-    const money: FloatingPoint = useAppSelector(state => state.money.value)
-    const isStandardUpgradePurchased = useAppSelector(state => state.upgrades.isStandardUpgradePurchased)
-
     return (
         <div style={{ ...styles.container }}>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>PROJECTS</p>

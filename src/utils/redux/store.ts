@@ -7,6 +7,26 @@ import upgradesReducer from './slices/upgradesSlide'
 import tabsReducer from './slices/tabsSlice'
 import dayStartReducer from './slices/dayStartSlice'
 
+function saveToLocalStorage(state: any) {
+  try {
+    const serialisedState = JSON.stringify(state);
+    localStorage.setItem("store", serialisedState);
+  } catch (e) {
+    console.warn(e);
+  }
+}
+
+function loadFromLocalStorage() {
+  try {
+    const serialisedState = localStorage.getItem("store");
+    if (serialisedState === null) return undefined;
+    return JSON.parse(serialisedState);
+  } catch (e) {
+    console.warn(e);
+    return undefined;
+  }
+}
+
 export const store = configureStore({
   reducer: {
     money: moneyReducer,
@@ -16,8 +36,11 @@ export const store = configureStore({
     upgrades: upgradesReducer,
     tabs: tabsReducer,
     dayStart: dayStartReducer
-  }
+  },
+  preloadedState: loadFromLocalStorage()
 })
+
+store.subscribe(() => saveToLocalStorage(store.getState()))
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>

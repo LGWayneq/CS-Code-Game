@@ -63,7 +63,6 @@ function CodingArea() {
     })
 
     useEffect(() => {
-        console.log(JSON.parse(JSON.stringify(initialCodeLines)))
         clearCodeLines()
     }, [dayStart])
 

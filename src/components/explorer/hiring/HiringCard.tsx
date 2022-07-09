@@ -22,7 +22,6 @@ function HiringCard(props: HiringCardProps) {
 
     const handleIncreaseHiring = (id: number, qty: number) => {
         const purchasePrice = calculateCost(props.upgrade.baseCost, hiring[props.upgrade.id].qty, qty)
-        console.log(purchasePrice)
         if (ableToPurchase(money, purchasePrice)) {
             dispatch(increaseHiringByAmount({ id: id, qty: qty }))
             dispatch(decrementMoneyByAmount(purchasePrice))
