@@ -10,7 +10,7 @@ import { useAppDispatch } from '../utils/redux/hooks';
 import { useAppSelector } from '../utils/redux/hooks'
 
 const initialCodeLines = startComment + '\n'
-
+const TOTAL_CODE_CONTENT_LINES = codeContent.split('\n').length
 
 function CodingArea() {
     const containerRef = useRef<HTMLDivElement>(null)
@@ -24,20 +24,18 @@ function CodingArea() {
     const dayStart = useAppSelector(state => state.dayStart.value)
     const dispatch = useAppDispatch()
 
-    //first render: render codelines based on currentIndex, currentLine
+    //first render: render codelines based on currentIndex
     useEffect(() => {
-        //todo (major): fix refresh bug. may want to completely refactor how codelines are generated so that data can be stored using redux
-        const newCodeLines = updateCodeLines(1, codingAreaState.currentIndex - 1)
-        trimCodeLines(newCodeLines)
+        updateCodeLines(1, codingAreaState.currentIndex - 1)
         setIsFirstLoad(false)
     }, [])
 
     //useEffect to handle active typing
     useEffect(() => {
+        // todo (major): fix conflict between idle typing and active typing
         function handleKeyDown() {
             if (!keypressed) {
-                const newCodeLines = updateCodeLines(codingAreaState.currentIndex, cpk)
-                trimCodeLines(newCodeLines)
+                updateCodeLines(codingAreaState.currentIndex, cpk)
             }
             setKeypressed(true)
         }
@@ -50,7 +48,7 @@ function CodingArea() {
             window.removeEventListener('keydown', handleKeyDown)
             window.removeEventListener('keyup', handleKeyUp)
         }
-    }, [codingAreaState.currentIndex, keypressed])
+    }, [codeLines, codingAreaState.currentIndex, keypressed])
 
     //useEffect to handle idle typing
     useEffect(() => {
@@ -61,8 +59,7 @@ function CodingArea() {
                 const cpsIncrementInt = Math.trunc(cpsIncrementFloat)
                 dispatch(setResidualChars(cpsIncrementFloat - cpsIncrementInt))
                 //use integer CPS to update codeLines
-                const newCodeLines = updateCodeLines(codingAreaState.currentIndex, cpsIncrementInt)
-                trimCodeLines(newCodeLines)
+                updateCodeLines(codingAreaState.currentIndex, cpsIncrementInt)
             }
         }, 100)
         return () => clearInterval(idleUpdater)
@@ -76,26 +73,37 @@ function CodingArea() {
     }, [dayStart])
 
     const updateCodeLines = (currentIndex: number, increment: number) => {
-        const newIndex = currentIndex + increment
-        setCodeLines(startComment + codeContent.slice(0, newIndex))
+        var newIndex = currentIndex + increment
+        console.log(newIndex)
+        var newCodeLines = codeLines
+        newCodeLines += codeContent.slice(currentIndex, newIndex)
+        console.log(newCodeLines)
+        var numOfLinesAdded = (codeContent.slice(currentIndex, newIndex).match(/\n/g) || []).length
+        if (newIndex > codeContent.length) {
+            while (newIndex >= codeContent.length) {
+                newIndex -= codeContent.length
+                newCodeLines += codeContent.slice(0, newIndex)
+                numOfLinesAdded += (codeContent.slice(0, newIndex).match(/\n/g) || []).length
+            }
+        }
+        dispatch(incrementMoneyByAmount({ base: mpl * numOfLinesAdded, exponent: 0 }))
+        setCodeLines(newCodeLines)
+        trimCodeLines(newCodeLines)
         dispatch(setCurrentIndex(newIndex))
-        const numberOfLinesAdded = (codeContent.slice(currentIndex, newIndex).match(/\n/g) || []).length
-        dispatch(incrementMoneyByAmount({ base: mpl * numberOfLinesAdded, exponent: 0 }))
-        return startComment + codeContent.slice(0, newIndex)
     }
 
     const trimCodeLines = (codeLines: string) => {
         const codingAreaHeight = containerRef.current?.clientHeight == undefined ? 0 : containerRef.current?.clientHeight
-        var numOfRemovableLines = 0
         const codeLinesArray = codeLines.split('\n')
-        // todo: optimise to constant time
-        while ((codeLinesArray.length - numOfRemovableLines) * CODE_LINE_HEIGHT > 0.9 * codingAreaHeight) {
-            numOfRemovableLines++
+
+        const maxNumOfCodeLines: number = Math.round(0.9 * codingAreaHeight / CODE_LINE_HEIGHT)
+        const numOfRemovableLines = codeLinesArray.length - maxNumOfCodeLines
+        if (numOfRemovableLines > 0) {
+            dispatch(setCurrentLine(numOfRemovableLines))
+            const newCodeLinesArray = codeLinesArray.slice(numOfRemovableLines)
+            const newCodeLines = newCodeLinesArray.join('\n')
+            setCodeLines(newCodeLines)
         }
-        dispatch(setCurrentLine(numOfRemovableLines))
-        const newCodeLinesArray = codeLinesArray.slice(numOfRemovableLines)
-        const newCodeLines = newCodeLinesArray.join('\n')
-        setCodeLines(newCodeLines)
     }
 
     return (
