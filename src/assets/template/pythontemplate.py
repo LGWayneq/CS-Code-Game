@@ -1,3 +1,6 @@
+def hello_world():
+    print("Hello World")
+
 def insertionSort(arr):
     for i in range(1, len(arr)):
         key = arr[i]
@@ -28,6 +31,7 @@ def mergeSort(arr):
             arr[k] = L[i]
             i += 1
             k += 1
+            test = ""
         while j < len(R):
             arr[k] = R[j]
             j += 1

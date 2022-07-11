@@ -10,7 +10,6 @@ import { useAppDispatch } from '../utils/redux/hooks';
 import { useAppSelector } from '../utils/redux/hooks'
 
 const initialCodeLines = startComment + '\n'
-const TOTAL_CODE_CONTENT_LINES = codeContent.split('\n').length
 
 function CodingArea() {
     const containerRef = useRef<HTMLDivElement>(null)
@@ -32,10 +31,10 @@ function CodingArea() {
 
     //useEffect to handle active typing
     useEffect(() => {
-        // todo (major): fix conflict between idle typing and active typing
         function handleKeyDown() {
             if (!keypressed) {
-                updateCodeLines(codingAreaState.currentIndex, cpk)
+                const numOfLinesAdded = updateCodeLines(codingAreaState.currentIndex, cpk)
+                updateMoney(numOfLinesAdded)
             }
             setKeypressed(true)
         }
@@ -59,7 +58,8 @@ function CodingArea() {
                 const cpsIncrementInt = Math.trunc(cpsIncrementFloat)
                 dispatch(setResidualChars(cpsIncrementFloat - cpsIncrementInt))
                 //use integer CPS to update codeLines
-                updateCodeLines(codingAreaState.currentIndex, cpsIncrementInt)
+                const numOfLinesAdded = updateCodeLines(codingAreaState.currentIndex, cpsIncrementInt)
+                updateMoney(numOfLinesAdded)
             }
         }, 100)
         return () => clearInterval(idleUpdater)
@@ -74,10 +74,8 @@ function CodingArea() {
 
     const updateCodeLines = (currentIndex: number, increment: number) => {
         var newIndex = currentIndex + increment
-        console.log(newIndex)
         var newCodeLines = codeLines
         newCodeLines += codeContent.slice(currentIndex, newIndex)
-        console.log(newCodeLines)
         var numOfLinesAdded = (codeContent.slice(currentIndex, newIndex).match(/\n/g) || []).length
         if (newIndex > codeContent.length) {
             while (newIndex >= codeContent.length) {
@@ -86,10 +84,10 @@ function CodingArea() {
                 numOfLinesAdded += (codeContent.slice(0, newIndex).match(/\n/g) || []).length
             }
         }
-        dispatch(incrementMoneyByAmount({ base: mpl * numOfLinesAdded, exponent: 0 }))
         setCodeLines(newCodeLines)
         trimCodeLines(newCodeLines)
         dispatch(setCurrentIndex(newIndex))
+        return numOfLinesAdded
     }
 
     const trimCodeLines = (codeLines: string) => {
@@ -104,6 +102,10 @@ function CodingArea() {
             const newCodeLines = newCodeLinesArray.join('\n')
             setCodeLines(newCodeLines)
         }
+    }
+
+    const updateMoney = (numOfLinesAdded: number) => {
+        dispatch(incrementMoneyByAmount({ base: mpl * numOfLinesAdded, exponent: 0 }))
     }
 
     return (
