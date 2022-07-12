@@ -13,7 +13,7 @@ export const textStyles = {
     },
     codeString: {
         fontSize: 14,
-        color: 'rgba(206,114,59,1)'
+        color: 'rgba(240, 150, 96,1)'
     },
     codeContent: {
         fontSize: 14,

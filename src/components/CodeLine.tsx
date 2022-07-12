@@ -27,7 +27,6 @@ const styles = {
 const SPACING_ELEMENT = <p style={{ ...textStyles.codeContent }}>&nbsp;</p>
 const DIVIDER_ELEMENT = <div style={styles.divider} />
 
-// todo: implement text evaluation to colour text
 function CodeLine(props: CodeLineProps) {
 
     function renderTabs() {
@@ -47,7 +46,7 @@ function CodeLine(props: CodeLineProps) {
     function renderContent() {
         if (props.children.length == 0) {
             return DIVIDER_ELEMENT
-        } else if (props.children[0] == '#') {
+        } else if (props.children.includes('#')) {
             return <p style={textStyles.comment}>{`${props.children}`}</p>
         } else {
             const content: Array<JSX.Element> = []
@@ -57,12 +56,17 @@ function CodeLine(props: CodeLineProps) {
                 pointer++
             }
             var children: string = insertEscapeChar(props.children)
-            if (children.slice(pointer).match(/.*(if|else|return|while).*/)) {
+            if (children.slice(pointer).match(/.*(if|else|return|while|for).*/)) {
                 const spaceIndex = children.slice(pointer).indexOf(" ")
                 content.push(<p style={textStyles.codeKeyword}>{`${children.slice(pointer, pointer + spaceIndex)}`}</p>)
                 pointer += spaceIndex
+            } else if (children.slice(pointer, pointer + 3).match(/^def$/)) {
+                content.push(<p style={textStyles.codeDef}>{`${children.slice(pointer, pointer + 3)}`}</p>)
+                pointer += 3
             }
             while (pointer < children.length) {
+                console.log(children)
+                console.log(children[pointer])
                 if (children[pointer] == " ") {
                     content.push(SPACING_ELEMENT)
                 } else if (children[pointer].match(/[:=<>+\-*\/,]/)) {
@@ -73,14 +77,32 @@ function CodeLine(props: CodeLineProps) {
                     pointer += bracketIndex - 1
                 } else if (children[pointer].match(/[\[\]()]/)) {
                     content.push(<p style={textStyles.codeBracket}>{`${children[pointer]}`}</p>)
-                } else if (children.slice(pointer, pointer + 3).match(/^def$|^and$|^or$/)) {
-                    content.push(<p style={textStyles.codeDef}>{`${children.slice(pointer, pointer + 3)}`}</p>)
-                    pointer += 2
+                } else if ((children.slice(pointer, pointer + 3).match(/^and$/) ||
+                    children.slice(pointer, pointer + 2).match(/^or$/) ||
+                    children.slice(pointer, pointer + 4).match(/^True$|^None$/) ||
+                    children.slice(pointer, pointer + 5).match(/^False$/)) && children[pointer - 1] == " ") {
+                    var spaceIndex = children.slice(pointer).indexOf(" ")
+                    if (spaceIndex == -1) spaceIndex = pointer + 1
+                    content.push(<p style={textStyles.codeDef}>{`${children.slice(pointer, pointer + spaceIndex)}`}</p>)
+                    pointer += spaceIndex - 1
+                } else if (!isNaN(Number(children[pointer]))) {
+                    var endOfNumber = pointer
+                    while (!isNaN(Number(children.slice(pointer, endOfNumber))) && endOfNumber <= children.length) {
+                        endOfNumber++
+                    }
+                    endOfNumber--
+                    content.push(<p style={textStyles.codeNumber}>{`${children.slice(pointer, endOfNumber)}`}</p>)
+                    if (children[pointer] == " ") pointer = endOfNumber - 1    //????
                 } else if (children[pointer] === '"') {
                     var endOfString = children.slice(pointer + 1).indexOf('"')
                     if (endOfString === -1) endOfString = children.slice(pointer).length
                     content.push(<p style={textStyles.codeString}>{`${children.slice(pointer, pointer + endOfString + 2)}`}</p>)
                     pointer += endOfString + 1
+                } else if (children.slice(pointer, pointer + 2).match(/^in$/) && children[pointer - 1] == " ") {
+                    var spaceIndex = children.slice(pointer).indexOf(" ")
+                    if (spaceIndex == -1) spaceIndex = pointer + 1
+                    content.push(<p style={textStyles.codeKeyword}>{`${children.slice(pointer, pointer + spaceIndex)}`}</p>)
+                    pointer += spaceIndex - 1
                 } else {
                     content.push(<p style={textStyles.codeContent}>{`${children[pointer]}`}</p>)
                 }
