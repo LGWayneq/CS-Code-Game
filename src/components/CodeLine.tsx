@@ -56,35 +56,51 @@ function CodeLine(props: CodeLineProps) {
             while (props.children[pointer] == " ") {
                 pointer++
             }
-            while (pointer < props.children.length) {
-                if (props.children[pointer] == " ") {
+            var children = insertEscapeChar(props.children)
+            console.log(children)
+            while (pointer < children.length) {
+                if (children[pointer] == " ") {
                     content.push(SPACING_ELEMENT)
-                } else if (props.children[pointer].match(/[:=<>+\-*\/,]/)) {
-                    content.push(<p style={textStyles.codeWhite}>{`${props.children[pointer]}`}</p>)
-                } else if (props.children[pointer].match(/[\[\]()]/)) {
-                    content.push(<p style={textStyles.codeBracket}>{`${props.children[pointer]}`}</p>)
-                } else if (props.children.slice(pointer, pointer + 3) == "def") {
-                    content.push(<p style={textStyles.codeDef}>{`${props.children.slice(pointer, pointer + 3)}`}</p>)
+                } else if (children[pointer].match(/[:=<>+\-*\/,]/)) {
+                    content.push(<p style={textStyles.codeWhite}>{`${children[pointer]}`}</p>)
+                } else if (children[pointer] == "\\") {
+                    const bracketIndex = children.slice(pointer).indexOf('(')
+                    content.push(<p style={textStyles.codeFunction}>{`${children.slice(pointer + 1, pointer + bracketIndex)}`}</p>)
+                    pointer += bracketIndex - 1
+                } else if (children[pointer].match(/[\[\]()]/)) {
+                    content.push(<p style={textStyles.codeBracket}>{`${children[pointer]}`}</p>)
+                } else if (children.slice(pointer, pointer + 3).match(/^def$|^and$|^or$/)) {
+                    content.push(<p style={textStyles.codeDef}>{`${children.slice(pointer, pointer + 3)}`}</p>)
                     pointer += 2
-                    // const endOfFunctionName = props.children.slice(pointer).indexOf('(')
-                    // content.push(SPACING_ELEMENT)
-                    // content.push(<p style={textStyles.codeFunction}>{`${props.children.slice(pointer, pointer + endOfFunctionName)}`}</p>)
-                    // pointer += endOfFunctionName - 1
-                } else if (props.children[pointer] === '"') {
-                    var endOfString = props.children.slice(pointer + 1).indexOf('"')
-                    if (endOfString === -1) endOfString = props.children.slice(pointer).length
-                    content.push(<p style={textStyles.codeString}>{`${props.children.slice(pointer, pointer + endOfString + 2)}`}</p>)
+                } else if (children[pointer] === '"') {
+                    var endOfString = children.slice(pointer + 1).indexOf('"')
+                    if (endOfString === -1) endOfString = children.slice(pointer).length
+                    content.push(<p style={textStyles.codeString}>{`${children.slice(pointer, pointer + endOfString + 2)}`}</p>)
                     pointer += endOfString + 1
-                } else if (props.children.match(/^if$|^else$|^while$|^return$/)) {
+                } else if (children.match(/^if$|^else$|^while$|^return$/)) {
                     //doesnt work yet
-                    content.push(<p style={textStyles.codeKeyword}>{`${props.children.slice(pointer, pointer + 3)}`}</p>)
+                    content.push(<p style={textStyles.codeKeyword}>{`${children.slice(pointer, pointer + 3)}`}</p>)
                 } else {
-                    content.push(<p style={textStyles.codeContent}>{`${props.children[pointer]}`}</p>)
+                    content.push(<p style={textStyles.codeContent}>{`${children[pointer]}`}</p>)
                 }
                 pointer++
             }
             return content
         }
+    }
+
+    function insertEscapeChar(children: string): string {
+        var newChild = ""
+        var iterString = children
+        while (iterString.indexOf('(') != -1) {
+            var bracketIndex = iterString.indexOf('(')
+            var i = bracketIndex
+            while (iterString[i] != " ") i--
+            newChild += (iterString.slice(0, i + 1) + '\\' + iterString.slice(i + 1, bracketIndex + 1))
+            iterString = iterString.slice(bracketIndex + 1)
+        }
+        newChild += iterString
+        return newChild
     }
 
     return (
