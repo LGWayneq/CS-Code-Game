@@ -65,12 +65,18 @@ function CodeLine(props: CodeLineProps) {
                     content.push(<p style={textStyles.codeBracket}>{`${props.children[pointer]}`}</p>)
                 } else if (props.children.slice(pointer, pointer + 3) == "def") {
                     content.push(<p style={textStyles.codeDef}>{`${props.children.slice(pointer, pointer + 3)}`}</p>)
-                    pointer += 3
-                    const endOfFunctionName = props.children.slice(pointer).indexOf('(')
-                    content.push(SPACING_ELEMENT)
-                    content.push(<p style={textStyles.codeFunction}>{`${props.children.slice(pointer, pointer + endOfFunctionName)}`}</p>)
-                    pointer += endOfFunctionName - 1
+                    pointer += 2
+                    // const endOfFunctionName = props.children.slice(pointer).indexOf('(')
+                    // content.push(SPACING_ELEMENT)
+                    // content.push(<p style={textStyles.codeFunction}>{`${props.children.slice(pointer, pointer + endOfFunctionName)}`}</p>)
+                    // pointer += endOfFunctionName - 1
+                } else if (props.children[pointer] === '"') {
+                    var endOfString = props.children.slice(pointer + 1).indexOf('"')
+                    if (endOfString === -1) endOfString = props.children.slice(pointer).length
+                    content.push(<p style={textStyles.codeString}>{`${props.children.slice(pointer, pointer + endOfString + 2)}`}</p>)
+                    pointer += endOfString + 1
                 } else if (props.children.match(/^if$|^else$|^while$|^return$/)) {
+                    //doesnt work yet
                     content.push(<p style={textStyles.codeKeyword}>{`${props.children.slice(pointer, pointer + 3)}`}</p>)
                 } else {
                     content.push(<p style={textStyles.codeContent}>{`${props.children[pointer]}`}</p>)
