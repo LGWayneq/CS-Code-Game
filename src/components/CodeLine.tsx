@@ -56,8 +56,12 @@ function CodeLine(props: CodeLineProps) {
             while (props.children[pointer] == " ") {
                 pointer++
             }
-            var children = insertEscapeChar(props.children)
-            console.log(children)
+            var children: string = insertEscapeChar(props.children)
+            if (children.slice(pointer).match(/.*(if|else|return|while).*/)) {
+                const spaceIndex = children.slice(pointer).indexOf(" ")
+                content.push(<p style={textStyles.codeKeyword}>{`${children.slice(pointer, pointer + spaceIndex)}`}</p>)
+                pointer += spaceIndex
+            }
             while (pointer < children.length) {
                 if (children[pointer] == " ") {
                     content.push(SPACING_ELEMENT)
@@ -77,9 +81,6 @@ function CodeLine(props: CodeLineProps) {
                     if (endOfString === -1) endOfString = children.slice(pointer).length
                     content.push(<p style={textStyles.codeString}>{`${children.slice(pointer, pointer + endOfString + 2)}`}</p>)
                     pointer += endOfString + 1
-                } else if (children.match(/^if$|^else$|^while$|^return$/)) {
-                    //doesnt work yet
-                    content.push(<p style={textStyles.codeKeyword}>{`${children.slice(pointer, pointer + 3)}`}</p>)
                 } else {
                     content.push(<p style={textStyles.codeContent}>{`${children[pointer]}`}</p>)
                 }
