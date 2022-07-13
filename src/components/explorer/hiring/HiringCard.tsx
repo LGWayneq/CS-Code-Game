@@ -9,6 +9,7 @@ import { incrementCpsByAmount } from '../../../utils/redux/slices/cpsSlice'
 import { decrementMoneyByAmount } from '../../../utils/redux/slices/moneySlice'
 import { increaseHiringByAmount } from '../../../utils/redux/slices/upgradesSlice'
 import { ableToPurchase, getMoneyDisplay, FloatingPoint, multiply, divide, subtract } from '../../../utils/MoneyManager';
+import BuyButton from '../../ui/BuyButton';
 
 interface HiringCardProps {
     upgrade: HiringUpgradeType,
@@ -54,7 +55,11 @@ function HiringCard(props: HiringCardProps) {
                 </div>
                 <div style={styles.selectionContainer}>
                     <body style={styles.costLabel}>CPS: {props.upgrade.cps}</body>
-                    <body style={styles.buy} onClick={() => handleIncreaseHiring(props.upgrade.id, props.purchaseQty)}>Hire {props.purchaseQty}</body>
+                    <BuyButton
+                        disabled={!ableToPurchase(money, calculateCost(props.upgrade.baseCost, hiring[props.upgrade.id].qty, props.purchaseQty))}
+                        onClick={() => handleIncreaseHiring(props.upgrade.id, props.purchaseQty)}>
+                        {`Hire ${props.purchaseQty}`}
+                    </BuyButton>
                 </div>
             </div>
         </div >
@@ -106,14 +111,5 @@ const styles = {
         fontSize: 14,
         alignSelf: 'flex-end' as 'flex-end',
         marginRight: 5
-    },
-    buy: {
-        ...textStyles.terminalLabel,
-        border: '1px grey solid',
-        borderRadius: 20,
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingBottom: 2,
-        cursor: 'pointer'
     }
 }

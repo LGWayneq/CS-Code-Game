@@ -13,6 +13,7 @@ import { purchaseStandardUpgrade } from '../../../utils/redux/slices/upgradesSli
 import KeyboardIcon from '@mui/icons-material/Keyboard';
 import TabIcon from '@mui/icons-material/Tab';
 import PaidIcon from '@mui/icons-material/Paid';
+import BuyButton from '../../ui/BuyButton';
 
 interface StandardCardProps {
     index: number,
@@ -50,7 +51,12 @@ function StandardCard(props: StandardCardProps) {
                         Cost:
                     </body>
                     {getMoneyDisplay(props.upgrade.baseCost)}
-                    <body style={styles.buy} onClick={() => handleBuyUpgrade(props.upgrade)}>Buy</body>
+                    <BuyButton
+                        style={{ marginLeft: 'auto', marginTop: 5 }}
+                        disabled={!ableToPurchase(money, props.upgrade.baseCost)}
+                        onClick={() => handleBuyUpgrade(props.upgrade)}>
+                        Buy
+                    </BuyButton>
                 </div>
             </div>
         </div >
@@ -99,15 +105,4 @@ const styles = {
         marginRight: 5,
         alignSelf: 'flex-end' as 'flex-end'
     },
-    buy: {
-        ...textStyles.terminalLabel,
-        border: '1px grey solid',
-        borderRadius: 20,
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingBottom: 2,
-        marginTop: 5,
-        marginLeft: 'auto',
-        cursor: 'pointer'
-    }
 }
