@@ -7,6 +7,7 @@ import upgradesReducer from './slices/upgradesSlice'
 import tabsReducer from './slices/tabsSlice'
 import dayStartReducer from './slices/dayStartSlice'
 import codingAreaReducer from './slices/codingAreaSlice'
+import projectsReducer from './slices/projectsSlice'
 
 function saveToLocalStorage(state: any) {
   try {
@@ -39,7 +40,8 @@ export const store = configureStore({
     mpl: mplReducer,
     upgrades: upgradesReducer,
     tabs: tabsReducer,
-    dayStart: dayStartReducer
+    dayStart: dayStartReducer,
+    projects: projectsReducer
   },
   preloadedState: loadFromLocalStorage()
 })

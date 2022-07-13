@@ -8,12 +8,14 @@ import getWindowDimensions from '../../utils/WindowDimensions';
 import ProjectsExplorer from './projects/ProjectsExplorer';
 import EnddayExplorer from './endday/EnddayExplorer';
 import SettingsExplorer from './settings/SettingsExplorer';
+import InfoExplorer from './info/InfoExplorer';
 
 export enum ExplorerStates {
     HIRING,
     STANDARD,
     PROJECTS,
     ENDDAY,
+    INFO,
     SETTINGS
 }
 
@@ -40,6 +42,10 @@ function Explorer(props: ExplorerProps) {
             {
                 props.explorerState == ExplorerStates.ENDDAY &&
                 <EnddayExplorer />
+            }
+            {
+                props.explorerState == ExplorerStates.INFO &&
+                <InfoExplorer />
             }
             {
                 props.explorerState == ExplorerStates.SETTINGS &&

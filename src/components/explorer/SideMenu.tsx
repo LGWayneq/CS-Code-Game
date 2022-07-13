@@ -6,6 +6,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import WorkIcon from '@mui/icons-material/Work';
 import ScheduleIcon from '@mui/icons-material/Schedule';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { ExplorerStates } from './Explorer'
 
@@ -34,6 +35,10 @@ function SideMenu(props: SideMenuProps) {
                 <ScheduleIcon sx={styles.icon} onClick={() => props.setExplorerState(ExplorerStates.ENDDAY)} />
             </div>
             <div style={{ ...styles.iconContainer, marginTop: 'auto' }}>
+                {props.explorerState == ExplorerStates.INFO ? <div style={styles.highlight} /> : <div style={styles.unhighlight} />}
+                <InfoOutlinedIcon sx={styles.icon} onClick={() => props.setExplorerState(ExplorerStates.INFO)}/>
+            </div>
+            <div style={{ ...styles.iconContainer }}>
                 {props.explorerState == ExplorerStates.SETTINGS ? <div style={styles.highlight} /> : <div style={styles.unhighlight} />}
                 <SettingsIcon sx={styles.icon} onClick={() => props.setExplorerState(ExplorerStates.SETTINGS)}/>
             </div>

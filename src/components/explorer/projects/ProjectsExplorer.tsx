@@ -1,13 +1,77 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Project, projectsData } from '../../../assets/projectsData';
 import { colours } from '../../../assets/colours';
 import { textStyles } from '../../../assets/textStyles';
 import { EXPLORER_WIDTH } from '../../../assets/constants';
+import { useAppDispatch, useAppSelector } from '../../../utils/redux/hooks';
+import ProjectCard from './ProjectCard';
+import { decrementTimeRemainingByAmount, incrementLinesByAmount, resetProject, startProject } from '../../../utils/redux/slices/projectsSlice';
+import { decrementMoneyByAmount, incrementMoneyByAmount } from '../../../utils/redux/slices/moneySlice';
+import { codeContent } from '../../../assets/codeContent';
 
 function ProjectsExplorer() {
+    const codingAreaState = useAppSelector(state => state.codingArea)
+    const [prevIndex, setPrevIndex] = useState<number>(0)
+    const projectState = useAppSelector(state => state.projects)
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        if (projectState.currentProject != null) {
+            if (projectState.linesCompleted < projectState.currentProject.requiredLines) {
+                const linesIncrement = calculateLineIncrease(codingAreaState.currentIndex, prevIndex)
+                dispatch(incrementLinesByAmount(linesIncrement))
+            } else {
+                dispatch(incrementMoneyByAmount(projectState.currentProject.payout))
+                dispatch(resetProject())
+            }
+        }
+        setPrevIndex(codingAreaState.currentIndex)
+    }, [codingAreaState.currentIndex])
+
+    useEffect(() => {
+        const timer = setTimeout(() => handleReduceTime(), 1000)
+        return () => clearTimeout(timer)
+    }, [projectState.timeRemaining])
+
+    const calculateLineIncrease = (currentIndex: number, prevIndex: number) => {
+        const contentChange = codeContent.slice(prevIndex, currentIndex)
+        return contentChange.split("\n").length - 1
+    }
+
+    const handleReduceTime = () => {
+        if (projectState.currentProject != null) {
+            dispatch(decrementTimeRemainingByAmount(1))
+            if (projectState.timeRemaining < 0 && projectState.linesCompleted < projectState.currentProject.requiredLines) {
+                dispatch(decrementMoneyByAmount(projectState.currentProject.penalty))
+            }
+        }
+    }
+
+    const handleStartProject = (project: Project) => {
+        dispatch(startProject(project))
+        setPrevIndex(codingAreaState.currentIndex)
+    }
+
     return (
         <div style={{ ...styles.container }}>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>PROJECTS</p>
-            
+            {projectState.currentProject != null &&
+                <div>
+                    <p>{projectState.currentProject.name}</p>
+                    <p>Lines Completed: {projectState.linesCompleted}/{projectState.currentProject.requiredLines}</p>
+                    <p>Time Remaining: {projectState.timeRemaining >= 0 ? projectState.timeRemaining : 0}</p>
+                </div>
+            }
+            {projectsData.map((project, index) => {
+                return (
+                    <ProjectCard
+                        key={index}
+                        index={index}
+                        disabled={projectState.currentProject != null}
+                        startProject={(project: Project) => handleStartProject(project)}
+                        project={project} />
+                )
+            })}
         </div>
     );
 }

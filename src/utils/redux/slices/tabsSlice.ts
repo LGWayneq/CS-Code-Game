@@ -6,7 +6,7 @@ interface TabsState {
 }
 
 const initialState: TabsState = {
-    value: 2
+    value: 1
 }
 
 export const tabsSlice = createSlice({

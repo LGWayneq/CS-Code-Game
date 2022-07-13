@@ -12,6 +12,7 @@ import { resetMpl } from '../../../utils/redux/slices/mplSlice';
 import { resetTabs } from '../../../utils/redux/slices/tabsSlice';
 import { resetUpgrades } from '../../../utils/redux/slices/upgradesSlice';
 import BuyButton from '../../ui/BuyButton';
+import { resetProject } from '../../../utils/redux/slices/projectsSlice';
 
 
 function SettingsExplorer() {
@@ -26,6 +27,7 @@ function SettingsExplorer() {
         dispatch(resetMpl())
         dispatch(resetTabs())
         dispatch(resetUpgrades())
+        dispatch(resetProject())
     }
 
     return (
