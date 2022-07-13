@@ -6,11 +6,14 @@ export interface FloatingPoint {
     exponent: number
 }
 
-const getMoneyDisplay = (money: FloatingPoint): JSX.Element => {
+const getMoneyDisplay = (money: FloatingPoint, isCost: boolean = true): JSX.Element => {
     if (money.exponent < 10) {
         return (
             <body style={styles.moneyText}>
-                ${(money.base * Math.pow(2, money.exponent)).toFixed(0)}
+                {isCost ?
+                    `$${Math.ceil((money.base * Math.pow(2, money.exponent)))}` :
+                    `$${Math.floor(money.base * Math.pow(2, money.exponent))}`
+                }
             </body>
         )
     }
@@ -86,7 +89,7 @@ const multiply = (left: FloatingPoint, right: (FloatingPoint | number)): Floatin
 }
 
 const divide = (left: FloatingPoint, right: (FloatingPoint | number)) => {
-    if (typeof right == "number") return multiply(left, 1/right)
+    if (typeof right == "number") return multiply(left, 1 / right)
     else return multiply(left, { base: 1 / right.base, exponent: -right.exponent })
 }
 

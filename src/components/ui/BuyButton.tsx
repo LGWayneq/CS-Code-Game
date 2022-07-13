@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { colours } from '../../assets/colours';
 import { textStyles } from '../../assets/textStyles'
 
@@ -10,6 +10,11 @@ interface BuyButtonProps {
 }
 
 const BuyButton: FunctionComponent<BuyButtonProps> = (props: BuyButtonProps) => {
+    const [style, setStyle] = useState<Object>(styles.container)
+
+    useEffect(() => {
+        setStyle(getStyles(props.disabled, props.style))
+    }, [props.disabled])
 
     const handleClick = () => {
         if (!props.disabled) {
@@ -17,17 +22,28 @@ const BuyButton: FunctionComponent<BuyButtonProps> = (props: BuyButtonProps) => 
         }
     }
 
-    const getStyles = (disabled?: boolean, style?: Object) => {
+    const handleMouseDown = () => {
+        const newStyle = { ...style, ...styles.mouseDown }
+        setStyle(newStyle)
+    }
+
+    const handleMouseUp = () => {
+        setStyle(getStyles(props.disabled, props.style))
+    }
+
+    const getStyles = (disabled?: boolean, style?: Object): Object => {
         if (disabled) {
-            return { ...styles.containerDisabled, ...style }
+            return { ...styles.containerDisabled, ...style } as Object
         } else {
-            return { ...styles.container, ...style }
+            return { ...styles.container, ...style } as Object
         }
     }
 
     return (
         <div
-            style={getStyles(props.disabled, props.style)}
+            style={style}
+            onMouseDown={() => handleMouseDown()}
+            onMouseUp={() => handleMouseUp()}
             onClick={() => handleClick()}>
             {props.children}
         </div>
@@ -48,6 +64,7 @@ const styles = {
         paddingLeft: 10,
         paddingRight: 10,
         paddingBottom: 2,
+        textAlign: 'center',
         cursor: 'pointer'
     },
     containerDisabled: {
@@ -58,6 +75,18 @@ const styles = {
         paddingLeft: 10,
         paddingRight: 10,
         paddingBottom: 2,
+        textAlign: 'center',
         cursor: 'default'
+    },
+    mouseDown: {
+        ...textStyles.terminalLabel,
+        color: colours.divider,
+        border: `1px ${colours.divider} solid`,
+        borderRadius: 20,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingBottom: 2,
+        textAlign: 'center',
+        cursor: 'pointer'
     }
 }

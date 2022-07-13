@@ -65,8 +65,6 @@ function CodeLine(props: CodeLineProps) {
                 pointer += 3
             }
             while (pointer < children.length) {
-                console.log(children)
-                console.log(children[pointer])
                 if (children[pointer] == " ") {
                     content.push(SPACING_ELEMENT)
                 } else if (children[pointer].match(/[:=<>+\-*\/,]/)) {

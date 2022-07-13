@@ -11,6 +11,7 @@ import { resetMoney } from '../../../utils/redux/slices/moneySlice';
 import { resetMpl } from '../../../utils/redux/slices/mplSlice';
 import { resetTabs } from '../../../utils/redux/slices/tabsSlice';
 import { resetUpgrades } from '../../../utils/redux/slices/upgradesSlice';
+import BuyButton from '../../ui/BuyButton';
 
 
 function SettingsExplorer() {
@@ -30,7 +31,10 @@ function SettingsExplorer() {
     return (
         <div style={{ ...styles.container }}>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>SETTINGS</p>
-            <p style={styles.reset} onClick={() => resetGame()}>Reset Game</p>
+            <BuyButton
+            onClick={() => resetGame()}>
+                Reset Game
+            </BuyButton>
         </div>
     );
 }
@@ -56,14 +60,4 @@ const styles = {
         fontWeight: 700,
         cursor: 'pointer'
     },
-    reset: {
-        ...textStyles.terminalLabel,
-        textAlign: 'center' as 'center',
-        border: '1px grey solid',
-        borderRadius: 20,
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingBottom: 2,
-        cursor: 'pointer'
-    }
 }
