@@ -9,8 +9,10 @@ import { decrementTimeRemainingByAmount, incrementLinesByAmount, resetProject, s
 import { decrementMoneyByAmount, incrementMoneyByAmount } from '../../../utils/redux/slices/moneySlice';
 import { codeContent } from '../../../assets/codeContent';
 import CurrentProjectCard from './CurrentProjectCard';
+import { ableToPurchase, multiply } from '../../../utils/MoneyManager';
 
 function ProjectsExplorer() {
+    const lifetimeMoney = useAppSelector(state => state.money.lifetime)
     const codingAreaState = useAppSelector(state => state.codingArea)
     const [prevIndex, setPrevIndex] = useState<number>(0)
     const projectState = useAppSelector(state => state.projects)
@@ -58,6 +60,7 @@ function ProjectsExplorer() {
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>PROJECTS</p>
             <CurrentProjectCard projectState={projectState} />
             {projectsData.map((project, index) => {
+                // if (ableToPurchase(lifetimeMoney, multiply(project.payout, 2)))
                 return (
                     <ProjectCard
                         key={index}
