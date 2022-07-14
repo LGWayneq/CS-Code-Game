@@ -8,6 +8,7 @@ import ProjectCard from './ProjectCard';
 import { decrementTimeRemainingByAmount, incrementLinesByAmount, resetProject, startProject } from '../../../utils/redux/slices/projectsSlice';
 import { decrementMoneyByAmount, incrementMoneyByAmount } from '../../../utils/redux/slices/moneySlice';
 import { codeContent } from '../../../assets/codeContent';
+import CurrentProjectCard from './CurrentProjectCard';
 
 function ProjectsExplorer() {
     const codingAreaState = useAppSelector(state => state.codingArea)
@@ -31,7 +32,7 @@ function ProjectsExplorer() {
     useEffect(() => {
         const timer = setTimeout(() => handleReduceTime(), 1000)
         return () => clearTimeout(timer)
-    }, [projectState.timeRemaining])
+    }, [projectState.currentProject, projectState.timeRemaining])
 
     const calculateLineIncrease = (currentIndex: number, prevIndex: number) => {
         const contentChange = codeContent.slice(prevIndex, currentIndex)
@@ -55,13 +56,7 @@ function ProjectsExplorer() {
     return (
         <div style={{ ...styles.container }}>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>PROJECTS</p>
-            {projectState.currentProject != null &&
-                <div>
-                    <p>{projectState.currentProject.name}</p>
-                    <p>Lines Completed: {projectState.linesCompleted}/{projectState.currentProject.requiredLines}</p>
-                    <p>Time Remaining: {projectState.timeRemaining >= 0 ? projectState.timeRemaining : 0}</p>
-                </div>
-            }
+            <CurrentProjectCard projectState={projectState} />
             {projectsData.map((project, index) => {
                 return (
                     <ProjectCard

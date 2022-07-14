@@ -8,14 +8,14 @@ import StandardCard from './StandardCard';
 import { ableToPurchase, FloatingPoint, multiply } from '../../../utils/MoneyManager';
 
 function StandardExplorer() {
-    const money: FloatingPoint = useAppSelector(state => state.money.value)
+    const lifetimeMoney: FloatingPoint = useAppSelector(state => state.money.lifetime)
     const isStandardUpgradePurchased = useAppSelector(state => state.upgrades.isStandardUpgradePurchased)
 
     return (
         <div style={{ ...styles.container }}>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>UPGRADES</p>
             {upgradesData.standard.map((upgrade, index) => {
-                if (!isStandardUpgradePurchased[index] && ableToPurchase(multiply(money, 10), upgrade.baseCost)) {
+                if (!isStandardUpgradePurchased[index] && ableToPurchase(multiply(lifetimeMoney, 5), upgrade.baseCost)) {
                     return (
                         <StandardCard key={index} index={index} upgrade={upgrade} />
                     )

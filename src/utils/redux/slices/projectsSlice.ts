@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Project } from '../../../assets/projectsData'
 import type { RootState } from '../store'
 
-interface ProjectsState {
+export interface ProjectsState {
     currentProject: Project | null
     linesCompleted: number
     timeRemaining: number
@@ -11,7 +11,7 @@ interface ProjectsState {
 const initialState: ProjectsState = {
     currentProject: null,
     linesCompleted: 0,
-    timeRemaining: 60
+    timeRemaining: 30
 }
 
 export const projectsSlice = createSlice({
@@ -21,7 +21,7 @@ export const projectsSlice = createSlice({
         startProject: (state, action: PayloadAction<Project>) => {
             state.currentProject = action.payload
             state.linesCompleted = 0
-            state.timeRemaining = 5    //currently set time for each project to be 1 min
+            state.timeRemaining = 30    //currently set time for each project to be 1 min
         },
         incrementLinesByAmount: (state, action: PayloadAction<number>) => {
             state.linesCompleted += action.payload
@@ -32,7 +32,7 @@ export const projectsSlice = createSlice({
         resetProject: (state) => {
             state.currentProject = null
             state.linesCompleted = 0
-            state.timeRemaining = 5    //currently set time for each project to be 1 min
+            state.timeRemaining = 30    //currently set time for each project to be 1 min
         }
     }
 })

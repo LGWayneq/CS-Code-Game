@@ -7,7 +7,7 @@ import { useAppDispatch } from '../../../utils/redux/hooks';
 import { resetCpk } from '../../../utils/redux/slices/cpkSlice';
 import { resetCps } from '../../../utils/redux/slices/cpsSlice';
 import { restartDay } from '../../../utils/redux/slices/dayStartSlice';
-import { resetMoney } from '../../../utils/redux/slices/moneySlice';
+import { hardResetMoney } from '../../../utils/redux/slices/moneySlice';
 import { resetMpl } from '../../../utils/redux/slices/mplSlice';
 import { resetTabs } from '../../../utils/redux/slices/tabsSlice';
 import { resetUpgrades } from '../../../utils/redux/slices/upgradesSlice';
@@ -23,7 +23,7 @@ function SettingsExplorer() {
         dispatch(resetCpk())
         dispatch(resetCps())
         dispatch(restartDay())
-        dispatch(resetMoney())
+        dispatch(hardResetMoney())
         dispatch(resetMpl())
         dispatch(resetTabs())
         dispatch(resetUpgrades())

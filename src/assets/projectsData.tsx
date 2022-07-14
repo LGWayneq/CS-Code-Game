@@ -23,7 +23,7 @@ const iconStyle = {
 export const projectsData = [
     {
         name: "To Do List",
-        description: `1. Do To Do List\n2. Earn money`,
+        description: `1. Do To Do List`,
         icon: <ListIcon sx={iconStyle} />,
         requiredLines: 10,
         payout: { base: 1.25, exponent: 3 },

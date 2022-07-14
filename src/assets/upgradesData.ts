@@ -173,7 +173,7 @@ export const upgradesData = {
         //     id: 12,
         //     name: "GLaDOS",
         //     description: "Cake",
-        //     image: PRINCIPAL,   //todo
+        //     image: PRINCIPAL,
         //     baseCost: {
         //         base: 1,
         //         exponent: 54
