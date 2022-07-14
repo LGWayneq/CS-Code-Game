@@ -17,14 +17,21 @@ function EnddayExplorer() {
         return () => clearInterval(calculatePromotions)
     }, [numberOfPromotions, dayStart])
 
+    // return value is in seconds
     const calculateTimeElapsed = (dayStart: Date): number => {
-        return new Date().getTime() - dayStart.getTime()
+        return (new Date().getTime() - dayStart.getTime()) / 1000
     }
 
     const getNumberOfPromotions = (): number => {
-        //todo: refine how number of promotions is determined. for now do 1 promotion per 2 mins?
-        const divisor = 1000 * 60 * 2
-        return Math.round(calculateTimeElapsed(new Date(dayStart)) / divisor)
+        //todo: refine how number of promotions is determined. for now do 1 promotion per min after 10 mins?
+        const timeElapsed = calculateTimeElapsed(new Date(dayStart))
+        const TEN_MINUTES = 10 * 60
+        if (timeElapsed >= TEN_MINUTES) {
+            const divisor = 60
+            return Math.floor((timeElapsed - TEN_MINUTES) / divisor)
+        } else {
+            return 0
+        }
     }
 
     const handleEndDay = () => {
@@ -37,6 +44,7 @@ function EnddayExplorer() {
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>CLOCKOUT</p>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>End your day to be promoted!</p>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>You earn more promotions the longer your days are!</p>
+            <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>Current Day Duration: {(calculateTimeElapsed(new Date(dayStart)) / 60).toFixed(1)} mins</p>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>You will be promoted <b>{numberOfPromotions}</b> times if you end your day now!</p>
             <div style={styles.buttonContainer} onClick={() => handleEndDay()}>
                 <body style={styles.buttonText}>CLOCKOUT</body>
