@@ -23,8 +23,12 @@ export const moneySlice = createSlice({
     initialState: initialState,
     reducers: {
         incrementMoneyByAmount: (state, action: PayloadAction<FloatingPoint>) => {
-            state.lifetime = sumOf(state.lifetime, action.payload)
-            state.value = sumOf(state.value, action.payload)
+            const increment: FloatingPoint = {
+                base: action.payload.base,
+                exponent: action.payload.exponent
+            }
+            state.lifetime = sumOf(state.lifetime, increment)
+            state.value = sumOf(state.value, increment)
         },
         decrementMoneyByAmount: (state, action: PayloadAction<FloatingPoint>) => {
             if (ableToPurchase(state.value, action.payload)) {
@@ -41,12 +45,12 @@ export const moneySlice = createSlice({
         },
         hardResetMoney: (state) => {
             state.lifetime = {
-                base: 1,
-                exponent: 20
+                base: 0,
+                exponent: 0
             }
             state.value = {
-                base: 1,
-                exponent: 20
+                base: 0,
+                exponent: 0
             }
         }
     }

@@ -3,7 +3,7 @@ import { Project } from '../../../assets/projectsData'
 import { FloatingPoint } from '../../MoneyManager'
 import type { RootState } from '../store'
 
-interface ProjectNoIcon {
+export interface ProjectNoIcon {
     name: string
     requiredLines: number
     payout: FloatingPoint
@@ -26,14 +26,8 @@ export const projectsSlice = createSlice({
     name: 'projects',
     initialState: initialState,
     reducers: {
-        startProject: (state, action: PayloadAction<Project>) => {
-            const project: ProjectNoIcon = {
-                name: action.payload.name,
-                requiredLines: action.payload.requiredLines,
-                payout: action.payload.payout,
-                penalty: action.payload.penalty,
-            }
-            state.currentProject = project
+        startProject: (state, action: PayloadAction<ProjectNoIcon>) => {
+            state.currentProject = action.payload
             state.linesCompleted = 0
             state.timeRemaining = 30    //currently set time for each project to be 30s
         },

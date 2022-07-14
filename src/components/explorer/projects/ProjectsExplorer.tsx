@@ -5,14 +5,13 @@ import { textStyles } from '../../../assets/textStyles';
 import { EXPLORER_WIDTH } from '../../../assets/constants';
 import { useAppDispatch, useAppSelector } from '../../../utils/redux/hooks';
 import ProjectCard from './ProjectCard';
-import { decrementTimeRemainingByAmount, incrementLinesByAmount, resetProject, startProject } from '../../../utils/redux/slices/projectsSlice';
+import { decrementTimeRemainingByAmount, incrementLinesByAmount, ProjectNoIcon, resetProject, startProject } from '../../../utils/redux/slices/projectsSlice';
 import { decrementMoneyByAmount, incrementMoneyByAmount } from '../../../utils/redux/slices/moneySlice';
 import { codeContent } from '../../../assets/codeContent';
 import CurrentProjectCard from './CurrentProjectCard';
 import { ableToPurchase, multiply } from '../../../utils/MoneyManager';
 
 function ProjectsExplorer() {
-    const lifetimeMoney = useAppSelector(state => state.money.lifetime)
     const codingAreaState = useAppSelector(state => state.codingArea)
     const [prevIndex, setPrevIndex] = useState<number>(0)
     const projectState = useAppSelector(state => state.projects)
@@ -24,8 +23,7 @@ function ProjectsExplorer() {
                 const linesIncrement = calculateLineIncrease(codingAreaState.currentIndex, prevIndex)
                 dispatch(incrementLinesByAmount(linesIncrement))
             } else {
-                // todo: fix bug where money doesnt update correctly when project is finished
-                // dispatch(incrementMoneyByAmount(projectState.currentProject.payout))
+                dispatch(incrementMoneyByAmount(projectState.currentProject.payout))
                 dispatch(resetProject())
             }
         }
@@ -52,7 +50,13 @@ function ProjectsExplorer() {
     }
 
     const handleStartProject = (project: Project) => {
-        dispatch(startProject(project))
+        const _project: ProjectNoIcon = {
+            name: project.name,
+            requiredLines: project.requiredLines,
+            payout: project.payout,
+            penalty: project.penalty,
+        }
+        dispatch(startProject(_project))
         setPrevIndex(codingAreaState.currentIndex)
     }
 
