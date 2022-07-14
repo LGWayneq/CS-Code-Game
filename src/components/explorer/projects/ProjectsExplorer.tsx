@@ -24,7 +24,8 @@ function ProjectsExplorer() {
                 const linesIncrement = calculateLineIncrease(codingAreaState.currentIndex, prevIndex)
                 dispatch(incrementLinesByAmount(linesIncrement))
             } else {
-                dispatch(incrementMoneyByAmount(projectState.currentProject.payout))
+                // todo: fix bug where money doesnt update correctly when project is finished
+                // dispatch(incrementMoneyByAmount(projectState.currentProject.payout))
                 dispatch(resetProject())
             }
         }

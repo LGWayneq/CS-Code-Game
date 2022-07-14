@@ -1,9 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Project } from '../../../assets/projectsData'
+import { FloatingPoint } from '../../MoneyManager'
 import type { RootState } from '../store'
 
+interface ProjectNoIcon {
+    name: string
+    requiredLines: number
+    payout: FloatingPoint
+    penalty: FloatingPoint
+}
+
 export interface ProjectsState {
-    currentProject: Project | null
+    currentProject: ProjectNoIcon | null
     linesCompleted: number
     timeRemaining: number
 }
@@ -19,9 +27,15 @@ export const projectsSlice = createSlice({
     initialState: initialState,
     reducers: {
         startProject: (state, action: PayloadAction<Project>) => {
-            state.currentProject = action.payload
+            const project: ProjectNoIcon = {
+                name: action.payload.name,
+                requiredLines: action.payload.requiredLines,
+                payout: action.payload.payout,
+                penalty: action.payload.penalty,
+            }
+            state.currentProject = project
             state.linesCompleted = 0
-            state.timeRemaining = 30    //currently set time for each project to be 1 min
+            state.timeRemaining = 30    //currently set time for each project to be 30s
         },
         incrementLinesByAmount: (state, action: PayloadAction<number>) => {
             state.linesCompleted += action.payload
@@ -32,7 +46,7 @@ export const projectsSlice = createSlice({
         resetProject: (state) => {
             state.currentProject = null
             state.linesCompleted = 0
-            state.timeRemaining = 30    //currently set time for each project to be 1 min
+            state.timeRemaining = 30    //currently set time for each project to be 30s
         }
     }
 })
