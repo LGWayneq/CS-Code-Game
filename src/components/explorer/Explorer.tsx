@@ -26,6 +26,7 @@ export enum ExplorerStates {
 
 interface ExplorerProps {
     explorerState: ExplorerStates
+    setModal: Function
 }
 
 function Explorer(props: ExplorerProps) {
@@ -76,7 +77,7 @@ function Explorer(props: ExplorerProps) {
         dispatch(startProject(_project))
         setPrevIndex(codingAreaState.currentIndex)
     }
-    
+
     return (
         <div style={{ ...styles.container, height: getWindowDimensions().height - TITLE_BAR_HEIGHT }}>
             <div style={{ ...styles.scrollBarHide, height: getWindowDimensions().height - TITLE_BAR_HEIGHT }} />
@@ -90,7 +91,7 @@ function Explorer(props: ExplorerProps) {
             }
             {
                 props.explorerState == ExplorerStates.PROJECTS &&
-                <ProjectsExplorer handleStartProject={(project: Project) => handleStartProject(project)}/>
+                <ProjectsExplorer handleStartProject={(project: Project) => handleStartProject(project)} />
             }
             {
                 props.explorerState == ExplorerStates.ENDDAY &&
@@ -98,7 +99,8 @@ function Explorer(props: ExplorerProps) {
             }
             {
                 props.explorerState == ExplorerStates.INFO &&
-                <InfoExplorer />
+                <InfoExplorer
+                    setModal={(modal: JSX.Element) => props.setModal(modal)} />
             }
             {
                 props.explorerState == ExplorerStates.SETTINGS &&

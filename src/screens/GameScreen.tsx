@@ -12,16 +12,20 @@ import { useAppSelector } from '../utils/redux/hooks';
 function GameScreen() {
     const tabs = useAppSelector(state => state.tabs.value)
     const [explorerState, setExplorerState] = useState<ExplorerStates>(ExplorerStates.HIRING)
+    const [modal, setModal] = useState<JSX.Element>(<></>)
     const [currentTab, setCurrentTab] = useState<number>(0)
 
     return (
         <div style={styles.container}>
+            {modal}
             <TitleBar />
             <div style={styles.subContainer}>
                 <SideMenu
                     explorerState={explorerState}
                     setExplorerState={(value: ExplorerStates) => setExplorerState(value)} />
-                <Explorer explorerState={explorerState} />
+                <Explorer
+                    setModal={(modal: JSX.Element) => setModal(modal)}
+                    explorerState={explorerState} />
                 <div>
                     <TabsNavigator
                         tabs={tabs}

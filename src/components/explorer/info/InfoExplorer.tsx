@@ -2,15 +2,28 @@ import React, { useState } from 'react';
 import { colours } from '../../../assets/colours';
 import { textStyles } from '../../../assets/textStyles';
 import { EXPLORER_WIDTH } from '../../../assets/constants';
+import BuyButton from '../../ui/BuyButton';
+import ReportBugModal from './ReportBugModal';
 
-function InfoExplorer() {
-
+function InfoExplorer(props: { setModal: Function }) {
     return (
         <div style={{ ...styles.container }}>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>INFORMATION</p>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>
-                Made by a bored CS student.
+                Made by a bored CS student, using React and Redux.
             </p>
+            <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>
+                Feel free to report any bugs, or offer any suggestions!
+            </p>
+            <BuyButton
+                style={{ marginBottom: 10 }}
+                onClick={() => props.setModal(<ReportBugModal />)}>
+                Report Bug
+            </BuyButton>
+            <BuyButton
+                onClick={() => { }}>
+                Suggestions
+            </BuyButton>
         </div>
     );
 }
