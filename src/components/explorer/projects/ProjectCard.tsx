@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import { colours } from '../../../assets/colours';
 import { textStyles } from '../../../assets/textStyles';
-import { getMoneyDisplay } from '../../../utils/MoneyManager';
+import { getFloatDisplay } from '../../../utils/MoneyManager';
 import { Project } from '../../../assets/projectsData';
 import { EXPLORER_WIDTH } from '../../../assets/constants';
 import BuyButton from '../../ui/BuyButton';
@@ -31,13 +31,13 @@ const ProjectCard: FunctionComponent<ProjectCardProps> = (props: ProjectCardProp
                             <body style={styles.label}>
                                 Payout:
                             </body>
-                            {getMoneyDisplay(props.project.payout)}
+                            {getFloatDisplay(props.project.payout)}
                         </div>
                         <div style={styles.detailsContainer}>
                             <body style={styles.label}>
                                 Penalty:
                             </body>
-                            {getMoneyDisplay(props.project.penalty)}
+                            {getFloatDisplay(props.project.penalty)}
                             <body style={styles.label}>/s</body>
                         </div>
                     </div>

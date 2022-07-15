@@ -8,7 +8,7 @@ import { useAppSelector } from '../../../utils/redux/hooks'
 import { incrementCpsByAmount } from '../../../utils/redux/slices/cpsSlice'
 import { decrementMoneyByAmount } from '../../../utils/redux/slices/moneySlice'
 import { increaseHiringByAmount } from '../../../utils/redux/slices/upgradesSlice'
-import { ableToPurchase, getMoneyDisplay, FloatingPoint, multiply, divide, subtract } from '../../../utils/MoneyManager';
+import { ableToPurchase, getFloatDisplay, FloatingPoint, multiply, divide, subtract } from '../../../utils/MoneyManager';
 import BuyButton from '../../ui/BuyButton';
 
 interface HiringCardProps {
@@ -51,7 +51,7 @@ function HiringCard(props: HiringCardProps) {
                 <body style={styles.description}>{props.upgrade.description}</body>
                 <div style={styles.costContainer}>
                     <body style={styles.costLabel}>Cost:</body>
-                    {getMoneyDisplay(calculateCost(props.upgrade.baseCost, hiring[props.upgrade.id].qty, props.purchaseQty))}
+                    {getFloatDisplay(calculateCost(props.upgrade.baseCost, hiring[props.upgrade.id].qty, props.purchaseQty))}
                 </div>
                 <div style={styles.selectionContainer}>
                     <body style={styles.costLabel}>CPS: {props.upgrade.cps}</body>

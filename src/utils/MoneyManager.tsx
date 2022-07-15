@@ -6,13 +6,20 @@ export interface FloatingPoint {
     exponent: number
 }
 
-const getMoneyDisplay = (money: FloatingPoint, isCost: boolean = true): JSX.Element => {
-    if (money.exponent < 10) {
+const numberToFloatDisplay = (value: number): JSX.Element => {
+    const exponent: number = Math.floor(Math.log(value) / Math.log(2))
+    const base: number = value / Math.pow(2, exponent)
+    console.log({ base: base, exponent: exponent })
+    return getFloatDisplay({ base: base, exponent: exponent }, false, "")
+}
+
+const getFloatDisplay = (float: FloatingPoint, isCost: boolean = true, prefix: string = "$"): JSX.Element => {
+    if (float.exponent < 10) {
         return (
             <body style={styles.moneyText}>
                 {isCost ?
-                    `$${Math.ceil((money.base * Math.pow(2, money.exponent)))}` :
-                    `$${Math.floor(money.base * Math.pow(2, money.exponent))}`
+                    `${prefix}${Math.ceil((float.base * Math.pow(2, float.exponent)))}` :
+                    `${prefix}${Math.floor(float.base * Math.pow(2, float.exponent))}`
                 }
             </body>
         )
@@ -20,7 +27,7 @@ const getMoneyDisplay = (money: FloatingPoint, isCost: boolean = true): JSX.Elem
     else {
         return (
             <body style={styles.moneyText}>
-                ${money.base.toFixed(2)} x2<sup>{money.exponent}</sup>
+                {`${prefix}${float.base.toFixed(2)}`} x2<sup>{float.exponent}</sup>
             </body>
         )
     }
@@ -112,7 +119,7 @@ const getSmallerBigger = (left: FloatingPoint, right: FloatingPoint) => {
     return { smaller: smaller, bigger: bigger }
 }
 
-export { getMoneyDisplay, ableToPurchase, sumOf, subtract, multiply, divide }
+export { numberToFloatDisplay, getFloatDisplay, ableToPurchase, sumOf, subtract, multiply, divide }
 
 const styles = {
     moneyText: {

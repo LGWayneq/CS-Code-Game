@@ -4,7 +4,7 @@ import { textStyles } from '../assets/textStyles';
 import WindowDimensions from '../utils/WindowDimensions';
 import { SIDE_MENU_WIDTH, EXPLORER_WIDTH } from '../assets/constants';
 import { useAppSelector } from '../utils/redux/hooks'
-import { getMoneyDisplay } from '../utils/MoneyManager';
+import { getFloatDisplay } from '../utils/MoneyManager';
 
 function Terminal() {
     const money = useAppSelector(state => state.money.value)
@@ -23,7 +23,7 @@ function Terminal() {
             </div>
             <div style={styles.moneyContainer}>
                 <b style={styles.textLabel}>Money:</b>
-                {getMoneyDisplay(money, false)}
+                {getFloatDisplay(money, false)}
             </div>
             <body style={styles.text}>
                 <b style={styles.textLabel}>Idle Typing Speed:</b> {cps.toFixed(1)} characters/second

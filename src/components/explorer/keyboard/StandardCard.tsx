@@ -2,7 +2,7 @@ import React from 'react';
 import { colours } from '../../../assets/colours';
 import { StandardUpgrade, StandardUpgradeType } from '../../../assets/upgradesData'
 import { textStyles } from '../../../assets/textStyles';
-import { ableToPurchase, getMoneyDisplay } from '../../../utils/MoneyManager';
+import { ableToPurchase, getFloatDisplay } from '../../../utils/MoneyManager';
 import { EXPLORER_WIDTH } from '../../../assets/constants';
 import { useAppDispatch } from '../../../utils/redux/hooks';
 import { useAppSelector } from '../../../utils/redux/hooks'
@@ -50,7 +50,7 @@ function StandardCard(props: StandardCardProps) {
                     <body style={styles.label}>
                         Cost:
                     </body>
-                    {getMoneyDisplay(props.upgrade.baseCost)}
+                    {getFloatDisplay(props.upgrade.baseCost)}
                     <BuyButton
                         style={{ marginLeft: 'auto', marginTop: 5 }}
                         disabled={!ableToPurchase(money, props.upgrade.baseCost)}
