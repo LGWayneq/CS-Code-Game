@@ -54,20 +54,8 @@ const sumOf = (left: FloatingPoint, right: FloatingPoint): FloatingPoint => {
     //add mantisas (base)
     var result: FloatingPoint = { base: smaller.base + bigger.base, exponent: bigger.exponent }
     //normalise result
-    if (result.base != 0) {
-        // const exponentIncrement: number = Math.floor(Math.log(result.base) / Math.log(2))
-        // const newBase: number = parseFloat((result.base / Math.pow(2, exponentIncrement)).toFixed(5))
-        while (result.base > 2) {
-            result.base = result.base / 2
-            result.exponent += 1
-        }
-        while (result.base < 1) {
-            result.base = result.base * 2
-            result.exponent -= 1
-        }
-    }
-    //round result (currently rounded to 5dp)
-    result.base = parseFloat(result.base.toFixed(5))
+    result = normalise(result)
+
     return result
 }
 
@@ -83,17 +71,8 @@ const multiply = (left: FloatingPoint, right: (FloatingPoint | number)): Floatin
         right
     var newBase = left.base * floatRight.base
     var newExponent = left.exponent + floatRight.exponent
-    if (newBase != 0) {
-        while (newBase > 2) {
-            newBase = newBase / 2
-            newExponent += 1
-        }
-        while (newBase < 1) {
-            newBase = newBase * 2
-            newExponent -= 1
-        }
-    }
-    return { base: newBase, exponent: newExponent }
+    const result: FloatingPoint = normalise({ base: newBase, exponent: newExponent })
+    return result
 }
 
 const divide = (left: FloatingPoint, right: (FloatingPoint | number)) => {
@@ -102,8 +81,9 @@ const divide = (left: FloatingPoint, right: (FloatingPoint | number)) => {
 }
 
 const getSmallerBigger = (left: FloatingPoint, right: FloatingPoint) => {
-    var smaller: FloatingPoint = { base: 0, exponent: 0 }
-    var bigger: FloatingPoint = { base: 0, exponent: 0 }
+    left = normalise(left)
+    right = normalise(right)
+    var smaller, bigger: FloatingPoint
     if (left.exponent < right.exponent) {
         smaller = left
         bigger = right
@@ -118,6 +98,18 @@ const getSmallerBigger = (left: FloatingPoint, right: FloatingPoint) => {
         bigger = left
     }
     return { smaller: smaller, bigger: bigger }
+}
+
+const normalise = (value: FloatingPoint): FloatingPoint => {
+    const float = { base: value.base, exponent: value.exponent }
+    if (float.base == 0) {
+        return { base: 0, exponent: 0 }
+    } else {
+        const exponentIncrement: number = Math.floor(Math.log(Math.abs(float.base)) / Math.log(2))
+        const newBase: number = parseFloat((float.base / Math.pow(2, exponentIncrement)).toFixed(5))
+
+        return { base: newBase, exponent: float.exponent + exponentIncrement }
+    }
 }
 
 export { numberToFloatDisplay, getFloatDisplay, ableToPurchase, sumOf, subtract, multiply, divide }
