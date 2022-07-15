@@ -97,7 +97,7 @@ function CodingArea() {
         const maxNumOfCodeLines: number = Math.round(0.9 * codingAreaHeight / CODE_LINE_HEIGHT)
         const numOfRemovableLines = codeLinesArray.length - maxNumOfCodeLines
         if (numOfRemovableLines > 0) {
-            dispatch(setCurrentLine(numOfRemovableLines))
+            dispatch(setCurrentLine(codingAreaState.currentLine + numOfRemovableLines))
             const newCodeLinesArray = codeLinesArray.slice(numOfRemovableLines)
             const newCodeLines = newCodeLinesArray.join('\n')
             setCodeLines(newCodeLines)
