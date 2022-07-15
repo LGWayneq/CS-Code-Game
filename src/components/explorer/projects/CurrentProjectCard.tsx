@@ -22,7 +22,6 @@ const CurrentProjectCard: FunctionComponent<CurrentProjectCardProps> = (props: C
                         sx={styles.progressBar}
                         value={100 * props.projectState.linesCompleted / props.projectState.currentProject?.requiredLines} />
                     <body style={{ ...styles.label, ...styles.flexRow }}>
-                        {/* may have some bug. need to monitor */}
                         <body style={{ marginRight: 5 }}>Lines Completed:</body>
                         {numberToFloatDisplay(props.projectState.linesCompleted)}
                         /

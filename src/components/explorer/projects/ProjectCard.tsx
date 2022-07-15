@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import { colours } from '../../../assets/colours';
 import { textStyles } from '../../../assets/textStyles';
-import { getFloatDisplay } from '../../../utils/MoneyManager';
+import { getFloatDisplay, numberToFloatDisplay } from '../../../utils/MoneyManager';
 import { Project } from '../../../assets/projectsData';
 import { EXPLORER_WIDTH } from '../../../assets/constants';
 import BuyButton from '../../ui/BuyButton';
@@ -23,8 +23,9 @@ const ProjectCard: FunctionComponent<ProjectCardProps> = (props: ProjectCardProp
                 <div style={styles.subContainer}>
                     <div>
                         <div style={styles.detailsContainer}>
-                            <body style={styles.label}>
-                                Lines Required: {props.project.requiredLines}
+                            <body style={{ ...styles.label, ...styles.flexRow }}>
+                                <body style={{ marginRight: 5 }}>Lines:</body>
+                                {numberToFloatDisplay(props.project.requiredLines)}
                             </body>
                         </div>
                         <div style={styles.detailsContainer}>
@@ -90,8 +91,13 @@ const styles = {
         ...textStyles.terminalLabel,
         color: 'rgba(133,133,133,1)',
         fontSize: 14,
-        marginTop: 10,
+        marginTop: 5,
         marginBottom: 5
+    },
+    flexRow: {
+        display: 'flex',
+        flexDirection: 'row' as 'row',
+        alignItems: 'flex-end' as 'flex-end'
     },
     label: {
         ...textStyles.terminalLabel,

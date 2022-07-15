@@ -8,8 +8,7 @@ export interface FloatingPoint {
 
 const numberToFloatDisplay = (value: number): JSX.Element => {
     const exponent: number = Math.floor(Math.log(value) / Math.log(2))
-    const base: number = value / Math.pow(2, exponent)
-    console.log({ base: base, exponent: exponent })
+    const base: number = parseFloat((value / Math.pow(2, exponent)).toFixed(5))
     return getFloatDisplay({ base: base, exponent: exponent }, false, "")
 }
 
@@ -56,6 +55,8 @@ const sumOf = (left: FloatingPoint, right: FloatingPoint): FloatingPoint => {
     var result: FloatingPoint = { base: smaller.base + bigger.base, exponent: bigger.exponent }
     //normalise result
     if (result.base != 0) {
+        // const exponentIncrement: number = Math.floor(Math.log(result.base) / Math.log(2))
+        // const newBase: number = parseFloat((result.base / Math.pow(2, exponentIncrement)).toFixed(5))
         while (result.base > 2) {
             result.base = result.base / 2
             result.exponent += 1

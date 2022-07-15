@@ -36,7 +36,7 @@ export const projectsData = [
         name: "Telegram Bot",
         description: "A simple chat bot",
         icon: <TelegramIcon sx={iconStyle} />,
-        requiredLines: 250,
+        requiredLines: 100,
         payout: { base: 1.875, exponent: 8 },
         penalty: { base: 1.5, exponent: 5 }
     },
@@ -44,7 +44,7 @@ export const projectsData = [
         name: "Android App",
         description: "To Do List but mobile",
         icon: <AndroidIcon sx={iconStyle} />,
-        requiredLines: 6000,
+        requiredLines: 1000,
         payout: { base: 1, exponent: 13 },
         penalty: { base: 1, exponent: 10 }
     },
@@ -52,7 +52,7 @@ export const projectsData = [
         name: "Bug Tracker Web App",
         description: "Splat",
         icon: <BugReportIcon sx={iconStyle} />,
-        requiredLines: 250000,
+        requiredLines: 10000,
         payout: { base: 1.5, exponent: 18 },
         penalty: { base: 1.5, exponent: 15 }
     },
@@ -60,7 +60,7 @@ export const projectsData = [
         name: "E-commerce Website",
         description: "Add to Cart",
         icon: <ShoppingCartIcon sx={iconStyle} />,
-        requiredLines: 10000000,
+        requiredLines: 100000,
         payout: { base: 1.75, exponent: 23 },
         penalty: { base: 1.75, exponent: 20 }
     },
