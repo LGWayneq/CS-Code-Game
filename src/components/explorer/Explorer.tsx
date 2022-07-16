@@ -26,7 +26,7 @@ export enum ExplorerStates {
 
 interface ExplorerProps {
     explorerState: ExplorerStates
-    setModal: Function
+    setOverlay: Function
 }
 
 function Explorer(props: ExplorerProps) {
@@ -100,7 +100,7 @@ function Explorer(props: ExplorerProps) {
             {
                 props.explorerState == ExplorerStates.INFO &&
                 <InfoExplorer
-                    setModal={(modal: JSX.Element) => props.setModal(modal)} />
+                    setOverlay={(modal: JSX.Element) => props.setOverlay(modal)} />
             }
             {
                 props.explorerState == ExplorerStates.SETTINGS &&

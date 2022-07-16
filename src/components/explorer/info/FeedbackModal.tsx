@@ -3,20 +3,21 @@ import { colours } from '../../../assets/colours';
 import { textStyles } from '../../../assets/textStyles';
 import BuyButton from '../../ui/BuyButton';
 import Modal from '../../ui/Modal';
+import Snackbar from '../../ui/Snackbar';
 import { sendFeedback } from '../../../utils/email/EmailFunctions';
 
 
-function FeedbackModal(props: { onDismiss: Function }) {
+function FeedbackModal(props: { setOverlay: Function }) {
     const [description, setDescription] = useState<string>("")
 
     const handleSubmit = () => {
         sendFeedback({ DESCRIPTION: description, DATE: new Date() })
-        props.onDismiss()
+        props.setOverlay(<Snackbar>Thank you for your feedback!</Snackbar>)
     }
 
     return (
         <Modal
-            onDismiss={() => props.onDismiss()}>
+            onDismiss={() => props.setOverlay(<></>)}>
             <div style={styles.container}>
                 <body style={styles.title}>Feedback</body>
                 <body style={styles.inputLabel}>Please enter your feedback below:</body>

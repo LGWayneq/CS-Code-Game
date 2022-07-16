@@ -6,7 +6,7 @@ import BuyButton from '../../ui/BuyButton';
 import ReportBugModal from './ReportBugModal';
 import FeedbackModal from './FeedbackModal';
 
-function InfoExplorer(props: { setModal: Function }) {
+function InfoExplorer(props: { setOverlay: Function }) {
     return (
         <div style={{ ...styles.container }}>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>INFORMATION</p>
@@ -18,12 +18,12 @@ function InfoExplorer(props: { setModal: Function }) {
             </p>
             <BuyButton
                 style={{ ...styles.button, marginBottom: 20 }}
-                onClick={() => props.setModal(<ReportBugModal onDismiss={() => props.setModal(<></>)} />)}>
+                onClick={() => props.setOverlay(<ReportBugModal setOverlay={(overlay: JSX.Element) => props.setOverlay(overlay)} />)}>
                 Report Bug
             </BuyButton>
             <BuyButton
                 style={styles.button}
-                onClick={() => props.setModal(<FeedbackModal onDismiss={() => props.setModal(<></>)} />)}>
+                onClick={() => props.setOverlay(<FeedbackModal setOverlay={(overlay: JSX.Element) => props.setOverlay(overlay)} />)}>
                 Feedback
             </BuyButton>
         </div>

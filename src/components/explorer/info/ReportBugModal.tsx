@@ -4,11 +4,16 @@ import { textStyles } from '../../../assets/textStyles';
 import BuyButton from '../../ui/BuyButton';
 import Dropdown from '../../ui/dropdown/Dropdown';
 import Modal from '../../ui/Modal';
+import Snackbar from '../../ui/Snackbar';
 import { sendBugReport } from '../../../utils/email/EmailFunctions';
 
 const BUGTYPES = ["UI", "Gameplay", "Performance", "Others"]
 
-function ReportBugModal(props: { onDismiss: Function }) {
+interface ReportBugModalProps {
+    setOverlay: Function
+}
+
+function ReportBugModal(props: ReportBugModalProps) {
     const [bugType, setBugType] = useState<string>(BUGTYPES[0])
     const [description, setDescription] = useState<string>("")
 
@@ -18,12 +23,12 @@ function ReportBugModal(props: { onDismiss: Function }) {
 
     const handleSubmit = () => {
         sendBugReport({ BUGTYPE: bugType, DESCRIPTION: description, DATE: new Date() })
-        props.onDismiss()
+        props.setOverlay(<Snackbar>Thank you for helping to report bugs!</Snackbar>)
     }
 
     return (
         <Modal
-            onDismiss={() => props.onDismiss()}>
+            onDismiss={() => props.setOverlay(<></>)}>
             <div style={styles.container}>
                 <body style={styles.title}>Report Bug</body>
                 <body style={styles.selectLabel}>Bug Type</body>
