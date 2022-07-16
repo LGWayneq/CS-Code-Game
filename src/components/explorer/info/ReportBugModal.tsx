@@ -4,6 +4,7 @@ import { textStyles } from '../../../assets/textStyles';
 import BuyButton from '../../ui/BuyButton';
 import Dropdown from '../../ui/dropdown/Dropdown';
 import Modal from '../../ui/Modal';
+import { sendEmail } from '../../../utils/email/EmailFunctions';
 
 const BUGTYPES = ["UI", "Gameplay", "Performance", "Others"]
 
@@ -16,7 +17,7 @@ function ReportBugModal(props: { onDismiss: Function }) {
     }
 
     const handleSubmit = () => {
-        //todo: add send email
+        sendEmail({ BUGTYPE: bugType, DESCRIPTION: description, DATE: new Date() })
         props.onDismiss()
     }
 
