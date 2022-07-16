@@ -76,5 +76,6 @@ const styles = {
         backgroundColor: colours.explorer,
         borderRadius: 5,
         width: 500,
+        zIndex: 1
     }
 }

@@ -1,7 +1,30 @@
-function Modal(props: { children: JSX.Element }) {
+import { useState, useEffect } from 'react'
+
+interface ModalProps {
+    children: JSX.Element
+    onDismiss: Function
+}
+
+function Modal(props: ModalProps) {
+    const [contentClicked, setContentClicked] = useState<boolean>(false)
+    const [backgroundClicked, setBackgroundClicked] = useState<boolean>(false)
+
+    useEffect(() => {
+        if (backgroundClicked && !contentClicked) {
+            props.onDismiss()
+        }
+        setContentClicked(false)
+        setBackgroundClicked(false)
+    }, [contentClicked, backgroundClicked])
+
     return (
-        <div style={styles.background}>
-            {props.children}
+        <div
+            style={styles.background}
+            onClick={() => setBackgroundClicked(true)}>
+            <div
+                onClick={() => setContentClicked(true)}>
+                {props.children}
+            </div>
         </div>
     );
 }

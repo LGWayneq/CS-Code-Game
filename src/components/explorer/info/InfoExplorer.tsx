@@ -17,7 +17,7 @@ function InfoExplorer(props: { setModal: Function }) {
             </p>
             <BuyButton
                 style={{ marginBottom: 10 }}
-                onClick={() => props.setModal(<ReportBugModal />)}>
+                onClick={() => props.setModal(<ReportBugModal onDismiss={() => props.setModal(<></>)}/>)}>
                 Report Bug
             </BuyButton>
             <BuyButton
