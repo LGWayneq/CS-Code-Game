@@ -4,6 +4,7 @@ import { textStyles } from '../../../assets/textStyles';
 import { EXPLORER_WIDTH } from '../../../assets/constants';
 import BuyButton from '../../ui/BuyButton';
 import ReportBugModal from './ReportBugModal';
+import FeedbackModal from './FeedbackModal';
 
 function InfoExplorer(props: { setModal: Function }) {
     return (
@@ -13,16 +14,17 @@ function InfoExplorer(props: { setModal: Function }) {
                 Made by a bored CS student, using React and Redux.
             </p>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>
-                Feel free to report any bugs, or offer any suggestions!
+                Feel free to report any bugs, or give any feedback!
             </p>
             <BuyButton
-                style={{ marginBottom: 10 }}
-                onClick={() => props.setModal(<ReportBugModal onDismiss={() => props.setModal(<></>)}/>)}>
+                style={{ ...styles.button, marginBottom: 20 }}
+                onClick={() => props.setModal(<ReportBugModal onDismiss={() => props.setModal(<></>)} />)}>
                 Report Bug
             </BuyButton>
             <BuyButton
-                onClick={() => { }}>
-                Suggestions
+                style={styles.button}
+                onClick={() => props.setModal(<FeedbackModal onDismiss={() => props.setModal(<></>)} />)}>
+                Feedback
             </BuyButton>
         </div>
     );
@@ -49,4 +51,8 @@ const styles = {
         fontWeight: 700,
         cursor: 'pointer'
     },
+    button: {
+        height: 32,
+        paddingTop: 10
+    }
 }

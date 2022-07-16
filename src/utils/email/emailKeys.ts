@@ -2,5 +2,6 @@
 export const EMAIL_KEYS = {
     EMAILJS_PUBLIC_KEY: "KmyW03kPTSCp7yN4x",
     EMAILJS_SERVICE_ID: "service_ktu1els",
-    BUG_REPORT_TEMPLATE_ID: "template_l2wvsqe"
+    BUG_REPORT_TEMPLATE_ID: "template_l2wvsqe",
+    FEEDBACK_TEMPLATE_ID: "template_53d7uai"
 }

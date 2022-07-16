@@ -2,22 +2,15 @@ import { useState } from 'react';
 import { colours } from '../../../assets/colours';
 import { textStyles } from '../../../assets/textStyles';
 import BuyButton from '../../ui/BuyButton';
-import Dropdown from '../../ui/dropdown/Dropdown';
 import Modal from '../../ui/Modal';
-import { sendBugReport } from '../../../utils/email/EmailFunctions';
+import { sendFeedback } from '../../../utils/email/EmailFunctions';
 
-const BUGTYPES = ["UI", "Gameplay", "Performance", "Others"]
 
-function ReportBugModal(props: { onDismiss: Function }) {
-    const [bugType, setBugType] = useState<string>(BUGTYPES[0])
+function FeedbackModal(props: { onDismiss: Function }) {
     const [description, setDescription] = useState<string>("")
 
-    const handleSelection = (value: string) => {
-        setBugType(value)
-    }
-
     const handleSubmit = () => {
-        sendBugReport({ BUGTYPE: bugType, DESCRIPTION: description, DATE: new Date() })
+        sendFeedback({ DESCRIPTION: description, DATE: new Date() })
         props.onDismiss()
     }
 
@@ -25,13 +18,8 @@ function ReportBugModal(props: { onDismiss: Function }) {
         <Modal
             onDismiss={() => props.onDismiss()}>
             <div style={styles.container}>
-                <body style={styles.title}>Report Bug</body>
-                <body style={styles.selectLabel}>Bug Type</body>
-                <Dropdown
-                    value={bugType}
-                    onChange={handleSelection}
-                    options={BUGTYPES} />
-                <body style={styles.inputLabel}>Description</body>
+                <body style={styles.title}>Feedback</body>
+                <body style={styles.inputLabel}>Please enter your feedback below:</body>
                 <textarea
                     style={styles.input}
                     value={description}
@@ -46,11 +34,11 @@ function ReportBugModal(props: { onDismiss: Function }) {
     );
 }
 
-export default ReportBugModal;
+export default FeedbackModal;
 
 const styles = {
     container: {
-        height: 450,
+        height: 360,
         width: 500,
         borderRadius: 25,
         backgroundColor: colours.menu,
