@@ -11,6 +11,9 @@
 # production
 /build
 
+# raw audio assets
+/src/assets/sounds/typing/audio
+
 # misc
 .DS_Store
 .env.local

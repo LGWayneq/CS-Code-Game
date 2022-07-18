@@ -8,6 +8,7 @@ import { incrementMoneyByAmount } from '../utils/redux/slices/moneySlice'
 import { setCurrentIndex, setCurrentLine, setResidualChars, resetCodingArea } from '../utils/redux/slices/codingAreaSlice';
 import { useAppDispatch } from '../utils/redux/hooks';
 import { useAppSelector } from '../utils/redux/hooks'
+import { playTypingSound } from '../utils/sounds/TypingSounds';
 
 const initialCodeLines = startComment + '\n'
 
@@ -35,6 +36,7 @@ function CodingArea() {
             if (!keypressed) {
                 const numOfLinesAdded = updateCodeLines(codingAreaState.currentIndex, cpk)
                 updateMoney(numOfLinesAdded)
+                playTypingSound()
             }
             setKeypressed(true)
         }

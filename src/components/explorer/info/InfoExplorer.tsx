@@ -52,7 +52,7 @@ const styles = {
         cursor: 'pointer'
     },
     button: {
-        height: 32,
-        paddingTop: 10
+        height: 28,
+        paddingTop: 8
     }
 }
