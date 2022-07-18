@@ -21,6 +21,7 @@ function CodingArea() {
     const cpk = useAppSelector(state => state.cpk.value)   // cpk - characters per press
     const cps = useAppSelector(state => state.cps.value)
     const mpl = useAppSelector(state => state.mpl.value)
+    const volume = useAppSelector(state => state.settings.volume)
     const dayStart = useAppSelector(state => state.dayStart.value)
     const dispatch = useAppDispatch()
 
@@ -36,7 +37,7 @@ function CodingArea() {
             if (!keypressed) {
                 const numOfLinesAdded = updateCodeLines(codingAreaState.currentIndex, cpk)
                 updateMoney(numOfLinesAdded)
-                playTypingSound()
+                playTypingSound(volume/100)
             }
             setKeypressed(true)
         }

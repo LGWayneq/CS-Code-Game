@@ -17,6 +17,9 @@ function ProjectsExplorer(props: ProjectsExplorerProps) {
     return (
         <div style={{ ...styles.container }}>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>PROJECTS</p>
+            <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>Take up projects to earn more money!</p>
+            <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>Each project will require you to finish a set number of lines of code within 30 seconds. </p>
+            <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>Your money will be deducted for each second that is exceeded, so be careful when choosing your projects!</p>
             <CurrentProjectCard projectState={projectState} />
             {projectsData.map((project, index) => {
                 // if (ableToPurchase(lifetimeMoney, multiply(project.payout, 2)))
