@@ -17,7 +17,7 @@ function InfoExplorer(props: { setOverlay: Function }) {
                 Feel free to report any bugs, or give any feedback!
             </p>
             <BuyButton
-                style={{ ...styles.button, marginBottom: 20 }}
+                style={{ ...styles.button, marginTop: 20, marginBottom: 20 }}
                 onClick={() => props.setOverlay(<ReportBugModal setOverlay={(overlay: JSX.Element) => props.setOverlay(overlay)} />)}>
                 Report Bug
             </BuyButton>
@@ -53,6 +53,6 @@ const styles = {
     },
     button: {
         height: 28,
-        paddingTop: 8
+        paddingTop: 8,
     }
 }

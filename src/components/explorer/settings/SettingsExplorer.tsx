@@ -53,6 +53,7 @@ function SettingsExplorer() {
                     onChange={(event) => handleVolumeChange(parseInt(event.target.value))} />
             </div>
             <BuyButton
+                style={styles.button}
                 onClick={() => resetGame()}>
                 Reset Game
             </BuyButton>
@@ -89,5 +90,9 @@ const styles = {
         height: 25,
         textAlign: 'center' as 'center',
         alignSelf: 'center'
+    },
+    button: {
+        height: 28,
+        paddingTop: 8,
     }
 }

@@ -5,9 +5,12 @@ import { EXPLORER_WIDTH } from '../../../assets/constants';
 import { useAppSelector, useAppDispatch } from '../../../utils/redux/hooks'
 import { restartDay } from '../../../utils/redux/slices/dayStartSlice';
 import { incrementMplByAmount } from '../../../utils/redux/slices/mplSlice';
+import { numberToFloatDisplay } from '../../../utils/MoneyManager';
+import BuyButton from '../../ui/BuyButton';
 
 function EnddayExplorer() {
     const [numberOfPromotions, setNumberOfPromotions] = useState<number>(0)
+    const lifetimeMoney = useAppSelector(state => state.money.lifetime)
     const dayStart: string = useAppSelector(state => state.dayStart.value)
     const dispatch = useAppDispatch()
 
@@ -23,12 +26,14 @@ function EnddayExplorer() {
     }
 
     const getNumberOfPromotions = (): number => {
-        //todo: refine how number of promotions is determined. for now do 1 promotion per min after 10 mins?
         const timeElapsed = calculateTimeElapsed(new Date(dayStart))
         const TEN_MINUTES = 10 * 60
         if (timeElapsed >= TEN_MINUTES) {
-            const divisor = 60
-            return Math.floor((timeElapsed - TEN_MINUTES) / divisor)
+            const root = 3
+            const lifetimeMoneyInt = Math.pow(lifetimeMoney.base, 1 / root) * Math.pow(2, Math.pow(lifetimeMoney.exponent, 1 / root))
+            const rootedTimeGap = Math.pow(timeElapsed - TEN_MINUTES, 1 / root)
+            const multiplier = Math.pow(lifetimeMoneyInt, 1 / root)
+            return Math.floor(rootedTimeGap * multiplier)
         } else {
             return 0
         }
@@ -42,13 +47,17 @@ function EnddayExplorer() {
     return (
         <div style={{ ...styles.container }}>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>CLOCKOUT</p>
-            <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>End your day to be promoted!</p>
-            <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>You earn more promotions the longer your days are!</p>
+            <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>End your day to get a pay raise!</p>
+            <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>Get larger pay raises the longer your days are!</p>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>Current Day Duration: {(calculateTimeElapsed(new Date(dayStart)) / 60).toFixed(1)} mins</p>
-            <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>You will be promoted <b>{numberOfPromotions}</b> times if you end your day now!</p>
-            <div style={styles.buttonContainer} onClick={() => handleEndDay()}>
-                <body style={styles.buttonText}>CLOCKOUT</body>
-            </div>
+            <p style={{ ...textStyles.terminalLabel, fontSize: 14, ...styles.flexContainer }}>
+                Current Pay Raise: <b style={{ marginLeft: 5 }}>$</b><b>{numberToFloatDisplay(numberOfPromotions)}</b>
+            </p>
+            <BuyButton
+                style={styles.button}
+                onClick={() => handleEndDay()}>
+                CLOCKOUT
+            </BuyButton>
         </div>
     );
 }
@@ -61,31 +70,13 @@ const styles = {
         backgroundColor: colours.explorer,
         paddingBottom: 20
     },
-    qtyContainer: {
+    flexContainer: {
         display: 'flex',
         flexDirection: 'row' as 'row',
-        justifyContent: 'space-between' as 'space-between'
+        alignItems: 'flex-end' as 'flex-end'
     },
-    qtyLabel: {
-        ...textStyles.terminalLabel,
-    },
-    qty: {
-        ...textStyles.terminalLabel,
-        fontWeight: 700,
-        cursor: 'pointer'
-    },
-    buttonContainer: {
-        width: EXPLORER_WIDTH - 50,
-        border: `1px ${colours.offwhite} solid`,
-        borderRadius: 20,
-        textAlign: 'center' as 'center',
-        paddingTop: 5,
-        paddingBottom: 5,
-        cursor: 'pointer'
-
-    },
-    buttonText: {
-        ...textStyles.terminalLabel,
-        fontWeight: 700,
+    button: {
+        height: 28,
+        paddingTop: 8,
     }
 }

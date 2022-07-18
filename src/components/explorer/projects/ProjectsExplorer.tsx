@@ -12,6 +12,7 @@ interface ProjectsExplorerProps {
 }
 
 function ProjectsExplorer(props: ProjectsExplorerProps) {
+    const lifetimeMoney = useAppSelector(state => state.money.lifetime)
     const projectState = useAppSelector(state => state.projects)
 
     return (
@@ -22,15 +23,15 @@ function ProjectsExplorer(props: ProjectsExplorerProps) {
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>Your money will be deducted for each second that is exceeded, so be careful when choosing your projects!</p>
             <CurrentProjectCard projectState={projectState} />
             {projectsData.map((project, index) => {
-                // if (ableToPurchase(lifetimeMoney, multiply(project.payout, 2)))
-                return (
-                    <ProjectCard
-                        key={index}
-                        index={index}
-                        disabled={projectState.currentProject != null}
-                        startProject={(project: Project) => props.handleStartProject(project)}
-                        project={project} />
-                )
+                if (ableToPurchase(lifetimeMoney, multiply(project.payout, 2)))
+                    return (
+                        <ProjectCard
+                            key={index}
+                            index={index}
+                            disabled={projectState.currentProject != null}
+                            startProject={(project: Project) => props.handleStartProject(project)}
+                            project={project} />
+                    )
             })}
         </div>
     );

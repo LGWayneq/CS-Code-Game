@@ -45,12 +45,12 @@ export const moneySlice = createSlice({
         },
         hardResetMoney: (state) => {
             state.lifetime = {
-                base: 1,
-                exponent: 20
+                base: 0,
+                exponent: 0
             }
             state.value = {
-                base: 1,
-                exponent: 20
+                base: 0,
+                exponent: 0
             }
         }
     }
