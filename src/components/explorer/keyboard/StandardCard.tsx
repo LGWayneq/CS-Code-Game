@@ -14,6 +14,8 @@ import KeyboardIcon from '@mui/icons-material/Keyboard';
 import TabIcon from '@mui/icons-material/Tab';
 import PaidIcon from '@mui/icons-material/Paid';
 import BuyButton from '../../ui/BuyButton';
+import { incrementTabs } from '../../../utils/redux/slices/tabsSlice';
+import { incrementCpsByAmount } from '../../../utils/redux/slices/cpsSlice';
 
 interface StandardCardProps {
     index: number,
@@ -22,16 +24,21 @@ interface StandardCardProps {
 
 function StandardCard(props: StandardCardProps) {
     const money = useAppSelector(state => state.money.value)
+    const tabs = useAppSelector(state => state.tabs.value)
+    const cpk = useAppSelector(state => state.cpk.value)
+    const cps = useAppSelector(state => state.cps.value)
     const dispatch = useAppDispatch()
 
     const handleBuyUpgrade = (upgrade: StandardUpgrade) => {
         if (ableToPurchase(money, upgrade.baseCost)) {
             if (upgrade.type == StandardUpgradeType.KEYBOARD) {
-                dispatch(incrementCpkByAmount(1))
+                dispatch(incrementCpkByAmount(tabs))
             } else if (upgrade.type == StandardUpgradeType.PAYRAISE) {
                 dispatch(incrementMplByAmount(1))
             } else if (upgrade.type == StandardUpgradeType.TABS) {
-                //to be implemented
+                dispatch(incrementCpkByAmount(cpk/tabs))
+                dispatch(incrementCpsByAmount(cps/tabs))
+                dispatch(incrementTabs())
             }
             dispatch(purchaseStandardUpgrade(props.index))
             dispatch(decrementMoneyByAmount(upgrade.baseCost))

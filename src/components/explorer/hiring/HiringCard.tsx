@@ -19,6 +19,7 @@ interface HiringCardProps {
 function HiringCard(props: HiringCardProps) {
     const hiring = useAppSelector(state => state.upgrades.hiring)
     const money = useAppSelector(state => state.money.value)
+    const tabs = useAppSelector(state => state.tabs.value)
     const dispatch = useAppDispatch()
 
     const handleIncreaseHiring = (id: number, qty: number) => {
@@ -26,7 +27,7 @@ function HiringCard(props: HiringCardProps) {
         if (ableToPurchase(money, purchasePrice)) {
             dispatch(increaseHiringByAmount({ id: id, qty: qty }))
             dispatch(decrementMoneyByAmount(purchasePrice))
-            dispatch(incrementCpsByAmount(qty * props.upgrade.cps))
+            dispatch(incrementCpsByAmount(tabs * qty * props.upgrade.cps))
         }
     }
 

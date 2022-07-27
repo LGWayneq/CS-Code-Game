@@ -56,37 +56,32 @@ BuyButton.defaultProps = {
 
 export default BuyButton;
 
+const baseStyle = {
+    ...textStyles.terminalLabel,
+    borderRadius: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 2,
+    userSelect: 'none',
+    textAlign: 'center',
+}
+
 const styles = {
     container: {
-        ...textStyles.terminalLabel,
+        ...baseStyle,
         border: '1px grey solid',
-        borderRadius: 20,
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingBottom: 2,
-        textAlign: 'center',
         cursor: 'pointer'
     },
     containerDisabled: {
-        ...textStyles.terminalLabel,
+        ...baseStyle,
         color: colours.divider,
         border: `1px ${colours.divider} solid`,
-        borderRadius: 20,
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingBottom: 2,
-        textAlign: 'center',
         cursor: 'default'
     },
     mouseDown: {
-        ...textStyles.terminalLabel,
+        ...baseStyle,
         color: colours.divider,
         border: `1px ${colours.divider} solid`,
-        borderRadius: 20,
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingBottom: 2,
-        textAlign: 'center',
         cursor: 'pointer'
     }
 }
