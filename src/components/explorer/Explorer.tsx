@@ -99,7 +99,9 @@ function Explorer(props: ExplorerProps) {
     }, [lifetimeMoney])
 
     const handleExplorerStateChange = (value: ExplorerStates) => {
-        setAlerts({ ...alerts, [value]: false })
+        if (value != ExplorerStates.STANDARD) {
+            setAlerts({ ...alerts, [value]: false })
+        }
         setExplorerState(value)
     }
 
