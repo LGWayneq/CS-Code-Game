@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { colours } from '../../../assets/colours';
 import { textStyles } from '../../../assets/textStyles';
 import { EXPLORER_WIDTH } from '../../../assets/constants';

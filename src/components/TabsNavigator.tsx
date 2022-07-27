@@ -23,7 +23,8 @@ function TabsNavigator(props: TabNavigatorProps) {
                         key={index}
                         index={index}
                         setCurrentTab={(value: number) => props.setCurrentTab(value)}
-                        isActive={index == props.currentTab} />
+                        isActive={index == props.currentTab}
+                        disabled={index != 0} />
                 )
             })}
         </div>

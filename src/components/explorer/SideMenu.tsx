@@ -1,4 +1,3 @@
-import React from 'react';
 import { colours } from '../../assets/colours';
 import WindowDimensions from '../../utils/WindowDimensions';
 import { SIDE_MENU_WIDTH, TITLE_BAR_HEIGHT } from '../../assets/constants';
@@ -8,11 +7,13 @@ import WorkIcon from '@mui/icons-material/Work';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import SettingsIcon from '@mui/icons-material/Settings';
+import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
 import { ExplorerStates } from './Explorer'
 
 interface SideMenuProps {
     explorerState: ExplorerStates
     setExplorerState: Function
+    alerts: any
 }
 
 function SideMenu(props: SideMenuProps) {
@@ -25,10 +26,12 @@ function SideMenu(props: SideMenuProps) {
             <div style={styles.iconContainer}>
                 {props.explorerState == ExplorerStates.STANDARD ? <div style={styles.highlight} /> : <div style={styles.unhighlight} />}
                 <ConstructionIcon sx={styles.icon} onClick={() => props.setExplorerState(ExplorerStates.STANDARD)} />
+                {props.alerts[ExplorerStates.STANDARD] && <PriorityHighIcon sx={styles.iconAlert}/>}
             </div>
             <div style={styles.iconContainer}>
                 {props.explorerState == ExplorerStates.PROJECTS ? <div style={styles.highlight} /> : <div style={styles.unhighlight} />}
                 <WorkIcon sx={styles.icon} onClick={() => props.setExplorerState(ExplorerStates.PROJECTS)} />
+                {props.alerts[ExplorerStates.PROJECTS] && <PriorityHighIcon sx={styles.iconAlert}/>}
             </div>
             <div style={styles.iconContainer}>
                 {props.explorerState == ExplorerStates.ENDDAY ? <div style={styles.highlight} /> : <div style={styles.unhighlight} />}
@@ -36,11 +39,11 @@ function SideMenu(props: SideMenuProps) {
             </div>
             <div style={{ ...styles.iconContainer, marginTop: 'auto' }}>
                 {props.explorerState == ExplorerStates.INFO ? <div style={styles.highlight} /> : <div style={styles.unhighlight} />}
-                <InfoOutlinedIcon sx={styles.icon} onClick={() => props.setExplorerState(ExplorerStates.INFO)}/>
+                <InfoOutlinedIcon sx={styles.icon} onClick={() => props.setExplorerState(ExplorerStates.INFO)} />
             </div>
             <div style={{ ...styles.iconContainer }}>
                 {props.explorerState == ExplorerStates.SETTINGS ? <div style={styles.highlight} /> : <div style={styles.unhighlight} />}
-                <SettingsIcon sx={styles.icon} onClick={() => props.setExplorerState(ExplorerStates.SETTINGS)}/>
+                <SettingsIcon sx={styles.icon} onClick={() => props.setExplorerState(ExplorerStates.SETTINGS)} />
             </div>
         </div>
     );
@@ -72,6 +75,14 @@ const styles = {
         width: SIDE_MENU_WIDTH - 20,
         margin: 1,
         cursor: 'pointer'
+    },
+    iconAlert:{
+        color: colours.offwhite,
+        height: 15,
+        width: 15,
+        position: 'absolute',
+        marginTop: -1,
+        marginLeft: 5,
     },
     highlight: {
         width: 2,

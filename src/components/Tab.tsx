@@ -7,13 +7,14 @@ import PYTHON from '../assets/icons/python.png';
 interface TabProps {
     index: number,
     setCurrentTab: Function,
-    isActive: boolean
+    isActive: boolean,
+    disabled: boolean
 }
 
 function Tab(props: TabProps) {
     return (
         <div
-            style={{ ...styles.container, backgroundColor: props.isActive ? colours.main : colours.menu }}
+            style={{ ...styles.container, backgroundColor: (props.isActive && !props.disabled) ? colours.main : colours.menu }}
             onClick={() => props.setCurrentTab(props.index)}>
             <img style={styles.icon} src={tabsData[props.index].image} />
             <body style={styles.tabTitle}>{tabsData[props.index].name}</body>
