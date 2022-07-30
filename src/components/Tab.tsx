@@ -2,7 +2,6 @@ import { colours } from '../assets/colours';
 import { textStyles } from '../assets/textStyles'
 import { TAB_HEIGHT } from '../assets/constants';
 import { tabsData } from '../assets/upgradesData';
-import PYTHON from '../assets/icons/python.png';
 
 interface TabProps {
     index: number,
@@ -33,7 +32,7 @@ const styles = {
         justifyContent: 'center',
         paddingLeft: 15,
         paddingRight: 20,
-        cursor: 'pointer'
+        // cursor: 'pointer'
     },
     icon: {
         height: 12,
