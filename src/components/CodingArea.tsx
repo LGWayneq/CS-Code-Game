@@ -35,7 +35,6 @@ function CodingArea() {
     }, [])
 
     //useEffect to handle active typing
-    //todo: add handler to limit active typing speed
     useEffect(() => {
         function handleKeyDown() {
             const timeElapsed: number = calculateTimeElapsed(prevKeydownTime) * 1000
@@ -63,7 +62,7 @@ function CodingArea() {
     useEffect(() => {
         const idleUpdater = setInterval(() => handleTick(), TICK_DURATION)
         return () => clearInterval(idleUpdater)
-    }, [codeLines, codingAreaState.currentIndex])
+    }, [codeLines, codingAreaState.currentIndex, codingAreaState.residualChars])
 
     useEffect(() => {
         if (!isFirstLoad) {
