@@ -40,14 +40,16 @@ export const textStyles = {
         color: 'rgba(133,133,133,1)',
         textAlign: 'right' as 'right',
         width: 40,
-        marginRight: 30
+        marginRight: 30,
+        paddingLeft: 15
     },
     codeLabelHighlighted: {
         fontSize: 14,
         color: 'rgba(198,198,198,1)',
         textAlign: 'right' as 'right',
         width: 40,
-        marginRight: 30
+        marginRight: 30,
+        paddingLeft: 15
     },
     terminalLabel: {
         fontsize: 12,
