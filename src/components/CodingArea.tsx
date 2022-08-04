@@ -9,17 +9,19 @@ import { setCurrentIndex, setCurrentLine, setResidualChars, resetCodingArea } fr
 import { useAppDispatch } from '../utils/redux/hooks';
 import { useAppSelector } from '../utils/redux/hooks'
 import { playTypingSound } from '../utils/sounds/TypingSounds';
+import { calculateTimeElapsed } from '../utils/DateTime';
 
-const TICK_DURATION = 25
+const TICK_DURATION = 20
 const initialCodeLines = startComment + '\n'
 
 function CodingArea() {
     const containerRef = useRef<HTMLDivElement>(null)
     const [codeLines, setCodeLines] = useState<string>(initialCodeLines)
     const [keypressed, setKeypressed] = useState<boolean>(false)
+    const [prevKeydownTime, setPrevKeydownTime] = useState<Date>(new Date())
     const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true)
     const codingAreaState = useAppSelector(state => state.codingArea)
-    const cpk = useAppSelector(state => state.cpk.value)   // cpk - characters per press
+    const cpk = useAppSelector(state => state.cpk.value)
     const cps = useAppSelector(state => state.cps.value)
     const mpl = useAppSelector(state => state.mpl.value)
     const volume = useAppSelector(state => state.settings.volume)
@@ -36,13 +38,16 @@ function CodingArea() {
     //todo: add handler to limit active typing speed
     useEffect(() => {
         function handleKeyDown() {
-            if (!keypressed) {
+            const timeElapsed: number = calculateTimeElapsed(prevKeydownTime) * 1000
+            console.log(timeElapsed)
+            if (!keypressed && timeElapsed > TICK_DURATION) {
                 const cpsIncrement = getCpsIncrement()
                 const numOfLinesAdded = updateCodeLines(codingAreaState.currentIndex, cpk + cpsIncrement)
                 updateMoney(numOfLinesAdded)
                 playTypingSound(volume / 100)
             }
             setKeypressed(true)
+            setPrevKeydownTime(new Date())
         }
         function handleKeyUp() {
             setKeypressed(false)
@@ -78,11 +83,11 @@ function CodingArea() {
     }
 
     const getCpsIncrement = (): number => {
-         //handle float CPS values
-         const cpsIncrementFloat = codingAreaState.residualChars + cps / (1000/TICK_DURATION)
-         const cpsIncrementInt = Math.trunc(cpsIncrementFloat)
-         dispatch(setResidualChars(cpsIncrementFloat - cpsIncrementInt))
-         return cpsIncrementInt
+        //handle float CPS values
+        const cpsIncrementFloat = codingAreaState.residualChars + cps / (1000 / TICK_DURATION)
+        const cpsIncrementInt = Math.trunc(cpsIncrementFloat)
+        dispatch(setResidualChars(cpsIncrementFloat - cpsIncrementInt))
+        return cpsIncrementInt
     }
 
     const updateCodeLines = (currentIndex: number, increment: number) => {
