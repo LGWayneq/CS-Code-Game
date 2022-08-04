@@ -6,13 +6,13 @@ export interface FloatingPoint {
     exponent: number
 }
 
-const numberToFloatDisplay = (value: number): JSX.Element => {
+const numberToFloatDisplay = (value: number, isCost: boolean = false, prefix: string = ""): JSX.Element => {
     if (value == 0) {
-        return getFloatDisplay({ base: 0, exponent: 0 }, false, "")
+        return getFloatDisplay({ base: 0, exponent: 0 }, isCost, prefix)
     } else {
         const exponent: number = Math.floor(Math.log(value) / Math.log(2))
         const base: number = parseFloat((value / Math.pow(2, exponent)).toFixed(5))
-        return getFloatDisplay({ base: base, exponent: exponent }, false, "")
+        return getFloatDisplay({ base: base, exponent: exponent }, isCost, prefix)
     }
 }
 

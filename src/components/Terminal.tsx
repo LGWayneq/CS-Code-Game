@@ -1,10 +1,9 @@
-import React from 'react';
 import { colours } from '../assets/colours';
 import { textStyles } from '../assets/textStyles';
 import WindowDimensions from '../utils/WindowDimensions';
 import { SIDE_MENU_WIDTH, EXPLORER_WIDTH } from '../assets/constants';
 import { useAppSelector } from '../utils/redux/hooks'
-import { getFloatDisplay } from '../utils/MoneyManager';
+import { getFloatDisplay, numberToFloatDisplay } from '../utils/MoneyManager';
 
 function Terminal() {
     const money = useAppSelector(state => state.money.value)
@@ -26,14 +25,16 @@ function Terminal() {
                 {getFloatDisplay(money, false)}
             </div>
             <body style={styles.text}>
-                <b style={styles.textLabel}>Idle Typing Speed:</b> {cps.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1})} character{cps > 1 && "s"}/second
+                <b style={styles.textLabel}>Idle Typing Speed:</b> {cps.toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 })} character{cps > 1 && "s"}/second
             </body>
             <body style={styles.text}>
-                <b style={styles.textLabel}>Keyboard Speed:</b>{cpk.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})} character{cpk > 1 && "s"}/keypress
+                <b style={styles.textLabel}>Keyboard Speed:</b>{cpk.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })} character{cpk > 1 && "s"}/keypress
             </body>
-            <body style={styles.text}>
-                <b style={styles.textLabel}>Salary:</b>${mpl.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})}/line
-            </body>
+            <div style={styles.moneyContainer}>
+                <b style={styles.textLabel}>Salary:</b>
+                {numberToFloatDisplay(mpl, true, "$")}
+                <body style={styles.text}>/line</body>
+            </div>
         </div>
     );
 }
@@ -48,7 +49,6 @@ const styles = {
     },
     moneyContainer: {
         display: 'flex', flexDirection: 'row' as 'row',
-        marginTop: 10
     },
     textLabel: {
         ...textStyles.terminalLabel,
@@ -63,5 +63,6 @@ const styles = {
     text: {
         ...textStyles.terminalLabel,
         fontSize: 14,
+        marginTop: 5,
     }
 }
