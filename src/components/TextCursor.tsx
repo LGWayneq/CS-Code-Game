@@ -26,7 +26,6 @@ const styles = {
         backgroundColor: colours.cursor,
         height: 20,
         width: 2,
-        marginTop: 16,
     },
 
 }

@@ -20,11 +20,10 @@ const styles = {
         height: CODE_LINE_HEIGHT,
         width: 1,
         backgroundColor: colours.divider,
-        marginTop: CODE_LINE_HEIGHT - 4,
     }
 }
 
-const SPACING_ELEMENT = <p style={{ ...textStyles.codeContent }}>&nbsp;</p>
+const SPACING_ELEMENT = <body style={{ ...textStyles.codeContent }}>&nbsp;</body>
 const DIVIDER_ELEMENT = <div style={styles.divider} />
 
 function CodeLine(props: CodeLineProps) {
@@ -47,7 +46,7 @@ function CodeLine(props: CodeLineProps) {
         if (props.children.length == 0) {
             return DIVIDER_ELEMENT
         } else if (props.children.includes('#')) {
-            return <p style={textStyles.comment}>{`${props.children}`}</p>
+            return <body style={textStyles.comment}>{`${props.children}`}</body>
         } else {
             const content: Array<JSX.Element> = []
             var pointer = 0
@@ -57,31 +56,31 @@ function CodeLine(props: CodeLineProps) {
             }
             var children: string = insertEscapeChar(props.children)
             if (children.slice(pointer).match(/.*(if|else|return|while|for).*/)) {
-                const spaceIndex = children.slice(pointer).indexOf(" ")
-                content.push(<p style={textStyles.codeKeyword}>{`${children.slice(pointer, pointer + spaceIndex)}`}</p>)
+                const spaceIndex = children.slice(pointer).indexOf(" ")  != -1 ? children.slice(pointer).indexOf(" ") : children.slice(pointer).length
+                content.push(<body style={textStyles.codeKeyword}>{`${children.slice(pointer, pointer + spaceIndex)}`}</body>)
                 pointer += spaceIndex
             } else if (children.slice(pointer, pointer + 3).match(/^def$/)) {
-                content.push(<p style={textStyles.codeDef}>{`${children.slice(pointer, pointer + 3)}`}</p>)
+                content.push(<body style={textStyles.codeDef}>{`${children.slice(pointer, pointer + 3)}`}</body>)
                 pointer += 3
             }
             while (pointer < children.length) {
                 if (children[pointer] == " ") {
                     content.push(SPACING_ELEMENT)
                 } else if (children[pointer].match(/[:=<>+\-*\/,]/)) {
-                    content.push(<p style={textStyles.codeWhite}>{`${children[pointer]}`}</p>)
+                    content.push(<body style={textStyles.codeWhite}>{`${children[pointer]}`}</body>)
                 } else if (children[pointer] == "\\") {
                     const bracketIndex = children.slice(pointer).indexOf('(')
-                    content.push(<p style={textStyles.codeFunction}>{`${children.slice(pointer + 1, pointer + bracketIndex)}`}</p>)
+                    content.push(<body style={textStyles.codeFunction}>{`${children.slice(pointer + 1, pointer + bracketIndex)}`}</body>)
                     pointer += bracketIndex - 1
                 } else if (children[pointer].match(/[\[\]()]/)) {
-                    content.push(<p style={textStyles.codeBracket}>{`${children[pointer]}`}</p>)
+                    content.push(<body style={textStyles.codeBracket}>{`${children[pointer]}`}</body>)
                 } else if ((children.slice(pointer, pointer + 3).match(/^and$/) ||
                     children.slice(pointer, pointer + 2).match(/^or$/) ||
                     children.slice(pointer, pointer + 4).match(/^True$|^None$/) ||
                     children.slice(pointer, pointer + 5).match(/^False$/)) && children[pointer - 1] == " ") {
                     var spaceIndex = children.slice(pointer).indexOf(" ")
                     if (spaceIndex == -1) spaceIndex = pointer + 1
-                    content.push(<p style={textStyles.codeDef}>{`${children.slice(pointer, pointer + spaceIndex)}`}</p>)
+                    content.push(<body style={textStyles.codeDef}>{`${children.slice(pointer, pointer + spaceIndex)}`}</body>)
                     pointer += spaceIndex - 1
                 } else if (!isNaN(Number(children[pointer]))) {
                     var endOfNumber = pointer
@@ -89,20 +88,20 @@ function CodeLine(props: CodeLineProps) {
                         endOfNumber++
                     }
                     endOfNumber--
-                    content.push(<p style={textStyles.codeNumber}>{`${children.slice(pointer, endOfNumber)}`}</p>)
+                    content.push(<body style={textStyles.codeNumber}>{`${children.slice(pointer, endOfNumber)}`}</body>)
                     if (children[pointer] == " ") pointer = endOfNumber - 1    //????
                 } else if (children[pointer] === '"') {
                     var endOfString = children.slice(pointer + 1).indexOf('"')
                     if (endOfString === -1) endOfString = children.slice(pointer).length
-                    content.push(<p style={textStyles.codeString}>{`${children.slice(pointer, pointer + endOfString + 2)}`}</p>)
+                    content.push(<body style={textStyles.codeString}>{`${children.slice(pointer, pointer + endOfString + 2)}`}</body>)
                     pointer += endOfString + 1
                 } else if (children.slice(pointer, pointer + 2).match(/^in$/) && children[pointer - 1] == " ") {
                     var spaceIndex = children.slice(pointer).indexOf(" ")
                     if (spaceIndex == -1) spaceIndex = pointer + 1
-                    content.push(<p style={textStyles.codeKeyword}>{`${children.slice(pointer, pointer + spaceIndex)}`}</p>)
+                    content.push(<body style={textStyles.codeKeyword}>{`${children.slice(pointer, pointer + spaceIndex)}`}</body>)
                     pointer += spaceIndex - 1
                 } else {
-                    content.push(<p style={textStyles.codeContent}>{`${children[pointer]}`}</p>)
+                    content.push(<body style={textStyles.codeContent}>{`${children[pointer]}`}</body>)
                 }
                 pointer++
             }
@@ -126,7 +125,7 @@ function CodeLine(props: CodeLineProps) {
 
     return (
         <div style={styles.container}>
-            <p style={props.highlighted ? textStyles.codeLabelHighlighted : textStyles.codeLabel}>{props.index + 1}</p>
+            <body style={props.highlighted ? textStyles.codeLabelHighlighted : textStyles.codeLabel}>{props.index + 1}</body>
             {renderTabs()}
             {renderContent()}
             {props.highlighted && <TextCursor />}

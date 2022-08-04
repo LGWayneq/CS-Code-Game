@@ -99,6 +99,51 @@ def DFS(graph, start, visited=None):
     for next in graph[start] - visited:
         DFS(graph, next, visited)
     return visited
+
+def getPairsCount(arr, n, sum):
+    # Initialize result
+    count = 0  
+    # Consider all possible pairs
+    # and check their sums
+    for i in range(0, n):
+        for j in range(i + 1, n):
+            if arr[i] + arr[j] == sum:
+                count += 1
+    return count
+
+def nQueens(board, col):
+    # If all queens placed
+    # return true
+    if col >= N:
+        return True
+    for i in range(N):
+        if isSafe(board, i, col):
+            # Place queen in board[i][col]
+            board[i][col] = 1
+            # recur to place rest of the queens
+            if nQueens(board, col + 1):
+                return True
+            board[i][col] = 0
+    return False
+
+def knapSack(W, wt, val, n):
+    # Base Case
+    if n == 0 or W == 0:
+        return 0
+    # If weight of the nth item
+    # is more than W,
+    # then item cannot be included
+    # in the optimal solution
+    if (wt[n-1] > W):
+        return knapSack(W, wt, val, n-1)
+    # return the maximum of two cases:
+    # (1) nth item included
+    # (2) not included
+    else:
+        return max(
+            val[n-1] + knapSack(
+                W-wt[n-1], wt, val, n-1),
+            knapSack(W, wt, val, n-1))
 `
 
 const faultyCode = 
