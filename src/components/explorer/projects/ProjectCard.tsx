@@ -23,10 +23,10 @@ const ProjectCard: FunctionComponent<ProjectCardProps> = (props: ProjectCardProp
                 <div style={styles.subContainer}>
                     <div>
                         <div style={styles.detailsContainer}>
-                            <body style={{ ...styles.label, ...styles.flexRow }}>
+                            <div style={{ ...styles.label, ...styles.flexRow }}>
                                 <body style={{ marginRight: 5 }}>Lines:</body>
                                 {numberToFloatDisplay(props.project.requiredLines)}
-                            </body>
+                            </div>
                         </div>
                         <div style={styles.detailsContainer}>
                             <body style={styles.label}>
