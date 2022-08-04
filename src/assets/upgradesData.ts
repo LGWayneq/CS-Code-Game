@@ -98,7 +98,7 @@ export const upgradesData = {
             description: "They know most stuff",
             image: STAFF,
             baseCost: {
-                base: 1.5,
+                base: 1.75,
                 exponent: 20
             },
             cps: 420
@@ -109,7 +109,7 @@ export const upgradesData = {
             description: "I'm in",
             image: HACKERMAN,
             baseCost: {
-                base: 1.5,
+                base: 1.75,
                 exponent: 24
             },
             cps: 1600
@@ -120,7 +120,7 @@ export const upgradesData = {
             description: "They know everything",
             image: PRINCIPAL,
             baseCost: {
-                base: 1,
+                base: 1.25,
                 exponent: 29
             },
             cps: 8000
@@ -131,7 +131,7 @@ export const upgradesData = {
             description: "Aren't they the ones paying you?",
             image: CTO,   
             baseCost: {
-                base: 1,
+                base: 1.25,
                 exponent: 34
             },
             cps: 32000
@@ -142,7 +142,7 @@ export const upgradesData = {
             description: "Tap tap tap",
             image: TURING,
             baseCost: {
-                base: 1,
+                base: 1.5,
                 exponent: 39
             },
             cps: 128000
@@ -153,7 +153,7 @@ export const upgradesData = {
             description: "Can dogs code?",
             image: DOG,
             baseCost: {
-                base: 1,
+                base: 1.5,
                 exponent: 44
             },
             cps: 512000
@@ -164,7 +164,7 @@ export const upgradesData = {
             description: "01101110 01110101 01110100 01110011",
             image: SUPERCOMPUTER,
             baseCost: {
-                base: 1,
+                base: 1.5,
                 exponent: 49
             },
             cps: 2048000
@@ -194,7 +194,7 @@ export const upgradesData = {
         {
             name: "Pay Raise 1",
             type: StandardUpgradeType.PAYRAISE,
-            description: "Congrats on your first pay raise! Earn more money per line of code!",
+            description: "Congrats on your first pay raise! Earn 10% more money per line of code!",
             baseCost: {
                 base: 1,
                 exponent: 8
@@ -212,7 +212,7 @@ export const upgradesData = {
         {
             name: "Pay Raise 2",
             type: StandardUpgradeType.PAYRAISE,
-            description: "Congrats on your second pay raise! Earn more money per line of code!",
+            description: "Congrats on your second pay raise! Earn 10% more money per line of code!",
             baseCost: {
                 base: 1,
                 exponent: 13
@@ -239,7 +239,7 @@ export const upgradesData = {
         {
             name: "Pay Raise 3",
             type: StandardUpgradeType.PAYRAISE,
-            description: "Congrats on your third pay raise! Earn more money per line of code!",
+            description: "Congrats on your third pay raise! Earn 10% more money per line of code!",
             baseCost: {
                 base: 1,
                 exponent: 18
@@ -257,7 +257,7 @@ export const upgradesData = {
         {
             name: "Pay Raise 4",
             type: StandardUpgradeType.PAYRAISE,
-            description: "Congrats on your fourth pay raise! Earn more money per line of code!",
+            description: "Congrats on your fourth pay raise! Earn 10% more money per line of code!",
             baseCost: {
                 base: 1,
                 exponent: 23
@@ -284,7 +284,7 @@ export const upgradesData = {
         {
             name: "Pay Raise 5",
             type: StandardUpgradeType.PAYRAISE,
-            description: "Congrats on your fifth pay raise! Earn more money per line of code!",
+            description: "Congrats on your fifth pay raise! Earn 10% more money per line of code!",
             baseCost: {
                 base: 1,
                 exponent: 28
@@ -302,7 +302,7 @@ export const upgradesData = {
         {
             name: "Pay Raise 6",
             type: StandardUpgradeType.PAYRAISE,
-            description: "Congrats on your sixth pay raise! Earn more money per line of code!",
+            description: "Congrats on your sixth pay raise! Earn 10% more money per line of code!",
             baseCost: {
                 base: 1,
                 exponent: 33
@@ -329,7 +329,7 @@ export const upgradesData = {
         {
             name: "Pay Raise 7",
             type: StandardUpgradeType.PAYRAISE,
-            description: "Congrats on your seventh pay raise! Earn more money per line of code!",
+            description: "Congrats on your seventh pay raise! Earn 10% more money per line of code!",
             baseCost: {
                 base: 1,
                 exponent: 38
@@ -356,7 +356,7 @@ export const upgradesData = {
         {
             name: "Pay Raise 8",
             type: StandardUpgradeType.PAYRAISE,
-            description: "Congrats on your eigth pay raise! Earn more money per line of code!",
+            description: "Congrats on your eigth pay raise! Earn 10% more money per line of code!",
             baseCost: {
                 base: 1,
                 exponent: 43
@@ -374,7 +374,7 @@ export const upgradesData = {
         {
             name: "Pay Raise 9",
             type: StandardUpgradeType.PAYRAISE,
-            description: "Congrats on your ninth pay raise! Earn more money per line of code!",
+            description: "Congrats on your ninth pay raise! Earn 10% more money per line of code!",
             baseCost: {
                 base: 1,
                 exponent: 48
@@ -401,7 +401,7 @@ export const upgradesData = {
         {
             name: "Pay Raise 10",
             type: StandardUpgradeType.PAYRAISE,
-            description: "Congrats on your final pay raise? Earn more money per line of code!",
+            description: "Congrats on your final pay raise? Earn 10% more money per line of code!",
             baseCost: {
                 base: 1,
                 exponent: 53
