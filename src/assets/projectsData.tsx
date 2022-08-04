@@ -5,6 +5,8 @@ import TelegramIcon from '@mui/icons-material/Telegram';
 import AndroidIcon from '@mui/icons-material/Android';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import WorkIcon from '@mui/icons-material/Work';
+import MouseIcon from '@mui/icons-material/Mouse';
 
 export interface Project {
     name: string
@@ -63,5 +65,21 @@ export const projectsData = [
         requiredLines: 100000,
         payout: { base: 1.25, exponent: 24 },
         penalty: { base: 1.75, exponent: 20 }
+    },
+    {
+        name: "Job Matching App",
+        description: "Get a Job",
+        icon: <WorkIcon sx={iconStyle} />,
+        requiredLines: 1000000,
+        payout: { base: 1, exponent: 29 },
+        penalty: { base: 1, exponent: 26 }
+    },
+    {
+        name: "Clicker Game",
+        description: "Click",
+        icon: <MouseIcon sx={iconStyle} />,
+        requiredLines: 10000000,
+        payout: { base: 1, exponent: 34 },
+        penalty: { base: 1.25, exponent: 31 }
     },
 ]

@@ -33,7 +33,7 @@ function StandardCard(props: StandardCardProps) {
     const handleBuyUpgrade = (upgrade: StandardUpgrade) => {
         if (ableToPurchase(money, upgrade.baseCost)) {
             if (upgrade.type == StandardUpgradeType.KEYBOARD) {
-                dispatch(incrementCpkByAmount(tabs))
+                dispatch(incrementCpkByAmount(cpk))
             } else if (upgrade.type == StandardUpgradeType.PAYRAISE) {
                 const payRaise = Math.ceil(0.1 * mpl)
                 dispatch(incrementMplByAmount(payRaise))

@@ -56,7 +56,11 @@ function CodeLine(props: CodeLineProps) {
             }
             var children: string = insertEscapeChar(props.children)
             if (children.slice(pointer).match(/.*(if|else|return|while|for).*/)) {
-                const spaceIndex = children.slice(pointer).indexOf(" ")  != -1 ? children.slice(pointer).indexOf(" ") : children.slice(pointer).length
+                const spaceIndex = children.slice(pointer).indexOf(" ") != -1
+                    ? children.slice(pointer).indexOf(" ")
+                    : children.slice(pointer).indexOf(":") != -1
+                        ? children.slice(pointer).indexOf(":")
+                        : children.slice(pointer).length - 1
                 content.push(<body style={textStyles.codeKeyword}>{`${children.slice(pointer, pointer + spaceIndex)}`}</body>)
                 pointer += spaceIndex
             } else if (children.slice(pointer, pointer + 3).match(/^def$/)) {
