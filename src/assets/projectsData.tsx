@@ -54,7 +54,7 @@ export const projectsData = [
         name: "Bug Tracker Web App",
         description: "Splat",
         icon: <BugReportIcon sx={iconStyle} />,
-        requiredLines: 10000,
+        requiredLines: 25000,
         payout: { base: 1, exponent: 19 },
         penalty: { base: 1.5, exponent: 15 }
     },
@@ -62,7 +62,7 @@ export const projectsData = [
         name: "E-commerce Website",
         description: "Add to Cart",
         icon: <ShoppingCartIcon sx={iconStyle} />,
-        requiredLines: 100000,
+        requiredLines: 600000,
         payout: { base: 1.25, exponent: 24 },
         penalty: { base: 1.75, exponent: 20 }
     },
@@ -70,7 +70,7 @@ export const projectsData = [
         name: "Job Matching App",
         description: "Get a Job",
         icon: <WorkIcon sx={iconStyle} />,
-        requiredLines: 1000000,
+        requiredLines: 18000000,
         payout: { base: 1, exponent: 29 },
         penalty: { base: 1, exponent: 26 }
     },
@@ -78,7 +78,7 @@ export const projectsData = [
         name: "Clicker Game",
         description: "Click",
         icon: <MouseIcon sx={iconStyle} />,
-        requiredLines: 10000000,
+        requiredLines: 500000000,
         payout: { base: 1, exponent: 34 },
         penalty: { base: 1.25, exponent: 31 }
     },
