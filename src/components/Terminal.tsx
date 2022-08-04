@@ -48,7 +48,9 @@ const styles = {
         padding: 20,
     },
     moneyContainer: {
-        display: 'flex', flexDirection: 'row' as 'row',
+        display: 'flex', 
+        flexDirection: 'row' as 'row',
+        alignItems: 'flex-end' as 'flex-end'
     },
     textLabel: {
         ...textStyles.terminalLabel,
@@ -59,6 +61,7 @@ const styles = {
     labelContainer: {
         display: 'table',
         borderBottom: `1px solid rgba(204,204,204,1)`,
+        marginBottom: 10,
     },
     text: {
         ...textStyles.terminalLabel,
