@@ -26,13 +26,13 @@ function Terminal() {
                 {getFloatDisplay(money, false)}
             </div>
             <body style={styles.text}>
-                <b style={styles.textLabel}>Idle Typing Speed:</b> {cps.toFixed(1)} characters/second
+                <b style={styles.textLabel}>Idle Typing Speed:</b> {cps.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1})} character{cps > 1 && "s"}/second
             </body>
             <body style={styles.text}>
-                <b style={styles.textLabel}>Keyboard Speed:</b>{cpk} character{cpk > 1 && "s"}/keypress
+                <b style={styles.textLabel}>Keyboard Speed:</b>{cpk.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})} character{cpk > 1 && "s"}/keypress
             </body>
             <body style={styles.text}>
-                <b style={styles.textLabel}>Salary:</b>${mpl}/line
+                <b style={styles.textLabel}>Salary:</b>${mpl.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})}/line
             </body>
         </div>
     );
