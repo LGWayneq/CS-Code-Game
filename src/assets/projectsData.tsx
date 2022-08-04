@@ -7,6 +7,7 @@ import BugReportIcon from '@mui/icons-material/BugReport';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import WorkIcon from '@mui/icons-material/Work';
 import MouseIcon from '@mui/icons-material/Mouse';
+import FacebookIcon from '@mui/icons-material/Facebook';
 
 export interface Project {
     name: string
@@ -76,10 +77,18 @@ export const projectsData = [
     },
     {
         name: "Clicker Game",
-        description: "Click",
+        description: "Click Click",
         icon: <MouseIcon sx={iconStyle} />,
         requiredLines: 500000000,
         payout: { base: 1, exponent: 34 },
         penalty: { base: 1.25, exponent: 31 }
+    },
+    {
+        name: "Facebook",
+        description: "Poke",
+        icon: <FacebookIcon sx={iconStyle} />,
+        requiredLines: 10000000000,
+        payout: { base: 1, exponent: 39 },
+        penalty: { base: 1.5, exponent: 36 }
     },
 ]

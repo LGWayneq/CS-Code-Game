@@ -39,7 +39,6 @@ function CodingArea() {
     useEffect(() => {
         function handleKeyDown() {
             const timeElapsed: number = calculateTimeElapsed(prevKeydownTime) * 1000
-            console.log(timeElapsed)
             if (!keypressed && timeElapsed > TICK_DURATION) {
                 const cpsIncrement = getCpsIncrement()
                 const numOfLinesAdded = updateCodeLines(codingAreaState.currentIndex, cpk + cpsIncrement)
@@ -64,7 +63,7 @@ function CodingArea() {
     useEffect(() => {
         const idleUpdater = setInterval(() => handleTick(), TICK_DURATION)
         return () => clearInterval(idleUpdater)
-    })
+    }, [codeLines, codingAreaState.currentIndex])
 
     useEffect(() => {
         if (!isFirstLoad) {
