@@ -36,11 +36,12 @@ function Explorer(props: ExplorerProps) {
     const [explorerState, setExplorerState] = useState<ExplorerStates>(ExplorerStates.HIRING)
     const [alerts, setAlerts] = useState<Object>({ [ExplorerStates.STANDARD]: false, [ExplorerStates.PROJECTS]: false })
     const codingAreaState = useAppSelector(state => state.codingArea)
+    const cps = useAppSelector(state => state.cps.value)
     const [prevIndex, setPrevIndex] = useState<number>(0)
     const projectState = useAppSelector(state => state.projects)
     const currentMoney: FloatingPoint = useAppSelector(state => state.money.value)
     const isStandardUpgradePurchased = useAppSelector(state => state.upgrades.isStandardUpgradePurchased)
-    const dayStart = useAppSelector(state => state.dayStart.value)
+    const dayStart: string = useAppSelector(state => state.dayStart.value)
     const dispatch = useAppDispatch()
 
     // Handle effects when coding area is updated
@@ -67,8 +68,11 @@ function Explorer(props: ExplorerProps) {
     }, [projectState.currentProject, projectState.timeRemaining])
 
     const calculateLineIncrease = (currentIndex: number, prevIndex: number) => {
+        const contentLength = codeContent.length
+        const codeContentTimes = Math.floor(cps/contentLength)
+        const codeContentLines = codeContent.split("\n").length - 1
         const contentChange = codeContent.slice(prevIndex, currentIndex)
-        return contentChange.split("\n").length - 1
+        return codeContentTimes * codeContentLines + contentChange.split("\n").length - 1
     }
 
     const handleReduceTime = () => {
