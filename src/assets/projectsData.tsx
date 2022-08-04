@@ -29,7 +29,7 @@ export const projectsData = [
         description: `1. Do To Do List`,
         icon: <ListIcon sx={iconStyle} />,
         requiredLines: 10,
-        payout: { base: 1.75, exponent: 3 },
+        payout: { base: 1.8, exponent: 3 },
         penalty: { base: 1, exponent: 0 }
     },
     {
@@ -37,7 +37,7 @@ export const projectsData = [
         description: "A simple chat bot",
         icon: <TelegramIcon sx={iconStyle} />,
         requiredLines: 100,
-        payout: { base: 1.375, exponent: 9 },
+        payout: { base: 1.464, exponent: 9 },
         penalty: { base: 1.5, exponent: 5 }
     },
     {
