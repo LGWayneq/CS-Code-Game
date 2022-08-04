@@ -46,7 +46,7 @@ export const upgradesData = {
                 base: 1,
                 exponent: 1
             },
-            cps: 0.2
+            cps: 0.3
         },
         {
             id: 1,
@@ -57,7 +57,7 @@ export const upgradesData = {
                 base: 1.5,
                 exponent: 5
             },
-            cps: 1
+            cps: 1.5
         },
         {
             id: 2,
@@ -68,7 +68,7 @@ export const upgradesData = {
                 base: 1,
                 exponent: 9
             },
-            cps: 5
+            cps: 7.5
         },
         {
             id: 3,
@@ -76,8 +76,8 @@ export const upgradesData = {
             description: "They know some stuff",
             image: INTERMEDIATE,
             baseCost: {
-                base: 1,
-                exponent: 13
+                base: 1.5,
+                exponent: 12
             },
             cps: 25
         },
@@ -90,7 +90,7 @@ export const upgradesData = {
                 base: 1,
                 exponent: 17
             },
-            cps: 125
+            cps: 100
         },
         {
             id: 5,
@@ -98,10 +98,10 @@ export const upgradesData = {
             description: "They know most stuff",
             image: STAFF,
             baseCost: {
-                base: 1,
-                exponent: 21
+                base: 1.5,
+                exponent: 20
             },
-            cps: 625
+            cps: 420
         },
         {
             id: 6,
@@ -109,10 +109,10 @@ export const upgradesData = {
             description: "I'm in",
             image: HACKERMAN,
             baseCost: {
-                base: 1,
-                exponent: 25
+                base: 1.5,
+                exponent: 24
             },
-            cps: 3125
+            cps: 1600
         },
         {
             id: 7,
@@ -123,7 +123,7 @@ export const upgradesData = {
                 base: 1,
                 exponent: 29
             },
-            cps: 15625
+            cps: 8000
         },
         {
             id: 8,
@@ -134,7 +134,7 @@ export const upgradesData = {
                 base: 1,
                 exponent: 34
             },
-            cps: 78125
+            cps: 32000
         },
         {
             id: 9,
@@ -145,7 +145,7 @@ export const upgradesData = {
                 base: 1,
                 exponent: 39
             },
-            cps: 390625
+            cps: 128000
         },
         {
             id: 10,
@@ -156,7 +156,7 @@ export const upgradesData = {
                 base: 1,
                 exponent: 44
             },
-            cps: 1953125
+            cps: 512000
         },
         {
             id: 11,
@@ -167,7 +167,7 @@ export const upgradesData = {
                 base: 1,
                 exponent: 49
             },
-            cps: 1953125 * 5
+            cps: 2048000
         },
         // {
         //     id: 12,
@@ -178,7 +178,7 @@ export const upgradesData = {
         //         base: 1,
         //         exponent: 54
         //     },
-        //     cps: 1953125 * 5 * 5
+        //     cps: 2048000 * 5
         // }
     ],
     standard: [

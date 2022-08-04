@@ -55,7 +55,7 @@ function HiringCard(props: HiringCardProps) {
                     {getFloatDisplay(calculateCost(props.upgrade.baseCost, hiring[props.upgrade.id].qty, props.purchaseQty))}
                 </div>
                 <div style={styles.selectionContainer}>
-                    <body style={styles.costLabel}>CPS: {props.upgrade.cps}</body>
+                    <body style={styles.costLabel}>CPS: {(tabs * props.purchaseQty * props.upgrade.cps).toFixed(1)}</body>
                     <BuyButton
                         disabled={!ableToPurchase(money, calculateCost(props.upgrade.baseCost, hiring[props.upgrade.id].qty, props.purchaseQty))}
                         onClick={() => handleIncreaseHiring(props.upgrade.id, props.purchaseQty)}>

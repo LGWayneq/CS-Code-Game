@@ -29,7 +29,7 @@ export const projectsData = [
         description: `1. Do To Do List`,
         icon: <ListIcon sx={iconStyle} />,
         requiredLines: 10,
-        payout: { base: 1.25, exponent: 3 },
+        payout: { base: 1.75, exponent: 3 },
         penalty: { base: 1, exponent: 0 }
     },
     {
@@ -37,7 +37,7 @@ export const projectsData = [
         description: "A simple chat bot",
         icon: <TelegramIcon sx={iconStyle} />,
         requiredLines: 100,
-        payout: { base: 1.875, exponent: 8 },
+        payout: { base: 1.375, exponent: 9 },
         penalty: { base: 1.5, exponent: 5 }
     },
     {
@@ -45,7 +45,7 @@ export const projectsData = [
         description: "To Do List but mobile",
         icon: <AndroidIcon sx={iconStyle} />,
         requiredLines: 1000,
-        payout: { base: 1, exponent: 13 },
+        payout: { base: 1.5, exponent: 13 },
         penalty: { base: 1, exponent: 10 }
     },
     {
@@ -53,7 +53,7 @@ export const projectsData = [
         description: "Splat",
         icon: <BugReportIcon sx={iconStyle} />,
         requiredLines: 10000,
-        payout: { base: 1.5, exponent: 18 },
+        payout: { base: 1, exponent: 19 },
         penalty: { base: 1.5, exponent: 15 }
     },
     {
@@ -61,7 +61,7 @@ export const projectsData = [
         description: "Add to Cart",
         icon: <ShoppingCartIcon sx={iconStyle} />,
         requiredLines: 100000,
-        payout: { base: 1.75, exponent: 23 },
+        payout: { base: 1.25, exponent: 24 },
         penalty: { base: 1.75, exponent: 20 }
     },
 ]

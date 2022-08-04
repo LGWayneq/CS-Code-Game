@@ -27,6 +27,7 @@ function StandardCard(props: StandardCardProps) {
     const tabs = useAppSelector(state => state.tabs.value)
     const cpk = useAppSelector(state => state.cpk.value)
     const cps = useAppSelector(state => state.cps.value)
+    const mpl = useAppSelector(state => state.mpl.value)
     const dispatch = useAppDispatch()
 
     const handleBuyUpgrade = (upgrade: StandardUpgrade) => {
@@ -34,7 +35,8 @@ function StandardCard(props: StandardCardProps) {
             if (upgrade.type == StandardUpgradeType.KEYBOARD) {
                 dispatch(incrementCpkByAmount(tabs))
             } else if (upgrade.type == StandardUpgradeType.PAYRAISE) {
-                dispatch(incrementMplByAmount(1))
+                const payRaise = Math.ceil(0.1 * mpl)
+                dispatch(incrementMplByAmount(payRaise))
             } else if (upgrade.type == StandardUpgradeType.TABS) {
                 dispatch(incrementCpkByAmount(cpk/tabs))
                 dispatch(incrementCpsByAmount(cps/tabs))
