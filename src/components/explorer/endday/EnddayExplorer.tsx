@@ -7,6 +7,8 @@ import { restartDay } from '../../../utils/redux/slices/dayStartSlice';
 import { incrementMplByAmount } from '../../../utils/redux/slices/mplSlice';
 import { numberToFloatDisplay } from '../../../utils/MoneyManager';
 import BuyButton from '../../ui/BuyButton';
+import { resetMoney } from '../../../utils/redux/slices/moneySlice';
+import { calculateTimeElapsed } from '../../../utils/DateTime';
 
 function EnddayExplorer() {
     const [numberOfPromotions, setNumberOfPromotions] = useState<number>(0)
@@ -19,11 +21,6 @@ function EnddayExplorer() {
 
         return () => clearInterval(calculatePromotions)
     }, [numberOfPromotions, dayStart])
-
-    // return value is in seconds
-    const calculateTimeElapsed = (dayStart: Date): number => {
-        return (new Date().getTime() - dayStart.getTime()) / 1000
-    }
 
     const getNumberOfPromotions = (): number => {
         const timeElapsed = calculateTimeElapsed(new Date(dayStart))
@@ -41,6 +38,7 @@ function EnddayExplorer() {
 
     const handleEndDay = () => {
         dispatch(restartDay())
+        dispatch(resetMoney())
         dispatch(incrementMplByAmount(numberOfPromotions))  //for now promotions add to mpl
     }
 
@@ -48,6 +46,7 @@ function EnddayExplorer() {
         <div style={{ ...styles.container }}>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>CLOCKOUT</p>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>End your day to get a pay raise!</p>
+            <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>You lose all the money you currently have, but you will get more money for each line of code you type!</p>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>Get larger pay raises the longer your days are!</p>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>Current Day Duration: {(calculateTimeElapsed(new Date(dayStart)) / 60).toFixed(1)} mins</p>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14, ...styles.flexContainer }}>

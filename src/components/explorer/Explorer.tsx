@@ -17,6 +17,7 @@ import { decrementMoneyByAmount, incrementMoneyByAmount } from '../../utils/redu
 import { codeContent } from '../../assets/codeContent';
 import { ableToPurchase, FloatingPoint, multiply } from '../../utils/MoneyManager';
 import { upgradesData } from '../../assets/upgradesData';
+import { calculateTimeElapsed } from '../../utils/DateTime';
 
 export enum ExplorerStates {
     HIRING,
@@ -37,8 +38,9 @@ function Explorer(props: ExplorerProps) {
     const codingAreaState = useAppSelector(state => state.codingArea)
     const [prevIndex, setPrevIndex] = useState<number>(0)
     const projectState = useAppSelector(state => state.projects)
-    const lifetimeMoney: FloatingPoint = useAppSelector(state => state.money.lifetime)
+    const currentMoney: FloatingPoint = useAppSelector(state => state.money.value)
     const isStandardUpgradePurchased = useAppSelector(state => state.upgrades.isStandardUpgradePurchased)
+    const dayStart = useAppSelector(state => state.dayStart.value)
     const dispatch = useAppDispatch()
 
     // Handle effects when coding area is updated
@@ -92,14 +94,25 @@ function Explorer(props: ExplorerProps) {
     // Handle increase in lifetime money. Used to determine if alert for Standard Explorer should be displayed.
     useEffect(() => {
         upgradesData.standard.map((upgrade, index) => {
-            if (!isStandardUpgradePurchased[index] && ableToPurchase(multiply(lifetimeMoney, 5), upgrade.baseCost)) {
+            if (!isStandardUpgradePurchased[index] && ableToPurchase(currentMoney, upgrade.baseCost)) {
                 setAlerts({ ...alerts, [ExplorerStates.STANDARD]: true })
             }
         })
-    }, [lifetimeMoney])
+    }, [currentMoney])
+
+    // useEffect to determine if alert for EndDay Explorer should be displayed.
+    useEffect(() => {
+        // timeElapsed is in seconds.
+        const timeElapsed: number = calculateTimeElapsed(new Date(dayStart));
+        if (timeElapsed >= 10 * 60) {
+            setAlerts({ ...alerts, [ExplorerStates.ENDDAY]: true })
+        } else {
+            setAlerts({ ...alerts, [ExplorerStates.ENDDAY]: false })
+        }
+    }, [dayStart])
 
     const handleExplorerStateChange = (value: ExplorerStates) => {
-        if (value != ExplorerStates.STANDARD) {
+        if (value != ExplorerStates.STANDARD && value != ExplorerStates.ENDDAY) {
             setAlerts({ ...alerts, [value]: false })
         }
         setExplorerState(value)

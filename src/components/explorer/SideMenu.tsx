@@ -36,6 +36,7 @@ function SideMenu(props: SideMenuProps) {
             <div style={styles.iconContainer}>
                 {props.explorerState == ExplorerStates.ENDDAY ? <div style={styles.highlight} /> : <div style={styles.unhighlight} />}
                 <ScheduleIcon sx={styles.icon} onClick={() => props.setExplorerState(ExplorerStates.ENDDAY)} />
+                {props.alerts[ExplorerStates.ENDDAY] && <PriorityHighIcon sx={styles.iconAlert}/>}
             </div>
             <div style={{ ...styles.iconContainer, marginTop: 'auto' }}>
                 {props.explorerState == ExplorerStates.INFO ? <div style={styles.highlight} /> : <div style={styles.unhighlight} />}
