@@ -10,6 +10,7 @@ import { useAppDispatch } from '../utils/redux/hooks';
 import { useAppSelector } from '../utils/redux/hooks'
 import { playTypingSound } from '../utils/sounds/TypingSounds';
 
+const TICK_DURATION = 25
 const initialCodeLines = startComment + '\n'
 
 function CodingArea() {
@@ -32,12 +33,14 @@ function CodingArea() {
     }, [])
 
     //useEffect to handle active typing
+    //todo: add handler to limit active typing speed
     useEffect(() => {
         function handleKeyDown() {
             if (!keypressed) {
-                const numOfLinesAdded = updateCodeLines(codingAreaState.currentIndex, cpk)
+                const cpsIncrement = getCpsIncrement()
+                const numOfLinesAdded = updateCodeLines(codingAreaState.currentIndex, cpk + cpsIncrement)
                 updateMoney(numOfLinesAdded)
-                playTypingSound(volume/100)
+                playTypingSound(volume / 100)
             }
             setKeypressed(true)
         }
@@ -54,17 +57,7 @@ function CodingArea() {
 
     //useEffect to handle idle typing
     useEffect(() => {
-        const idleUpdater = setInterval(() => {
-            //handle float CPS values
-            if (cps > 0) {
-                const cpsIncrementFloat = codingAreaState.residualChars + cps / 10
-                const cpsIncrementInt = Math.trunc(cpsIncrementFloat)
-                dispatch(setResidualChars(cpsIncrementFloat - cpsIncrementInt))
-                //use integer CPS to update codeLines
-                const numOfLinesAdded = updateCodeLines(codingAreaState.currentIndex, cpsIncrementInt)
-                updateMoney(numOfLinesAdded)
-            }
-        }, 100)
+        const idleUpdater = setInterval(() => handleTick(), TICK_DURATION)
         return () => clearInterval(idleUpdater)
     })
 
@@ -74,6 +67,23 @@ function CodingArea() {
             setCodeLines(initialCodeLines)
         }
     }, [dayStart])
+
+    const handleTick = () => {
+        if (cps > 0) {
+            const cpsIncrement: number = getCpsIncrement()
+            //use integer CPS to update codeLines
+            const numOfLinesAdded = updateCodeLines(codingAreaState.currentIndex, cpsIncrement)
+            updateMoney(numOfLinesAdded)
+        }
+    }
+
+    const getCpsIncrement = (): number => {
+         //handle float CPS values
+         const cpsIncrementFloat = codingAreaState.residualChars + cps / (1000/TICK_DURATION)
+         const cpsIncrementInt = Math.trunc(cpsIncrementFloat)
+         dispatch(setResidualChars(cpsIncrementFloat - cpsIncrementInt))
+         return cpsIncrementInt
+    }
 
     const updateCodeLines = (currentIndex: number, increment: number) => {
         var newIndex = currentIndex + increment
