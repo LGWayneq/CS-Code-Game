@@ -24,11 +24,10 @@ function HiringExplorer() {
             </div>
             <div style={styles.cardContainer}>
                 {upgradesData.hiring.map((upgrade, index) => {
-                    if (index == 0 || hiring[index - 1].qty > 0 || hiring[index].qty > 0) {
+                    if (index == 0 || hiring[index - 1].qty > 0 || hiring[index].qty > 0)
                     return (
                         <HiringCard key={index} upgrade={upgrade} purchaseQty={purchaseQty} />
                     )
-                    }
                 })}
             </div>
         </div>

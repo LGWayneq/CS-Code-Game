@@ -54,7 +54,7 @@ export const upgradesData = {
             description: "They know a little stuff",
             image: JUNIOR,
             baseCost: {
-                base: 1.5,
+                base: 1,
                 exponent: 5
             },
             cps: 1.5
@@ -76,8 +76,8 @@ export const upgradesData = {
             description: "They know some stuff",
             image: INTERMEDIATE,
             baseCost: {
-                base: 1.5,
-                exponent: 12
+                base: 1,
+                exponent: 13
             },
             cps: 25
         },
@@ -165,21 +165,21 @@ export const upgradesData = {
             image: SUPERCOMPUTER,
             baseCost: {
                 base: 1.5,
-                exponent: 49
+                exponent: 48
+            },
+            cps: 1024000
+        },
+        {
+            id: 12,
+            name: "???",
+            description: "???",
+            image: null,
+            baseCost: {
+                base: 1.5,
+                exponent: 51
             },
             cps: 2048000
         },
-        // {
-        //     id: 12,
-        //     name: "GLaDOS",
-        //     description: "Cake",
-        //     image: PRINCIPAL,
-        //     baseCost: {
-        //         base: 1,
-        //         exponent: 54
-        //     },
-        //     cps: 2048000 * 5
-        // }
     ],
     standard: [
         {

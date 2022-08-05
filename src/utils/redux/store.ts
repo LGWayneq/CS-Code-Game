@@ -10,6 +10,7 @@ import codingAreaReducer from './slices/codingAreaSlice'
 import projectsReducer from './slices/projectsSlice'
 import settingsReducer from './slices/settingsSlice'
 import sessionReducer from './slices/sessionSlice'
+import { upgradesData } from '../../assets/upgradesData'
 
 function saveToLocalStorage(state: any) {
   try {
@@ -26,11 +27,28 @@ function loadFromLocalStorage() {
     if (serialisedState === null) {
       return undefined;
     }
-    return JSON.parse(serialisedState);
+    const loadedState = verifyHiringData(JSON.parse(serialisedState))
+    return loadedState;
   } catch (e) {
     console.warn(e);
     return undefined;
   }
+}
+
+function verifyHiringData(loadedState: any) {
+  if (loadedState.upgrades.hiring.length != upgradesData.hiring.length) {
+    const hiring = upgradesData.hiring.map((item, index) => {
+      return ({
+        id: index,
+        name: item.name,
+        qty: loadedState.upgrades.hiring[index]
+          ? loadedState.upgrades.hiring[index].qty
+          : 0
+      })
+    })
+    loadedState.upgrades.hiring = hiring
+  }
+  return loadedState
 }
 
 export const store = configureStore({
