@@ -435,5 +435,13 @@ export const tabsData = [
     {
         name: "index.py",
         image: PYTHON
+    },
+    {
+        name: "utils.py",
+        image: PYTHON
+    },
+    {
+        name: "services.py",
+        image: PYTHON
     }
 ]
