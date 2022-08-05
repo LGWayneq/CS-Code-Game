@@ -9,6 +9,7 @@ import dayStartReducer from './slices/dayStartSlice'
 import codingAreaReducer from './slices/codingAreaSlice'
 import projectsReducer from './slices/projectsSlice'
 import settingsReducer from './slices/settingsSlice'
+import sessionReducer from './slices/sessionSlice'
 
 function saveToLocalStorage(state: any) {
   try {
@@ -43,7 +44,8 @@ export const store = configureStore({
     tabs: tabsReducer,
     dayStart: dayStartReducer,
     projects: projectsReducer,
-    settings: settingsReducer
+    settings: settingsReducer,
+    session: sessionReducer
   },
   preloadedState: loadFromLocalStorage()
 })

@@ -1,18 +1,42 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { colours } from '../assets/colours';
 import TitleBar from '../components/TitleBar';
-import SideMenu from '../components/explorer/SideMenu';
 import Explorer from '../components/explorer/Explorer';
 import TabsNavigator from '../components/TabsNavigator';
 import CodingArea from '../components/CodingArea';
 import Terminal from '../components/Terminal';
-import { ExplorerStates } from '../components/explorer/Explorer'
-import { useAppSelector } from '../utils/redux/hooks';
+import { useAppDispatch, useAppSelector } from './../utils/redux/hooks';
+import { setLastFocused } from './../utils/redux/slices/sessionSlice';
+import { calculateTimeElapsed } from '../utils/DateTime';
 
 function GameScreen() {
     const tabs = useAppSelector(state => state.tabs.value)
     const [modal, setOverlay] = useState<JSX.Element>(<></>)
     const [currentTab, setCurrentTab] = useState<number>(0)
+    const lastFocused = useAppSelector(state => state.session.lastFocused)
+    const cps = useAppSelector(state => state.cps.value)
+    const dispatch = useAppDispatch()
+  
+    useEffect(() => {
+      window.addEventListener("focus", onFocus);
+      window.addEventListener("blur", onBlur);
+      window.addEventListener('beforeunload', onBlur);
+      onFocus();
+      return () => {
+        window.removeEventListener("focus", onFocus);
+        window.removeEventListener("blur", onBlur);
+        window.removeEventListener("beforeunload", onBlur);
+      };
+    }, []);
+  
+    const onFocus = () => {
+        const timeElapsed = calculateTimeElapsed(new Date(lastFocused))
+        const charIncrement = timeElapsed * cps
+    };
+  
+    const onBlur = () => {
+      dispatch(setLastFocused(new Date()))
+    };
 
     return (
         <div style={styles.container}>

@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { startComment } from '../../../assets/codeContent'
 import type { RootState } from '../store'
 
-interface CodingAreaState {
+export interface CodingAreaState {
     currentIndex: number,
     currentLine: number,
     residualChars: number
