@@ -1,7 +1,8 @@
 import { colours } from '../assets/colours';
 import { textStyles } from '../assets/textStyles';
-import { CODE_LINE_HEIGHT } from '../assets/constants';
+import { CODE_LINE_HEIGHT, EXPLORER_WIDTH, SIDE_MENU_WIDTH } from '../assets/constants';
 import TextCursor from './TextCursor';
+import WindowDimensions from '../utils/WindowDimensions';
 
 interface CodeLineProps {
     index: number,
@@ -15,6 +16,7 @@ const styles = {
         backgroundColor: colours.main,
         display: 'flex',
         flexDirection: 'row' as 'row',
+        overflow: 'hidden'
     },
     divider: {
         height: CODE_LINE_HEIGHT,
@@ -128,7 +130,7 @@ function CodeLine(props: CodeLineProps) {
     }
 
     return (
-        <div style={styles.container}>
+        <div style={{ ...styles.container, width: WindowDimensions().width - SIDE_MENU_WIDTH - EXPLORER_WIDTH }}>
             <body style={props.highlighted ? textStyles.codeLabelHighlighted : textStyles.codeLabel}>{props.index + 1}</body>
             {renderTabs()}
             {renderContent()}

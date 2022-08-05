@@ -1,3 +1,11 @@
+const codeLabel = {
+    fontSize: 14,
+    textAlign: 'right' as 'right',
+    minWidth: 40,
+    marginRight: 30,
+    paddingLeft: 15
+}
+
 export const textStyles = {
     title: {
         fontSize: 14,
@@ -36,20 +44,12 @@ export const textStyles = {
         color: 'rgba(181,192,120,1)'
     },
     codeLabel: {
-        fontSize: 14,
+        ...codeLabel,
         color: 'rgba(133,133,133,1)',
-        textAlign: 'right' as 'right',
-        width: 40,
-        marginRight: 30,
-        paddingLeft: 15
     },
     codeLabelHighlighted: {
-        fontSize: 14,
+        ...codeLabel,
         color: 'rgba(198,198,198,1)',
-        textAlign: 'right' as 'right',
-        width: 40,
-        marginRight: 30,
-        paddingLeft: 15
     },
     terminalLabel: {
         fontsize: 12,
