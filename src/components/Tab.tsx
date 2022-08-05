@@ -14,7 +14,8 @@ function Tab(props: TabProps) {
     return (
         <div
             style={{ ...styles.container, backgroundColor: (props.isActive && !props.disabled) ? colours.main : colours.menu }}
-            onClick={() => props.setCurrentTab(props.index)}>
+            // onClick={() => props.setCurrentTab(props.index)}
+        >
             <img style={styles.icon} src={tabsData[props.index].image} />
             <body style={styles.tabTitle}>{tabsData[props.index].name}</body>
         </div>
@@ -32,6 +33,7 @@ const styles = {
         justifyContent: 'center',
         paddingLeft: 15,
         paddingRight: 20,
+        userSelect: 'none' as 'none',
         // cursor: 'pointer'
     },
     icon: {
