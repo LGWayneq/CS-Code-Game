@@ -34,21 +34,17 @@ function CodingArea() {
 
     //useEffect to emulate game running in background when tabbed/closed.
     useEffect(() => {
-        window.addEventListener("load", onFocus);
-        window.addEventListener("focus", onFocus);
-        window.addEventListener("blur", onBlur);
-        window.addEventListener('beforeunload', onBlur);
-        onFocus();
+        window.addEventListener("load", onLoad);
+        window.addEventListener('beforeunload', onUnload);
+        onLoad();
         return () => {
-            window.removeEventListener("load", onFocus);
-            window.removeEventListener("focus", onFocus);
-            window.removeEventListener("blur", onBlur);
-            window.removeEventListener("beforeunload", onBlur);
+            window.removeEventListener("load", onLoad);
+            window.removeEventListener("beforeunload", onUnload);
         };
-    }, [blurred]);
+    }, [blurred, lastFocused]);
 
     //calculate timeElapsed since blurred/closed, and update game state accordingly.
-    const onFocus = () => {
+    const onLoad = () => {
         const timeElapsed = calculateTimeElapsed(new Date(lastFocused))
         const charIncrement = timeElapsed * cps
         const numOfLinesAdded = updateCodeLines(codingAreaState.currentIndex, charIncrement)
@@ -56,7 +52,7 @@ function CodingArea() {
         setBlurred(false)
     };
 
-    const onBlur = () => {
+    const onUnload = () => {
         const now = new Date()
         dispatch(setLastFocused(now.toString()))
         setBlurred(true)
