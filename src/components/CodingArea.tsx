@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { colours } from '../assets/colours';
-import { codeContent, startComment } from '../assets/codeContent';
+import { startComment } from '../assets/codeContent';
 import WindowDimensions from '../utils/WindowDimensions';
 import { SIDE_MENU_WIDTH, EXPLORER_WIDTH, TITLE_BAR_HEIGHT, CODE_LINE_HEIGHT, TAB_HEIGHT } from '../assets/constants';
 import CodeLine from './CodeLine';
@@ -10,6 +10,7 @@ import { useAppDispatch } from '../utils/redux/hooks';
 import { useAppSelector } from '../utils/redux/hooks'
 import { playTypingSound } from '../utils/sounds/TypingSounds';
 import { calculateTimeElapsed } from '../utils/DateTime';
+import { calculateNewCodeLines } from '../utils/CodingAreaHelper';
 
 const TICK_DURATION = 20
 const initialCodeLines = startComment + '\n'
@@ -89,17 +90,7 @@ function CodingArea() {
     }
 
     const updateCodeLines = (currentIndex: number, increment: number) => {
-        var newIndex = currentIndex + increment
-        var newCodeLines = codeLines
-        newCodeLines += codeContent.slice(currentIndex, newIndex)
-        var numOfLinesAdded = (codeContent.slice(currentIndex, newIndex).match(/\n/g) || []).length
-        if (newIndex > codeContent.length) {
-            while (newIndex >= codeContent.length) {
-                newIndex -= codeContent.length
-                newCodeLines += codeContent.slice(0, newIndex)
-                numOfLinesAdded += (codeContent.slice(0, newIndex).match(/\n/g) || []).length
-            }
-        }
+        const { newCodeLines, newIndex, numOfLinesAdded } = calculateNewCodeLines(codeLines, currentIndex, increment)
         setCodeLines(newCodeLines)
         trimCodeLines(newCodeLines)
         dispatch(setCurrentIndex(newIndex))

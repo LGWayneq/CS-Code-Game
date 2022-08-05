@@ -13,8 +13,8 @@ export const sessionSlice = createSlice({
     name: 'session',
     initialState: initialState,
     reducers: {
-        setLastFocused: (state, action: PayloadAction<string | Date>) => {
-            state.lastFocused = action.payload.toString()
+        setLastFocused: (state, action: PayloadAction<string>) => {
+            state.lastFocused = action.payload
         },
     }
 })
