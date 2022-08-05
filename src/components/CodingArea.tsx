@@ -46,10 +46,12 @@ function CodingArea() {
     //calculate timeElapsed since blurred/closed, and update game state accordingly.
     const onLoad = () => {
         const timeElapsed = calculateTimeElapsed(new Date(lastFocused))
-        const charIncrement = timeElapsed * cps
-        const numOfLinesAdded = updateCodeLines(codingAreaState.currentIndex, charIncrement)
-        updateMoney(numOfLinesAdded)
-        setBlurred(false)
+        if (timeElapsed > 1) {
+            const charIncrement = timeElapsed * cps
+            const numOfLinesAdded = updateCodeLines(codingAreaState.currentIndex, charIncrement)
+            updateMoney(numOfLinesAdded)
+            setBlurred(false)
+        }
     };
 
     const onUnload = () => {

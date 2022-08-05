@@ -43,7 +43,10 @@ const styles = {
         width: EXPLORER_WIDTH - 40,
         backgroundColor: colours.explorer,
         justifyContent: 'space-between' as 'space-between',
-        marginTop: 20,
+        paddingTop: 10,
+        paddingBottom: 10,
+        position: 'sticky' as 'sticky',
+        top: 0
     },
     progressBar: {
         borderRadius: 10

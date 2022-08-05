@@ -67,7 +67,8 @@ const styles = {
         width: EXPLORER_WIDTH - 40,
         backgroundColor: colours.explorer,
         justifyContent: 'space-between' as 'space-between',
-        marginTop: 30,
+        marginTop: 20,
+        marginBottom: 20,
     },
     subContainer: {
         display: 'flex',
