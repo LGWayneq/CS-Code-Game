@@ -50,8 +50,8 @@ function CodingArea() {
             const charIncrement = timeElapsed * cps
             const numOfLinesAdded = updateCodeLines(codingAreaState.currentIndex, charIncrement)
             updateMoney(numOfLinesAdded)
-            setBlurred(false)
         }
+        setBlurred(false)
     };
 
     const onUnload = () => {
