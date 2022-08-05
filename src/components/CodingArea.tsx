@@ -11,6 +11,7 @@ import { useAppSelector } from '../utils/redux/hooks'
 import { playTypingSound } from '../utils/sounds/TypingSounds';
 import { calculateTimeElapsed } from '../utils/DateTime';
 import { calculateNewCodeLines } from '../utils/CodingAreaHelper';
+import { setLastFocused } from '../utils/redux/slices/sessionSlice';
 
 const TICK_DURATION = 20
 const initialCodeLines = startComment + '\n'
@@ -21,6 +22,8 @@ function CodingArea() {
     const [keypressed, setKeypressed] = useState<boolean>(false)
     const [prevKeydownTime, setPrevKeydownTime] = useState<Date>(new Date())
     const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true)
+    const [blurred, setBlurred] = useState<boolean>(true)
+    const lastFocused = useAppSelector(state => state.session.lastFocused)
     const codingAreaState = useAppSelector(state => state.codingArea)
     const cpk = useAppSelector(state => state.cpk.value)
     const cps = useAppSelector(state => state.cps.value)
@@ -28,6 +31,36 @@ function CodingArea() {
     const volume = useAppSelector(state => state.settings.volume)
     const dayStart = useAppSelector(state => state.dayStart.value)
     const dispatch = useAppDispatch()
+
+    //useEffect to emulate game running in background when tabbed/closed.
+    useEffect(() => {
+        window.addEventListener("load", onFocus);
+        window.addEventListener("focus", onFocus);
+        window.addEventListener("blur", onBlur);
+        window.addEventListener('beforeunload', onBlur);
+        onFocus();
+        return () => {
+            window.removeEventListener("load", onFocus);
+            window.removeEventListener("focus", onFocus);
+            window.removeEventListener("blur", onBlur);
+            window.removeEventListener("beforeunload", onBlur);
+        };
+    }, [blurred]);
+
+    //calculate timeElapsed since blurred/closed, and update game state accordingly.
+    const onFocus = () => {
+        const timeElapsed = calculateTimeElapsed(new Date(lastFocused))
+        const charIncrement = timeElapsed * cps
+        const numOfLinesAdded = updateCodeLines(codingAreaState.currentIndex, charIncrement)
+        updateMoney(numOfLinesAdded)
+        setBlurred(false)
+    };
+
+    const onBlur = () => {
+        const now = new Date()
+        dispatch(setLastFocused(now.toString()))
+        setBlurred(true)
+    };
 
     //first render: render codelines based on currentIndex
     useEffect(() => {
@@ -37,20 +70,6 @@ function CodingArea() {
 
     //useEffect to handle active typing
     useEffect(() => {
-        function handleKeyDown() {
-            const timeElapsed: number = calculateTimeElapsed(prevKeydownTime) * 1000
-            if (!keypressed && timeElapsed > TICK_DURATION) {
-                const cpsIncrement = getCpsIncrement()
-                const numOfLinesAdded = updateCodeLines(codingAreaState.currentIndex, cpk + cpsIncrement)
-                updateMoney(numOfLinesAdded)
-                playTypingSound(volume / 100)
-            }
-            setKeypressed(true)
-            setPrevKeydownTime(new Date())
-        }
-        function handleKeyUp() {
-            setKeypressed(false)
-        }
         window.addEventListener('keydown', handleKeyDown)
         window.addEventListener('keyup', handleKeyUp)
         return () => {
@@ -71,6 +90,22 @@ function CodingArea() {
             setCodeLines(initialCodeLines)
         }
     }, [dayStart])
+
+    function handleKeyDown() {
+        const timeElapsed: number = calculateTimeElapsed(prevKeydownTime) * 1000
+        if (!keypressed && timeElapsed > TICK_DURATION) {
+            const cpsIncrement = getCpsIncrement()
+            const numOfLinesAdded = updateCodeLines(codingAreaState.currentIndex, cpk + cpsIncrement)
+            updateMoney(numOfLinesAdded)
+            playTypingSound(volume / 100)
+        }
+        setKeypressed(true)
+        setPrevKeydownTime(new Date())
+    }
+
+    function handleKeyUp() {
+        setKeypressed(false)
+    }
 
     const handleTick = () => {
         if (cps > 0) {
