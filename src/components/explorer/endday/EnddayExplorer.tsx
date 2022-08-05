@@ -27,7 +27,7 @@ function EnddayExplorer() {
         const timeElapsed = calculateTimeElapsed(new Date(dayStart))
         const TEN_MINUTES = 10 * 60
         if (timeElapsed >= TEN_MINUTES) {
-            const lifetimeMoneyInt = Math.pow(lifetimeMoney.exponent, 5)/8000
+            const lifetimeMoneyInt = Math.pow(lifetimeMoney.exponent / 12, 5)
             const rootedTimeGap = Math.pow(timeElapsed - TEN_MINUTES, 1 / 4) * 60
             return Math.floor(rootedTimeGap * lifetimeMoneyInt)
         } else {
