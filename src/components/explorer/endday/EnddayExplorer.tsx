@@ -9,6 +9,7 @@ import { numberToFloatDisplay } from '../../../utils/MoneyManager';
 import BuyButton from '../../ui/BuyButton';
 import { resetMoney } from '../../../utils/redux/slices/moneySlice';
 import { calculateTimeElapsed } from '../../../utils/DateTime';
+import { resetHiring } from '../../../utils/redux/slices/upgradesSlice';
 
 function EnddayExplorer() {
     const [numberOfPromotions, setNumberOfPromotions] = useState<number>(0)
@@ -38,6 +39,7 @@ function EnddayExplorer() {
     const handleEndDay = () => {
         dispatch(restartDay())
         dispatch(resetMoney())
+        dispatch(resetHiring())
         dispatch(incrementMplByAmount(numberOfPromotions))  //for now promotions add to mpl
     }
 
@@ -45,7 +47,7 @@ function EnddayExplorer() {
         <div style={{ ...styles.container }}>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>CLOCKOUT</p>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>End your day to get a pay raise!</p>
-            <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>You lose all the money you currently have, but you will get more money for each line of code you type!</p>
+            <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>You lose all the money and employees you currently have, but you will get more money for each line of code you type!</p>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>Get larger pay raises the longer your days are!</p>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14 }}>Current Day Duration: {(calculateTimeElapsed(new Date(dayStart)) / 60).toFixed(1)} mins</p>
             <p style={{ ...textStyles.terminalLabel, fontSize: 14, ...styles.flexContainer }}>

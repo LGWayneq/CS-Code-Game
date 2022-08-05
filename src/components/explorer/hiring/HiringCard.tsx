@@ -32,7 +32,7 @@ function HiringCard(props: HiringCardProps) {
     }
 
     const calculateCost = (baseCost: FloatingPoint, purchasedQty: number, qty: number): FloatingPoint => {
-        const r = 1.5
+        const r = 1.25
         //Geometric summation
         const purchasedTop = multiply(baseCost, Math.pow(r, purchasedQty) - 1)
         const purchasedBottom = r - 1

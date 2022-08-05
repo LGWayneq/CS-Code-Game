@@ -43,6 +43,17 @@ export const upgradesSlice = createSlice({
         purchaseStandardUpgrade: (state, action: PayloadAction<number>) => {
             state.isStandardUpgradePurchased[action.payload] = true
         },
+        resetHiring: (state) => {
+            state.hiring = upgradesData.hiring.map((item, index) => {
+                return (
+                    {
+                        id: index,
+                        name: item.name,
+                        qty: 0
+                    }
+                )
+            })
+        },
         resetUpgrades: (state) => {
             state.hiring = upgradesData.hiring.map((item, index) => {
                 return (
@@ -61,7 +72,7 @@ export const upgradesSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { increaseHiringByAmount, purchaseStandardUpgrade, resetUpgrades } = upgradesSlice.actions
+export const { increaseHiringByAmount, purchaseStandardUpgrade, resetHiring, resetUpgrades } = upgradesSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectUpgrades = (state: RootState) => state.upgrades

@@ -192,6 +192,15 @@ export const upgradesData = {
             }
         },
         {
+            name: "Keyboard Upgrade 2",
+            type: StandardUpgradeType.KEYBOARD,
+            description: "Pay money to make your keyboard more efficient",
+            baseCost: {
+                base: 1.5,
+                exponent: 6
+            }
+        },
+        {
             name: "Pay Raise 1",
             type: StandardUpgradeType.PAYRAISE,
             description: "Congrats on your first pay raise! Earn 10% more money per line of code!",
@@ -201,7 +210,7 @@ export const upgradesData = {
             }
         },
         {
-            name: "Keyboard Upgrade 2",
+            name: "Keyboard Upgrade 3",
             type: StandardUpgradeType.KEYBOARD,
             description: "Pay money to make your keyboard more efficient",
             baseCost: {
@@ -219,7 +228,16 @@ export const upgradesData = {
             }
         },
         {
-            name: "Keyboard Upgrade 3",
+            name: "Keyboard Upgrade 4",
+            type: StandardUpgradeType.KEYBOARD,
+            description: "Pay money to make your keyboard more efficient",
+            baseCost: {
+                base: 1.5,
+                exponent: 11
+            }
+        },
+        {
+            name: "Keyboard Upgrade 5",
             type: StandardUpgradeType.KEYBOARD,
             description: "Pay money to make your keyboard more efficient",
             baseCost: {
@@ -237,6 +255,15 @@ export const upgradesData = {
             }
         },
         {
+            name: "Keyboard Upgrade 6",
+            type: StandardUpgradeType.KEYBOARD,
+            description: "Pay money to make your keyboard more efficient",
+            baseCost: {
+                base: 1.5,
+                exponent: 16
+            }
+        },
+        {
             name: "Pay Raise 3",
             type: StandardUpgradeType.PAYRAISE,
             description: "Congrats on your third pay raise! Earn 10% more money per line of code!",
@@ -246,12 +273,21 @@ export const upgradesData = {
             }
         },
         {
-            name: "Keyboard Upgrade 4",
+            name: "Keyboard Upgrade 7",
             type: StandardUpgradeType.KEYBOARD,
             description: "Pay money to make your keyboard more efficient",
             baseCost: {
                 base: 1,
                 exponent: 19
+            }
+        },
+        {
+            name: "Keyboard Upgrade 8",
+            type: StandardUpgradeType.KEYBOARD,
+            description: "Pay money to make your keyboard more efficient",
+            baseCost: {
+                base: 1.5,
+                exponent: 21
             }
         },
         {
@@ -264,7 +300,7 @@ export const upgradesData = {
             }
         },
         {
-            name: "Keyboard Upgrade 5",
+            name: "Keyboard Upgrade 9",
             type: StandardUpgradeType.KEYBOARD,
             description: "Pay money to make your keyboard more efficient",
             baseCost: {
@@ -282,6 +318,15 @@ export const upgradesData = {
             }
         },
         {
+            name: "Keyboard Upgrade 10",
+            type: StandardUpgradeType.KEYBOARD,
+            description: "Pay money to make your keyboard more efficient",
+            baseCost: {
+                base: 1.5,
+                exponent: 26
+            }
+        },
+        {
             name: "Pay Raise 5",
             type: StandardUpgradeType.PAYRAISE,
             description: "Congrats on your fifth pay raise! Earn 10% more money per line of code!",
@@ -291,12 +336,21 @@ export const upgradesData = {
             }
         },
         {
-            name: "Keyboard Upgrade 6",
+            name: "Keyboard Upgrade 11",
             type: StandardUpgradeType.KEYBOARD,
             description: "Pay money to make your keyboard more efficient",
             baseCost: {
                 base: 1,
                 exponent: 29
+            }
+        },
+        {
+            name: "Keyboard Upgrade 12",
+            type: StandardUpgradeType.KEYBOARD,
+            description: "Pay money to make your keyboard more efficient",
+            baseCost: {
+                base: 1.5,
+                exponent: 31
             }
         },
         {
@@ -318,12 +372,21 @@ export const upgradesData = {
             }
         },
         {
-            name: "Keyboard Upgrade 7",
+            name: "Keyboard Upgrade 13",
             type: StandardUpgradeType.KEYBOARD,
             description: "Pay money to make your keyboard more efficient",
             baseCost: {
                 base: 1,
                 exponent: 34
+            }
+        },
+        {
+            name: "Keyboard Upgrade 14",
+            type: StandardUpgradeType.KEYBOARD,
+            description: "Pay money to make your keyboard more efficient",
+            baseCost: {
+                base: 1.5,
+                exponent: 36
             }
         },
         {
@@ -336,12 +399,20 @@ export const upgradesData = {
             }
         },
         {
-            name: "Keyboard Upgrade 8",
+            name: "Keyboard Upgrade 15",
             type: StandardUpgradeType.KEYBOARD,
             description: "Pay money to make your keyboard more efficient",
             baseCost: {
                 base: 1,
                 exponent: 39
+            }
+        },{
+            name: "Keyboard Upgrade 16",
+            type: StandardUpgradeType.KEYBOARD,
+            description: "Pay money to make your keyboard more efficient",
+            baseCost: {
+                base: 1.5,
+                exponent: 41
             }
         },
         {
@@ -363,12 +434,21 @@ export const upgradesData = {
             }
         },
         {
-            name: "Keyboard Upgrade 9",
+            name: "Keyboard Upgrade 17",
             type: StandardUpgradeType.KEYBOARD,
             description: "Pay money to make your keyboard more efficient",
             baseCost: {
                 base: 1,
                 exponent: 44
+            }
+        },
+        {
+            name: "Keyboard Upgrade 18",
+            type: StandardUpgradeType.KEYBOARD,
+            description: "Pay money to make your keyboard more efficient",
+            baseCost: {
+                base: 1.5,
+                exponent: 46
             }
         },
         {
@@ -381,7 +461,7 @@ export const upgradesData = {
             }
         },
         {
-            name: "Keyboard Upgrade 10",
+            name: "Keyboard Upgrade 19",
             type: StandardUpgradeType.KEYBOARD,
             description: "Pay money to make your keyboard more efficient",
             baseCost: {
@@ -399,12 +479,30 @@ export const upgradesData = {
             }
         },
         {
+            name: "Keyboard Upgrade 20",
+            type: StandardUpgradeType.KEYBOARD,
+            description: "Pay money to make your keyboard more efficient",
+            baseCost: {
+                base: 1.5,
+                exponent: 51
+            }
+        },
+        {
             name: "Pay Raise 10",
             type: StandardUpgradeType.PAYRAISE,
             description: "Congrats on your final pay raise? Earn 10% more money per line of code!",
             baseCost: {
                 base: 1,
                 exponent: 53
+            }
+        },
+        {
+            name: "Keyboard Upgrade 21",
+            type: StandardUpgradeType.KEYBOARD,
+            description: "Pay money to make your keyboard more efficient",
+            baseCost: {
+                base: 1,
+                exponent: 54
             }
         },
         {
