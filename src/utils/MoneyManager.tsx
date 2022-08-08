@@ -37,6 +37,13 @@ const getFloatDisplay = (float: FloatingPoint, isCost: boolean = true, prefix: s
 }
 
 const ableToPurchase = (money: FloatingPoint, cost: FloatingPoint): boolean => {
+    //helps to prevent lousy evaluation for small numbers.
+    if (money.exponent < 10) {
+        const moneyNumber: number =  money.base * Math.pow(2, money.exponent) 
+        const costNumber: number = cost.base * Math.pow(2, cost.exponent) 
+        return  Math.floor(moneyNumber) >= costNumber
+    }
+
     if (money.exponent < cost.exponent) {
         return false
     } else if (money.exponent == cost.exponent && money.base < cost.base) {
