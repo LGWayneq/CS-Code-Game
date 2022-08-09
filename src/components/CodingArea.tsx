@@ -9,7 +9,7 @@ import { setCurrentIndex, setCurrentLine, setResidualChars, resetCodingArea } fr
 import { useAppDispatch } from '../utils/redux/hooks';
 import { useAppSelector } from '../utils/redux/hooks'
 import { playTypingSound } from '../utils/sounds/TypingSounds';
-import { calculateTimeElapsed } from '../utils/DateTime';
+import { calculateTimeElapsed, calculateTimeElapsedMillisecond } from '../utils/DateTime';
 import { calculateNewCodeLines } from '../utils/CodingAreaHelper';
 import { setLastFocused } from '../utils/redux/slices/sessionSlice';
 
@@ -23,6 +23,7 @@ function CodingArea() {
     const [prevKeydownTime, setPrevKeydownTime] = useState<Date>(new Date())
     const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true)
     const [blurred, setBlurred] = useState<boolean>(true)
+    const [prevTick, setPrevTick] = useState<Date>(new Date())
     const lastFocused = useAppSelector(state => state.session.lastFocused)
     const codingAreaState = useAppSelector(state => state.codingArea)
     const cpk = useAppSelector(state => state.cpk.value)
@@ -80,7 +81,7 @@ function CodingArea() {
     useEffect(() => {
         const idleUpdater = setInterval(() => handleTick(), TICK_DURATION)
         return () => clearInterval(idleUpdater)
-    }, [codeLines, codingAreaState.currentIndex, codingAreaState.residualChars])
+    }, [codeLines, codingAreaState.currentIndex, codingAreaState.residualChars, prevTick, cps])
 
     useEffect(() => {
         if (!isFirstLoad) {
@@ -92,7 +93,7 @@ function CodingArea() {
     function handleKeyDown() {
         const timeElapsed: number = calculateTimeElapsed(prevKeydownTime) * 1000
         if (!keypressed && timeElapsed > TICK_DURATION) {
-            const cpsIncrement = getCpsIncrement()
+            const cpsIncrement = getCpsIncrement(1)
             const numOfLinesAdded = updateCodeLines(codingAreaState.currentIndex, cpk + cpsIncrement)
             updateMoney(numOfLinesAdded)
             playTypingSound(volume / 100)
@@ -107,16 +108,20 @@ function CodingArea() {
 
     const handleTick = () => {
         if (cps > 0) {
-            const cpsIncrement: number = getCpsIncrement()
+            const actualTickDuration = calculateTimeElapsedMillisecond(prevTick)
+            setPrevTick(new Date())
+
+            const multiplier = actualTickDuration / TICK_DURATION
+            const cpsIncrement: number = getCpsIncrement(multiplier)
             //use integer CPS to update codeLines
             const numOfLinesAdded = updateCodeLines(codingAreaState.currentIndex, cpsIncrement)
             updateMoney(numOfLinesAdded)
         }
     }
 
-    const getCpsIncrement = (): number => {
+    const getCpsIncrement = (multipler: number): number => {
         //handle float CPS values
-        const cpsIncrementFloat = codingAreaState.residualChars + cps / (1000 / TICK_DURATION)
+        const cpsIncrementFloat = codingAreaState.residualChars + multipler * cps / (1000 / TICK_DURATION)
         const cpsIncrementInt = Math.trunc(cpsIncrementFloat)
         dispatch(setResidualChars(cpsIncrementFloat - cpsIncrementInt))
         return cpsIncrementInt

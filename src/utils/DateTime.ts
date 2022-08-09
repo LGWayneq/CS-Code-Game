@@ -3,4 +3,9 @@ const calculateTimeElapsed = (dayStart: Date): number => {
     return (new Date().getTime() - dayStart.getTime()) / 1000
 }
 
-export { calculateTimeElapsed }
+const calculateTimeElapsedMillisecond = (prev: Date): number => {
+    const now = (new Date())
+    return now.getTime() - prev.getTime()
+}
+
+export { calculateTimeElapsed, calculateTimeElapsedMillisecond }
