@@ -6,15 +6,20 @@ import TabsNavigator from '../components/TabsNavigator';
 import CodingArea from '../components/CodingArea';
 import Terminal from '../components/Terminal';
 import { useAppSelector } from './../utils/redux/hooks';
+import ResumeModal from '../components/ResumeModal';
 
 function GameScreen() {
     const tabs = useAppSelector(state => state.tabs.value)
-    const [modal, setOverlay] = useState<JSX.Element>(<></>)
+    const [overlay, setOverlay] = useState<JSX.Element>(<></>)
     const [currentTab, setCurrentTab] = useState<number>(0)
+
+    useEffect(() => {
+        setOverlay(<ResumeModal setOverlay={(overlay: JSX.Element) => setOverlay(overlay)}/>)
+    }, [])
 
     return (
         <div style={styles.container}>
-            {modal}
+            {overlay}
             <TitleBar />
             <div style={styles.subContainer}>
                 <Explorer
