@@ -34,7 +34,7 @@ interface ExplorerProps {
 
 function Explorer(props: ExplorerProps) {
     const [explorerState, setExplorerState] = useState<ExplorerStates>(ExplorerStates.HIRING)
-    const [alerts, setAlerts] = useState<Object>({ [ExplorerStates.STANDARD]: false, [ExplorerStates.PROJECTS]: false })
+    const [alerts, setAlerts] = useState<any>({ [ExplorerStates.STANDARD]: false, [ExplorerStates.PROJECTS]: false })
     const codingAreaState = useAppSelector(state => state.codingArea)
     const cps = useAppSelector(state => state.cps.value)
     const [prevIndex, setPrevIndex] = useState<number>(0)
@@ -69,7 +69,7 @@ function Explorer(props: ExplorerProps) {
 
     const calculateLineIncrease = (currentIndex: number, prevIndex: number) => {
         const contentLength = codeContent.length
-        const codeContentTimes = Math.floor(cps/contentLength)
+        const codeContentTimes = Math.floor(cps / contentLength)
         const codeContentLines = codeContent.split("\n").length - 1
         const contentChange = codeContent.slice(prevIndex, currentIndex)
         return codeContentTimes * codeContentLines + contentChange.split("\n").length - 1
@@ -97,23 +97,30 @@ function Explorer(props: ExplorerProps) {
 
     // Handle increase in lifetime money. Used to determine if alert for Standard Explorer should be displayed.
     useEffect(() => {
-        upgradesData.standard.map((upgrade, index) => {
-            if (!isStandardUpgradePurchased[index] && ableToPurchase(currentMoney, upgrade.baseCost)) {
-                setAlerts({ ...alerts, [ExplorerStates.STANDARD]: true })
+        var raiseAlert = false
+        for (var i = 0; i < upgradesData.standard.length; i++) {
+            if (!isStandardUpgradePurchased[i] && ableToPurchase(currentMoney, upgradesData.standard[i].baseCost)) {
+                raiseAlert = true
+                break
             }
-        })
-    }, [currentMoney])
+        }
+        if (alerts[ExplorerStates.STANDARD] != raiseAlert) setAlerts({ ...alerts, [ExplorerStates.STANDARD]: raiseAlert })
+    }, [currentMoney, alerts])
 
     // useEffect to determine if alert for EndDay Explorer should be displayed.
     useEffect(() => {
-        // timeElapsed is in seconds.
-        const timeElapsed: number = calculateTimeElapsed(new Date(dayStart));
-        if (timeElapsed >= 10 * 60) {
-            setAlerts({ ...alerts, [ExplorerStates.ENDDAY]: true })
-        } else {
-            setAlerts({ ...alerts, [ExplorerStates.ENDDAY]: false })
-        }
-    }, [dayStart])
+        const enddayInterval = setInterval(() => {
+            // timeElapsed is in seconds.
+            const timeElapsed: number = calculateTimeElapsed(new Date(dayStart));
+            if (timeElapsed >= 10 * 60) {
+                setAlerts({ ...alerts, [ExplorerStates.ENDDAY]: true })
+            } else {
+                setAlerts({ ...alerts, [ExplorerStates.ENDDAY]: false })
+            }
+        }, 1000)
+
+        return () => clearInterval(enddayInterval)
+    }, [dayStart, alerts])
 
     const handleExplorerStateChange = (value: ExplorerStates) => {
         if (value != ExplorerStates.STANDARD && value != ExplorerStates.ENDDAY) {
