@@ -10,6 +10,7 @@ import BuyButton from '../../ui/BuyButton';
 import { resetMoney } from '../../../utils/redux/slices/moneySlice';
 import { calculateTimeElapsed } from '../../../utils/DateTime';
 import { resetHiring } from '../../../utils/redux/slices/upgradesSlice';
+import { resetCps } from '../../../utils/redux/slices/cpsSlice';
 
 function EnddayExplorer() {
     const [numberOfPromotions, setNumberOfPromotions] = useState<number>(0)
@@ -36,6 +37,7 @@ function EnddayExplorer() {
     }
 
     const handleEndDay = () => {
+        dispatch(resetCps())
         dispatch(restartDay())
         dispatch(resetMoney())
         dispatch(resetHiring())
