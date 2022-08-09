@@ -72,23 +72,23 @@ export const projectsData = [
         description: "Get a Job",
         icon: <WorkIcon sx={iconStyle} />,
         requiredLines: 18000000,
-        payout: { base: 1, exponent: 29 },
-        penalty: { base: 1, exponent: 26 }
+        payout: { base: 1.5, exponent: 29 },
+        penalty: { base: 1.5, exponent: 26 }
     },
     {
         name: "Clicker Game",
         description: "Click Click",
         icon: <MouseIcon sx={iconStyle} />,
         requiredLines: 500000000,
-        payout: { base: 1, exponent: 34 },
-        penalty: { base: 1.25, exponent: 31 }
+        payout: { base: 1.5, exponent: 36 },
+        penalty: { base: 1.5, exponent: 33 }
     },
     {
         name: "Facebook",
         description: "Poke",
         icon: <FacebookIcon sx={iconStyle} />,
         requiredLines: 10000000000,
-        payout: { base: 1, exponent: 39 },
-        penalty: { base: 1.5, exponent: 36 }
+        payout: { base: 1, exponent: 43 },
+        penalty: { base: 1, exponent: 40 }
     },
 ]
